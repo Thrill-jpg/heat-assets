@@ -3385,7 +3385,7 @@
 .heat-comm-user-name {
   display: block;
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
 
   color: #fff;
 
@@ -3395,11 +3395,13 @@
     sans-serif;
   font-size: 23px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.02;
   letter-spacing: -.035em;
 
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  white-space: normal;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+  word-break: normal;
   text-transform: none;
 
   text-shadow: none;
@@ -3716,16 +3718,18 @@
 
 /* =========================================================
    IMAGE-ONLY MESSAGES
-   CONCEPT 06 BEHAVIOR:
-   the image itself is the media message.
-   No normal text-bubble panel sits behind it.
+
+   IMPORTANT:
+   Do not infer "media only" with :only-child.
+   CSS :only-child ignores text nodes, so a normal text reply
+   containing one emoji/image can otherwise be misclassified.
+
+   The collector now adds .is-media-only only when the message:
+   - contains exactly one real/non-smilie image
+   - contains no readable text
    ========================================================= */
 
-.heat-comm-bubble:has(> img:only-child),
-.heat-comm-bubble:has(
-  > p:only-child
-  > img:only-child
-) {
+.heat-comm-bubble.is-media-only {
   padding: 0;
 
   overflow: visible;
@@ -3739,14 +3743,7 @@
 }
 
 .heat-comm-message.is-starter
-.heat-comm-bubble:has(
-  > img:only-child
-),
-.heat-comm-message.is-starter
-.heat-comm-bubble:has(
-  > p:only-child
-  > img:only-child
-) {
+.heat-comm-bubble.is-media-only {
   background: transparent;
 
   border: 0;
@@ -3754,11 +3751,7 @@
   box-shadow: none;
 }
 
-.heat-comm-bubble
-> img:only-child,
-.heat-comm-bubble
-> p:only-child
-> img:only-child {
+.heat-comm-bubble.is-media-only img {
   display: block;
 
   width: auto;
@@ -3776,6 +3769,35 @@
   box-shadow:
     0 10px 20px
     rgba(0,0,0,.14);
+}
+
+/* Native Jcink smilies stay inline inside normal text bubbles. */
+
+.heat-comm-bubble
+img[alt="smilie" i],
+.heat-comm-bubble
+img[src*="/html/emoticons/" i],
+.heat-comm-bubble
+img[src*="/emoticons/" i] {
+  width: auto;
+  height: 22px;
+  max-width: none;
+  max-height: 22px;
+
+  display: inline-block;
+
+  margin: 0 2px;
+  padding: 0;
+
+  object-fit: contain;
+  object-position: center;
+
+  border: 0;
+  border-radius: 0;
+
+  box-shadow: none;
+
+  vertical-align: -5px;
 }
 
 /* =========================================================
@@ -3943,17 +3965,20 @@
 
 .heat-comm[data-heat-comm-mode="group-names"]
 .heat-comm-author-media {
-  display: none;
+  display: grid;
+  width: 34px;
+  height: 34px;
 }
 
 .heat-comm[data-heat-comm-mode="group-names"]
 .heat-comm-message.has-heat-comm-author {
-  padding-left: 0;
+  padding-left: 44px;
 }
 
 .heat-comm[data-heat-comm-mode="group-names"]
 .heat-comm-message.has-heat-comm-author.is-starter {
-  padding-right: 0;
+  padding-right: 44px;
+  padding-left: 0;
 }
 
 /* =========================================================
@@ -11967,8 +11992,24 @@
     font-family: "Quicksand", Arial, sans-serif !important;
 }
 
+/* Modern comm contact / conversation names use the cleaner UI title font. */
 .heat-comm-contact-name,
-.heat-comm-user-name,
+.heat-comm-user-name {
+    max-width: 100% !important;
+    overflow: visible !important;
+
+    font-family: "Quicksand", Arial, sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -.035em !important;
+    text-transform: none !important;
+
+    white-space: normal !important;
+    text-overflow: clip !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Other comm families keep their existing display-name treatment. */
 .heat-traditional-name,
 .heat-call-name,
 .heat-facetime-name,
@@ -12039,13 +12080,12 @@
 }
 
 .heat-comm-main {
-    background:
-        radial-gradient(
-            circle at 100% 0,
-            rgba(var(--heat-template-group-rgb-3), .15),
-            transparent 38%
-        ),
-        var(--comm-bg);
+    /*
+       Keep the modern comm screen neutral/dark across every group.
+       Group identity belongs in names and restrained accents, not
+       as a full-screen color wash.
+    */
+    background: transparent;
 }
 
 /* ---------------------------------------------------------
