@@ -4264,10 +4264,28 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     message.appendChild(media);
   }
 
+  function stampMessageGroup(message, row) {
+    if (!message || !row) return;
+
+    var groupId = rowGroupId(row);
+
+    if (groupId) {
+      message.setAttribute("data-heat-group-id", groupId);
+    }
+  }
+
   function decorateMessageAuthor(message, row, mode) {
+    if (!message || !row) return;
+
+    /*
+       Group ownership is part of every collected message, not only
+       the optional nickname/GIF identity modes. Keep this separate
+       so each reply can resolve its own HEAT palette after it moves
+       into the opening comm.
+    */
+    stampMessageGroup(message, row);
+
     if (
-      !message ||
-      !row ||
       !mode ||
       message.dataset.heatCommAuthor === "ready"
     ) {
@@ -4275,7 +4293,6 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     }
 
     var member = rowMemberData(row);
-    var groupId = rowGroupId(row);
     var bubble = message.querySelector(".heat-comm-bubble");
     var name = document.createElement("span");
 
@@ -4283,10 +4300,6 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
 
     message.dataset.heatCommAuthor = "ready";
     message.classList.add("has-heat-comm-author");
-
-    if (groupId) {
-      message.setAttribute("data-heat-group-id", groupId);
-    }
 
     addAuthorMedia(message, member);
 
@@ -4298,18 +4311,27 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
   }
 
   function decorateOpeningMessage(opening, mode) {
-    if (!opening || !mode) return;
+    if (!opening) return;
 
     var starter = opening.comm.querySelector(
       ".heat-comm-messages " +
       ".heat-comm-message.is-starter"
     );
 
-    decorateMessageAuthor(
+    if (!starter) return;
+
+    stampMessageGroup(
       starter,
-      opening.row,
-      mode
+      opening.row
     );
+
+    if (mode) {
+      decorateMessageAuthor(
+        starter,
+        opening.row,
+        mode
+      );
+    }
   }
 
 
@@ -4777,12 +4799,16 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         "data-heat-comm-mode",
         identityMode
       );
-
-      decorateOpeningMessage(
-        opening,
-        identityMode
-      );
     }
+
+    /*
+       Always stamp the opening message's source group, even when the
+       optional comm identity mode is not enabled.
+    */
+    decorateOpeningMessage(
+      opening,
+      identityMode
+    );
 
     var seenPosts = Object.create(null);
     var blockedPages = Object.create(null);
