@@ -1,0 +1,1054 @@
+/* =====================================================================
+   HEAT OS UTILITY CSS
+   Regenerated from September 4, 2026 HEAT MiamiOS v12 live backup.
+   Source: Miami WEBPAGE CSS.html
+   Hosted development build: 1.1.1-dev.26
+   ===================================================================== */
+/* =========================================================
+   HEAT OS UTILITY SIDEBAR — ICON DOCK V3
+
+   Board Index retains the community/data sidebar. Non-index routes
+   receive local/current-page utilities with no remote data requests.
+   Saved active-tab and post-text states are resolved in <head>.
+   ========================================================= */
+
+html.heat-route-index
+#heat-browser
+.heat-os-utilities {
+    display: none;
+}
+
+html:not(.heat-route-index)
+#heat-browser
+.heat-os-utilities {
+    display: block;
+}
+
+html:not(.heat-route-index)
+#heat-browser
+.heat-snapshot-widget,
+html:not(.heat-route-index)
+#heat-browser
+.heat-board-activity-widget {
+    display: none;
+}
+
+html.heat-route-index
+#heat-browser
+.heat-page-tools-widget {
+    display: none;
+}
+
+html:not(.heat-route-index)
+#heat-browser
+.heat-page-tools-widget {
+    display: contents;
+}
+
+html:not(.heat-route-topic)
+#heat-browser
+.heat-page-tool-topic {
+    display: none;
+}
+
+html.heat-route-topic
+#heat-browser
+.heat-page-tool-topic {
+    grid-column: 1 / -1;
+}
+
+#heat-browser .heat-os-utilities {
+    width: 100%;
+    max-height: none;
+    position: sticky;
+    top: 14px;
+    z-index: 6;
+    align-self: start;
+    margin-top: 12px;
+    padding: 10px;
+    isolation: isolate;
+    overflow: clip;
+    background:
+        radial-gradient(
+            circle at 12% 0%,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1, #7f899f) 13%,
+                transparent
+            ),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018) 58%,
+            rgba(255,255,255,.032)
+        ),
+        rgba(13,17,28,.72);
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 18%,
+            var(--heat-border, #303647)
+        );
+    border-radius: 14px;
+    box-sizing: border-box;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.065),
+        0 12px 28px rgba(5,8,18,.15);
+}
+
+#heat-browser .heat-os-utilities::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background:
+        linear-gradient(
+            115deg,
+            rgba(255,255,255,.035),
+            transparent 34%,
+            transparent 66%,
+            rgba(255,255,255,.018)
+        );
+}
+
+#heat-browser .heat-os-utilities-scroll {
+    width: 100%;
+    min-width: 0;
+    max-height: calc(100dvh - 48px);
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 10px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    scrollbar-gutter: auto;
+    scrollbar-width: thin;
+    scrollbar-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 44%,
+            rgba(255,255,255,.12)
+        )
+        transparent;
+}
+
+html:not(.heat-route-topic)
+#heat-browser
+.heat-os-utilities-scroll {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#heat-browser .heat-os-utilities-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+#heat-browser .heat-os-utilities-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#heat-browser .heat-os-utilities-scroll::-webkit-scrollbar-thumb {
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 44%,
+            rgba(255,255,255,.12)
+        );
+    border-radius: 999px;
+}
+
+#heat-browser .heat-os-utilities-mark {
+    width: 30px;
+    height: 30px;
+    display: inline-grid;
+    place-items: center;
+    color: #ffffff;
+    background:
+        var(
+            --heat-active-group-frosted-gradient,
+            linear-gradient(
+                135deg,
+                rgba(255,61,145,.18),
+                rgba(114,91,255,.18)
+            )
+        );
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 36%,
+            rgba(255,255,255,.13)
+        );
+    border-radius: 9px;
+    font-size: 13px;
+}
+
+#heat-browser .heat-os-utilities-heading {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 9px;
+    padding: 2px 2px 5px;
+}
+
+#heat-browser .heat-os-utilities-title {
+    min-width: 0;
+    display: grid;
+    gap: 1px;
+}
+
+#heat-browser .heat-os-utilities-title small {
+    color: var(--heat-muted, #8e96a8);
+    font-size: 7px;
+    font-weight: 850;
+    letter-spacing: 1.25px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+#heat-browser .heat-os-utilities-title strong {
+    color: #ffffff;
+    font-family: var(--heat-font-display, "Viga", sans-serif);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+#heat-browser .heat-os-utilities-bulk {
+    display: flex;
+    gap: 4px;
+}
+
+#heat-browser
+.heat-os-utilities:not(.has-open-utility)
+.heat-os-utilities-bulk,
+html[data-heat-os-active=""]
+#heat-browser
+.heat-os-utilities-bulk {
+    visibility: hidden;
+}
+
+#heat-browser .heat-os-utilities-bulk button {
+    width: 25px;
+    height: 25px;
+    display: inline-grid;
+    place-items: center;
+    padding: 0;
+    color: var(--heat-muted, #8e96a8);
+    background: rgba(255,255,255,.025);
+    border: 1px solid var(--heat-border, #303647);
+    border-radius: 7px;
+    cursor: pointer;
+    font: inherit;
+}
+
+#heat-browser .heat-os-utilities-bulk button:disabled {
+    cursor: default;
+}
+
+#heat-browser
+.heat-os-utilities-bulk
+button:is(:hover, :focus-visible) {
+    color: #ffffff;
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 38%,
+            var(--heat-border, #303647)
+        );
+    outline: none;
+}
+
+#heat-browser .heat-os-utility {
+    min-width: 0;
+    display: contents;
+}
+
+#heat-browser .heat-os-utility-toggle {
+    width: 100%;
+    min-width: 0;
+    min-height: 50px;
+    padding: 7px;
+    display: grid;
+    place-items: center;
+    color: inherit;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.042),
+            rgba(255,255,255,.014)
+        ),
+        rgba(10,14,24,.64);
+    border: 1px solid var(--heat-border, #303647);
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+    cursor: pointer;
+    font: inherit;
+    text-align: center;
+    transition:
+        border-color .16s ease,
+        background .16s ease,
+        transform .16s ease;
+}
+
+#heat-browser
+.heat-os-utility-toggle:is(:hover, :focus-visible) {
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 7%,
+            rgba(255,255,255,.018)
+        );
+    outline: none;
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 38%,
+            var(--heat-border, #303647)
+        );
+    transform: translateY(-1px);
+}
+
+#heat-browser
+.heat-os-utility.is-active
+.heat-os-utility-toggle {
+    background:
+        var(
+            --heat-active-group-frosted-gradient,
+            linear-gradient(
+                135deg,
+                rgba(255,61,145,.12),
+                rgba(114,91,255,.12)
+            )
+        ),
+        rgba(10,14,24,.76);
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 52%,
+            var(--heat-border, #303647)
+        );
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.07),
+        0 0 0 1px
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 10%,
+            transparent
+        );
+}
+
+#heat-browser .heat-os-utility-icon {
+    width: 34px;
+    height: 34px;
+    display: inline-grid;
+    place-items: center;
+    color:
+        var(
+            --heat-active-group-1,
+            var(--heat-pink, #ff3d91)
+        );
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 10%,
+            rgba(255,255,255,.02)
+        );
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 20%,
+            var(--heat-border, #303647)
+        );
+    border-radius: 9px;
+    font-size: 15px;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#heat-browser .heat-os-utility-copy {
+    display: none;
+}
+
+#heat-browser .heat-os-utility-copy small {
+    display: none;
+}
+
+#heat-browser .heat-os-utility-copy strong {
+    overflow: hidden;
+    color: #ffffff;
+    font-family: var(--heat-font-display, "Viga", sans-serif);
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#heat-browser .heat-os-utility-summary {
+    display: none;
+}
+
+#heat-browser .heat-os-utility-caret {
+    display: none;
+}
+
+#heat-browser .heat-os-utility-panel {
+    min-width: 0;
+    padding: 10px;
+    grid-column: 1 / -1;
+    grid-row: 4;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.042),
+            rgba(255,255,255,.014)
+        ),
+        rgba(10,14,24,.7);
+    border: 1px solid var(--heat-border, #303647);
+    border-radius: 11px;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+#heat-browser .heat-os-utility-panel-heading {
+    min-width: 0;
+    margin: 0 0 10px;
+    padding: 0 1px 8px;
+    display: grid;
+    gap: 2px;
+    border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+#heat-browser .heat-os-utility-panel-heading small {
+    color:
+        var(
+            --heat-active-group-1,
+            var(--heat-pink, #ff3d91)
+        );
+    font-size: 6.5px;
+    font-weight: 850;
+    letter-spacing: .85px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+#heat-browser .heat-os-utility-panel-heading strong {
+    overflow: hidden;
+    color: #ffffff;
+    font-family: var(--heat-font-display, "Viga", sans-serif);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#heat-browser .heat-os-utility-panel[hidden],
+html[data-heat-os-collapsed~="tools"] #heat-browser [data-heat-os-utility="tools"] .heat-os-utility-panel,
+html[data-heat-os-collapsed~="reading"] #heat-browser [data-heat-os-utility="reading"] .heat-os-utility-panel,
+html[data-heat-os-collapsed~="scratchpad"] #heat-browser [data-heat-os-utility="scratchpad"] .heat-os-utility-panel,
+html[data-heat-os-collapsed~="thread"] #heat-browser [data-heat-os-utility="thread"] .heat-os-utility-panel,
+html[data-heat-os-collapsed~="display"] #heat-browser [data-heat-os-utility="display"] .heat-os-utility-panel,
+html[data-heat-os-collapsed~="session"] #heat-browser [data-heat-os-utility="session"] .heat-os-utility-panel {
+    display: none;
+}
+
+html:not(.heat-route-topic)
+#heat-browser
+.heat-reading-progress-widget,
+html:not(.heat-route-topic)
+#heat-browser
+.heat-thread-info-widget {
+    display: none;
+}
+
+html.heat-route-topic
+#heat-browser
+.heat-page-tools-widget
+.heat-page-tool-scroll {
+    display: none;
+}
+
+#heat-browser .heat-page-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+}
+
+#heat-browser .heat-page-tool {
+    min-width: 0;
+    min-height: 42px;
+    padding: 9px 6px;
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    align-items: center;
+    gap: 5px;
+    color: var(--heat-text-soft, #c8cedb);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.018)
+        );
+    border:
+        1px solid
+        var(--heat-border, #303647);
+    border-radius: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    transition:
+        transform .18s ease,
+        border-color .18s ease,
+        background .18s ease;
+}
+
+#heat-browser .heat-page-tool i {
+    width: 20px;
+    height: 20px;
+    display: inline-grid;
+    place-items: center;
+    color:
+        var(
+            --heat-active-group-1,
+            var(--heat-pink, #ff3d91)
+        );
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 9%,
+            rgba(255,255,255,.025)
+        );
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+#heat-browser .heat-page-tool span {
+    min-width: 0;
+    overflow: visible;
+    font-size: 8px;
+    font-weight: 850;
+    letter-spacing: .3px;
+    line-height: 1.2;
+    text-overflow: clip;
+    text-transform: uppercase;
+    white-space: normal;
+}
+
+#heat-browser .heat-page-tool:is(:hover, :focus-visible) {
+    color: #ffffff;
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 9%,
+            rgba(255,255,255,.035)
+        );
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 36%,
+            var(--heat-border, #303647)
+        );
+    outline: none;
+    transform: translateY(-1px);
+}
+
+#heat-browser .heat-page-tools-status {
+    min-height: 12px;
+    padding-top: 9px;
+    color: var(--heat-muted, #8e96a8);
+    border-top: 1px solid var(--heat-border, #303647);
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: .25px;
+    line-height: 1.35;
+}
+
+/* Reading Progress */
+
+#heat-browser .heat-reading-progress-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 7px;
+}
+
+#heat-browser .heat-reading-progress-meta strong {
+    color: #ffffff;
+    font-family: var(--heat-font-display, "Viga", sans-serif);
+    font-size: 16px;
+    line-height: 1;
+}
+
+#heat-browser .heat-reading-progress-meta span {
+    overflow: hidden;
+    color: var(--heat-muted, #8e96a8);
+    font-size: 7px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#heat-browser .heat-reading-progress-track {
+    width: 100%;
+    height: 6px;
+    overflow: hidden;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.055);
+    border-radius: 999px;
+    box-sizing: border-box;
+}
+
+#heat-browser .heat-reading-progress-track span {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background:
+        var(
+            --heat-active-group-gradient,
+            linear-gradient(
+                90deg,
+                var(--heat-pink, #ff3d91),
+                var(--heat-purple, #725bff)
+            )
+        );
+    border-radius: inherit;
+    box-shadow:
+        0 0 10px
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #ff3d91) 48%,
+            transparent
+        );
+    transition: none;
+}
+
+#heat-browser .heat-reading-progress-actions {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+}
+
+#heat-browser .heat-reading-progress-actions button,
+#heat-browser .heat-scratchpad-actions button {
+    min-height: 29px;
+    padding: 6px 8px;
+    color: var(--heat-text-soft, #c8cedb);
+    background: rgba(255,255,255,.025);
+    border: 1px solid var(--heat-border, #303647);
+    border-radius: 8px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 7px;
+    font-weight: 850;
+    letter-spacing: .25px;
+    text-transform: uppercase;
+}
+
+#heat-browser
+:is(
+    .heat-reading-progress-actions,
+    .heat-scratchpad-actions
+)
+button:is(:hover, :focus-visible) {
+    color: #ffffff;
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 9%,
+            rgba(255,255,255,.025)
+        );
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 36%,
+            var(--heat-border, #303647)
+        );
+    outline: none;
+}
+
+/* Scratchpad */
+
+#heat-browser .heat-scratchpad-widget textarea {
+    width: 100%;
+    min-height: 108px;
+    max-height: 210px;
+    resize: vertical;
+    padding: 9px;
+    color: var(--heat-text-soft, #c8cedb);
+    background: rgba(5,9,18,.68);
+    border: 1px solid var(--heat-border, #303647);
+    border-radius: 9px;
+    box-sizing: border-box;
+    font-family: var(--heat-font-body, sans-serif);
+    font-size: 9px;
+    line-height: 1.55;
+    outline: none;
+}
+
+#heat-browser
+.heat-scratchpad-widget
+textarea:focus {
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 46%,
+            var(--heat-border, #303647)
+        );
+    box-shadow:
+        0 0 0 2px
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 9%,
+            transparent
+        );
+}
+
+#heat-browser
+.heat-scratchpad-widget
+textarea::placeholder {
+    color: var(--heat-muted, #8e96a8);
+}
+
+#heat-browser .heat-scratchpad-meta {
+    margin-top: 6px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--heat-muted, #8e96a8);
+    font-size: 6.5px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+#heat-browser .heat-scratchpad-meta span:first-child {
+    min-width: 0;
+}
+
+#heat-browser .heat-scratchpad-meta span:last-child {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+#heat-browser .heat-scratchpad-actions {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr));
+    gap: 5px;
+}
+
+#heat-browser
+.heat-scratchpad-actions
+[data-heat-scratchpad-action="save"] {
+    color: #ffffff;
+    background:
+        var(
+            --heat-active-group-frosted-gradient,
+            linear-gradient(
+                135deg,
+                rgba(255,61,145,.17),
+                rgba(114,91,255,.17)
+            )
+        );
+}
+
+/* Thread Info */
+
+#heat-browser .heat-thread-info-facts {
+    margin: 0;
+    display: grid;
+    gap: 6px;
+}
+
+#heat-browser .heat-thread-info-facts > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+#heat-browser .heat-thread-info-facts dt {
+    color: var(--heat-muted, #8e96a8);
+    font-size: 6.5px;
+    font-weight: 850;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+}
+
+#heat-browser .heat-thread-info-facts dd {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--heat-text-soft, #c8cedb);
+    font-size: 8px;
+    font-weight: 750;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#heat-browser .heat-thread-info-facts dd a {
+    color:
+        var(
+            --heat-active-group-1,
+            var(--heat-pink, #ff3d91)
+        );
+}
+
+#heat-browser .heat-thread-participants-block {
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,.05);
+}
+
+#heat-browser .heat-thread-participants-block > small {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--heat-muted, #8e96a8);
+    font-size: 6.5px;
+    font-weight: 850;
+    letter-spacing: .45px;
+    text-transform: uppercase;
+}
+
+#heat-browser .heat-thread-participants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    color: var(--heat-muted, #8e96a8);
+    font-size: 7px;
+    line-height: 1.4;
+}
+
+#heat-browser .heat-thread-participant {
+    min-width: 0;
+    max-width: 100%;
+    padding: 5px 7px;
+    overflow: hidden;
+    color: var(--heat-text-soft, #c8cedb);
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 7%,
+            rgba(255,255,255,.02)
+        );
+    border: 1px solid var(--heat-border, #303647);
+    border-radius: 999px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 7px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#heat-browser
+.heat-thread-participant:is(:hover, :focus-visible) {
+    color: #ffffff;
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 40%,
+            var(--heat-border, #303647)
+        );
+    outline: none;
+}
+
+/* Display */
+
+#heat-browser .heat-display-size-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+}
+
+#heat-browser .heat-display-size-options button {
+    min-width: 0;
+    min-height: 52px;
+    padding: 6px 4px;
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    color: var(--heat-muted, #8e96a8);
+    background: rgba(255,255,255,.02);
+    border: 1px solid var(--heat-border, #303647);
+    border-radius: 8px;
+    cursor: pointer;
+    font: inherit;
+}
+
+#heat-browser .heat-display-size-options button strong {
+    color: var(--heat-text-soft, #c8cedb);
+    font-family: var(--heat-font-display, "Viga", sans-serif);
+    font-size: 13px;
+    line-height: 1;
+}
+
+#heat-browser .heat-display-size-options button span {
+    overflow: hidden;
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: .2px;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+#heat-browser
+.heat-display-size-options
+button[aria-pressed="true"] {
+    color: #ffffff;
+    background:
+        var(
+            --heat-active-group-frosted-gradient,
+            linear-gradient(
+                135deg,
+                rgba(255,61,145,.17),
+                rgba(114,91,255,.17)
+            )
+        );
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 46%,
+            var(--heat-border, #303647)
+        );
+}
+
+#heat-browser
+.heat-display-size-options
+button[aria-pressed="true"] strong {
+    color: #ffffff;
+}
+
+#heat-browser
+.heat-display-size-options
+button:is(:hover, :focus-visible) {
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, #7f899f) 38%,
+            var(--heat-border, #303647)
+        );
+    outline: none;
+}
+
+#heat-browser .heat-display-widget .heat-os-utility-panel > p,
+#heat-browser .heat-session-widget .heat-os-utility-panel > p {
+    margin: 8px 0 0;
+    color: var(--heat-muted, #8e96a8);
+    font-size: 6.5px;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+html[data-heat-post-text-size="compact"]
+#heat-browser
+.heat-post-copy {
+    font-size: 11.7px;
+    line-height: 1.75;
+}
+
+html[data-heat-post-text-size="default"]
+#heat-browser
+.heat-post-copy {
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+html[data-heat-post-text-size="comfortable"]
+#heat-browser
+.heat-post-copy {
+    font-size: 15.08px;
+    line-height: 1.92;
+}
+
+/* Session */
+
+#heat-browser .heat-session-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+}
+
+#heat-browser .heat-session-stats > div {
+    min-width: 0;
+    min-height: 48px;
+    padding: 7px 4px;
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    background: rgba(255,255,255,.02);
+    border: 1px solid var(--heat-border, #303647);
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#heat-browser .heat-session-stats strong {
+    overflow: hidden;
+    max-width: 100%;
+    color: #ffffff;
+    font-family: var(--heat-font-display, "Viga", sans-serif);
+    font-size: 11px;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#heat-browser .heat-session-stats span {
+    color: var(--heat-muted, #8e96a8);
+    font-size: 5.8px;
+    font-weight: 800;
+    letter-spacing: .2px;
+    text-transform: uppercase;
+}
+
+#heat-browser
+.heat-session-widget
+.heat-os-utility-panel > p strong {
+    color:
+        var(
+            --heat-active-group-1,
+            var(--heat-pink, #ff3d91)
+        );
+    font-weight: 800;
+}
+
+@media screen and (max-width: 600px) {
+    #heat-browser .heat-os-utilities {
+        max-height: none;
+        position: relative;
+        top: auto;
+        z-index: 0;
+        overflow: clip;
+    }
+
+    #heat-browser .heat-os-utilities-scroll {
+        max-height: none;
+        padding-right: 0;
+        overflow: visible;
+        overscroll-behavior: auto;
+        scrollbar-gutter: auto;
+    }
+}

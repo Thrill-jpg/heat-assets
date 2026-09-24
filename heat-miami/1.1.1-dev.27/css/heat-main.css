@@ -1,0 +1,3745 @@
+		<stylesheet>
+				:root {
+    --heat-font-body:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    --heat-font-main:
+        "Limelight",
+        Georgia,
+        serif;
+
+    --heat-font-display:
+        "Viga",
+        "Arial Narrow",
+        Arial,
+        sans-serif;
+
+    --heat-font-subtext:
+        "Viga",
+        "Arial Narrow",
+        Arial,
+        sans-serif;
+
+    --heat-font-comm:
+        "Abel",
+        Arial,
+        sans-serif;
+
+    --heat-font-thread:
+        "Quicksand",
+        Arial,
+        sans-serif;
+
+    --heat-bg: #080a12;
+    --heat-bg-soft: #10131e;
+    --heat-panel: #141824;
+    --heat-panel-light: #1b2030;
+    --heat-panel-bright: #23293a;
+
+    --heat-text: #f8f8fc;
+    --heat-text-soft: #ccd0dc;
+    --heat-muted: #8f96a8;
+
+    --heat-pink: #ff3d91;
+    --heat-coral: #ff5267;
+    --heat-orange: #ff7a18;
+    --heat-yellow: #ffc857;
+    --heat-purple: #8b5cf6;
+    --heat-blue: #42c6ff;
+    --heat-teal: #20d6c7;
+    --heat-green: #52d681;
+
+    --heat-gradient:
+        linear-gradient(
+            135deg,
+            var(--heat-pink),
+            var(--heat-orange) 52%,
+            var(--heat-yellow)
+        );
+
+    --heat-gradient-cool:
+        linear-gradient(
+            135deg,
+            var(--heat-blue),
+            var(--heat-purple) 55%,
+            var(--heat-pink)
+        );
+
+    --heat-border: rgba(255, 255, 255, 0.09);
+    --heat-border-bright: rgba(255, 255, 255, 0.16);
+    --heat-shadow: 0 22px 60px rgba(0, 0, 0, 0.42);
+    --heat-shadow-small: 0 10px 28px rgba(0, 0, 0, 0.24);
+
+    --heat-radius-sm: 10px;
+    --heat-radius: 18px;
+    --heat-radius-lg: 28px;
+    --heat-sidebar-width: 240px;
+    --heat-max-width: 1540px;
+}
+
+html,
+body,
+table,
+tbody,
+thead,
+tfoot,
+tr,
+td,
+th,
+input,
+textarea,
+select,
+button {
+    font-family: var(--heat-font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.maintitle,
+.titlemedium,
+.heat-category-title,
+.heat-forum-title,
+.heat-topic-title,
+.heat-posting-header-title,
+.heat-profile-name,
+#heat-logo,
+.heat-active-name,
+.heat-sidebar-character-name,
+.heat-footer-brand {
+    font-family: var(--heat-font-display);
+}
+
+html,
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: var(--heat-text);
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(255, 61, 145, 0.16),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(66, 198, 255, 0.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(255, 122, 24, 0.12),
+            transparent 34%
+        ),
+        var(--heat-bg);
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: left;
+}
+
+table,
+tr,
+td {
+    color: inherit;
+    font-size: inherit;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+img {
+    max-width: 100%;
+    border: 0;
+    vertical-align: middle;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+form {
+    max-width: 100%;
+    margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    color-scheme: dark;
+}
+
+select option,
+select optgroup {
+    color: var(--heat-text);
+    background: #121621;
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+    color: var(--heat-muted);
+    text-decoration: none;
+    transition:
+        color 0.2s ease,
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+a:hover {
+    color: var(--heat-active-group-1, var(--heat-pink));
+    text-decoration: none;
+}
+
+html body textarea[name="Post"],
+html body textarea[name="post"],
+html body textarea#Post {
+    display: block !important;
+    width: 100% !important;
+    max-width: 760px !important;
+    min-height: 320px !important;
+    padding: 16px !important;
+    color: #eef1f8 !important;
+    -webkit-text-fill-color: #eef1f8 !important;
+    caret-color:
+        var(--heat-active-group-1, var(--heat-pink)) !important;
+    background: #0d1018 !important;
+    background-image: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.11) !important;
+    border-radius: 12px !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025) !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+    overflow-x: auto;
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color:
+        var(--heat-active-group-1, var(--heat-pink))
+        rgba(255, 255, 255, 0.035);
+    resize: vertical;
+    outline: none !important;
+}
+
+html body textarea[name="Post"]:focus,
+html body textarea[name="post"]:focus,
+html body textarea#Post:focus {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    background: #10141f !important;
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-pink)) 54%,
+            rgba(255, 255, 255, 0.11)
+        ) !important;
+    box-shadow:
+        0 0 0 3px
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-pink)) 13%,
+            transparent
+        ) !important;
+}
+
+html body textarea[name="Post"]::placeholder,
+html body textarea[name="post"]::placeholder,
+html body textarea#Post::placeholder {
+    color: var(--heat-muted) !important;
+    -webkit-text-fill-color: var(--heat-muted) !important;
+}
+
+html body textarea[name="Post"]::-webkit-scrollbar,
+html body textarea[name="post"]::-webkit-scrollbar,
+html body textarea#Post::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+html body textarea[name="Post"]::-webkit-scrollbar-track,
+html body textarea[name="post"]::-webkit-scrollbar-track,
+html body textarea#Post::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.025);
+    border-radius: 999px;
+}
+
+html body textarea[name="Post"]::-webkit-scrollbar-thumb,
+html body textarea[name="post"]::-webkit-scrollbar-thumb,
+html body textarea#Post::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            180deg,
+            var(--heat-active-group-1, var(--heat-pink)),
+            var(--heat-active-group-2, var(--heat-orange))
+        );
+    border: 2px solid #0d1018;
+    border-radius: 999px;
+}
+
+#heat-browser {
+    width: min(calc(100% - 36px), var(--heat-max-width));
+    margin: 28px auto;
+    overflow: clip;
+    background: var(--heat-bg-soft);
+    border: 1px solid var(--heat-border-bright);
+    border-radius: 26px;
+    box-shadow: var(--heat-shadow);
+}
+
+.heat-browserbar {
+    min-height: 54px;
+    padding: 8px 14px;
+    display: grid;
+    grid-template-columns: auto auto minmax(200px, 1fr) auto;
+    align-items: center;
+    gap: 15px;
+    background: #0d1019;
+    border-bottom: 1px solid var(--heat-border);
+}
+
+.heat-window-controls,
+.heat-browser-actions,
+.heat-browser-options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.heat-window-dot {
+    width: 11px;
+    height: 11px;
+    display: block;
+    border-radius: 50%;
+}
+
+.heat-window-close { background: #ff5f57; }
+.heat-window-minimize { background: #febc2e; }
+.heat-window-expand { background: #28c840; }
+
+.heat-browser-actions span,
+.heat-browser-options span {
+    color: var(--heat-muted);
+    font-size: 20px;
+    line-height: 1;
+}
+
+.heat-sidebar-focus-toggle {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--heat-muted);
+    background: rgba(255, 255, 255, 0.045);
+
+    border: 1px solid var(--heat-border);
+    border-radius: 9px;
+    box-shadow: none;
+
+    font-size: 16px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.heat-sidebar-focus-toggle:is(:hover, :focus-visible),
+.heat-sidebar-focus-toggle[aria-pressed="true"] {
+    color: #ffffff;
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 15%,
+            rgba(255, 255, 255, 0.055)
+        );
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 38%,
+            var(--heat-border)
+        );
+}
+
+.heat-sidebar-focus-toggle:focus-visible {
+    outline: 2px solid var(--heat-active-group-1, var(--heat-blue));
+    outline-offset: 2px;
+}
+
+.heat-addressbar {
+    width: 100%;
+    min-width: 0;
+    min-height: 36px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    overflow: hidden;
+    color: var(--heat-text-soft) !important;
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid var(--heat-border);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.heat-addressbar:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.heat-address-lock {
+    flex: 0 0 auto;
+    color: var(--heat-green);
+    font-size: 7px;
+}
+
+.heat-address-breadcrumbs {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.heat-address-home {
+    flex: 0 0 auto;
+
+    color: var(--heat-text-soft);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.heat-address-home:hover {
+    color: #ffffff;
+}
+
+.heat-address-native-navigation {
+    min-width: 0;
+    flex: 1 1 auto;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.heat-header-shell,
+.heat-header-content,
+.heat-branding,
+.heat-header-tools,
+.heat-header-actions,
+.heat-active-copy {
+    min-width: 0;
+}
+
+.heat-branding {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.heat-location-label {
+    color: var(--heat-pink);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 2.1px;
+    text-transform: uppercase;
+}
+
+#heat-logo {
+    color: #fff !important;
+    font-weight: 800;
+    line-height: 0.82;
+}
+
+.heat-tagline {
+    color: var(--heat-muted);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.heat-header-tools {
+    position: relative;
+    z-index: 20;
+}
+
+.heat-header-tools #searchbar {
+    position: relative;
+    inset: auto;
+    display: block;
+}
+
+#searchbar .search-container {
+    position: relative;
+    display: block;
+    border-radius: 999px;
+}
+
+#searchbar .search-input {
+    width: 100%;
+    height: 100%;
+    padding: 0 48px 0 17px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 12px;
+}
+
+#searchbar .search-button {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: none;
+    cursor: pointer;
+    text-indent: -9999px;
+}
+
+.heat-header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.heat-header-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--heat-border);
+}
+
+/* =========================================================
+   HEAT FOUNDATION — PHASE 10C ACCOUNT FIRST-PAINT STATE
+
+   Jcink renders the active member id directly on #heat-browser.
+   Guest/member controls therefore resolve in CSS before paint.
+   JavaScript still supplies the authenticated logout URL because
+   that destination is native runtime account data.
+   ========================================================= */
+
+#heat-browser:is(
+    [data-member-id="0"],
+    [data-member-id=""],
+    [data-group="Guest" i],
+    [data-group="Guests" i]
+) .heat-logout-action {
+    display: none;
+}
+
+#heat-browser:not([data-member-id="0"]):not([data-member-id=""]):not([data-group="Guest" i]):not([data-group="Guests" i])
+.heat-login-action {
+    display: none;
+}
+
+.heat-active-account {
+    margin: 0 !important;
+    padding: 6px 11px 6px 7px !important;
+    display: grid !important;
+    grid-template-columns: 39px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 9px;
+    color: #fff !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    text-align: left;
+}
+
+.heat-active-avatar,
+.heat-sidebar-avatar {
+    position: relative;
+    display: block;
+    background: var(--heat-gradient);
+    border-radius: 50%;
+}
+
+.heat-active-avatar {
+    width: 39px;
+    height: 39px;
+    align-self: center;
+    transform: translateY(-1px);
+    border: 2px solid rgba(255, 255, 255, 0.65);
+}
+
+.heat-active-avatar-image,
+.heat-sidebar-avatar-image,
+.heat-lastpost-avatar-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.heat-active-avatar-image,
+.heat-sidebar-avatar-image {
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.heat-active-avatar-image::before,
+.heat-sidebar-avatar-image::before {
+    content: "👤";
+    color: rgba(255, 255, 255, 0.76);
+}
+
+.heat-active-avatar-image[style*="background-image"]::before,
+.heat-sidebar-avatar-image[style*="background-image"]::before {
+    display: none;
+}
+
+.heat-active-online,
+.heat-sidebar-online {
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+    border-radius: 50%;
+}
+
+.heat-active-online {
+    width: 9px;
+    height: 9px;
+    background: var(--heat-green);
+    border: 2px solid #111621;
+}
+
+.heat-active-copy {
+    min-width: 0;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: translateY(-1px);
+}
+
+.heat-active-name {
+    overflow: hidden;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 750;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.heat-active-copy small {
+    margin-top: 1px;
+    overflow: hidden;
+    color: var(--heat-muted);
+    font-size: 8px;
+    line-height: 1.15;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.heat-account-chevron {
+    color: var(--heat-muted);
+    font-size: 15px;
+}
+
+.heat-account-dropdown {
+    width: 210px;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    z-index: 9999;
+    display: none;
+    background: rgba(15, 19, 30, 0.98);
+    border: 1px solid var(--heat-border-bright);
+    border-radius: 15px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.42);
+}
+
+.heat-account-dropdown.is-open {
+    display: block;
+}
+
+.heat-account-dropdown-title {
+    padding: 7px 10px 9px;
+    color: var(--heat-muted);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.heat-account-dropdown a {
+    min-height: 38px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    color: var(--heat-text-soft) !important;
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.heat-account-dropdown a:hover {
+    color: #fff !important;
+    background: rgba(255, 61, 145, 0.10);
+}
+
+.heat-account-dropdown-divider {
+    height: 1px;
+    margin: 7px 4px;
+    background: var(--heat-border);
+}
+
+#heat-header {
+    min-height: 0;
+    padding: 0 0 18px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 18% 0%, rgba(255,61,145,.10), transparent 28%),
+        radial-gradient(circle at 82% 8%, rgba(66,198,255,.07), transparent 30%),
+        linear-gradient(180deg, #10131e 0%, #0c0f18 100%);
+    border-bottom: 1px solid var(--heat-border);
+}
+
+#heat-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.018),
+            transparent 32%
+        );
+}
+
+#heat-header::after,
+#heat-header .heat-header-glow,
+#heat-header .heat-header-palms {
+    display: none !important;
+}
+
+.heat-header-shell {
+    position: relative;
+    z-index: 2;
+}
+
+#heat-header .heat-header-content {
+    width: min(1240px, calc(100% - 48px));
+    min-height: 104px;
+    margin: 0 auto;
+    padding: 18px 0;
+    display: grid;
+    grid-template-columns: minmax(170px, .72fr) minmax(0, 1.65fr);
+    align-items: center;
+    gap: 28px;
+    border-bottom: 1px solid rgba(255,255,255,.065);
+}
+
+#heat-header .heat-branding {
+    min-width: 0;
+}
+
+#heat-header .heat-location-label {
+    margin-bottom: 3px;
+    color: var(--heat-pink);
+    font-size: 7px;
+    letter-spacing: 2.1px;
+}
+
+#heat-header #heat-logo {
+    color: #fff !important;
+    font-size: clamp(42px, 5vw, 66px);
+    letter-spacing: -5px;
+
+    text-shadow:
+        0 0 2px rgba(255,255,255,.22),
+        0 0 8px rgba(255,70,150,.34),
+        0 0 16px rgba(255,155,60,.18);
+}
+
+#heat-header #heat-logo span {
+    color: var(--heat-pink);
+
+    text-shadow:
+        0 0 3px rgba(255,255,255,.16),
+        0 0 9px rgba(255,61,145,.48),
+        0 0 18px rgba(255,122,24,.22);
+}
+
+#heat-header .heat-tagline {
+    margin-top: 8px;
+    color: var(--heat-muted);
+    font-size: 10px;
+}
+
+#heat-header .heat-header-tools {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) auto minmax(150px, 190px);
+    align-items: center;
+    gap: 10px;
+}
+
+#heat-header .heat-header-tools #searchbar,
+#heat-header .heat-header-tools #searchbar .search-container {
+    width: 100%;
+}
+
+#heat-header #searchbar .search-container {
+    height: 44px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.09);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+#heat-header #searchbar .search-input {
+    width: 100% !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 48px 0 17px !important;
+
+    display: block !important;
+
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+
+    background: transparent !important;
+    border: 0 !important;
+    outline: 0 !important;
+
+    font-family: var(--heat-font-body) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: normal !important;
+    letter-spacing: 0 !important;
+
+    vertical-align: middle !important;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+#heat-header #searchbar .search-input::placeholder {
+    color: var(--heat-muted) !important;
+    -webkit-text-fill-color: var(--heat-muted) !important;
+    opacity: 1 !important;
+}
+
+#heat-header #searchbar .search-button {
+    top: 1px;
+    right: 1px;
+    width: 42px;
+    height: 42px;
+    background-color: var(--heat-pink);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 256 256'%3E%3Ccircle cx='116' cy='116' r='72' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='24'/%3E%3Cline x1='167' y1='167' x2='224' y2='224' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='24'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 50% 48%;
+    background-size: 16px 16px;
+}
+
+#heat-header .heat-header-actions {
+    gap: 7px;
+}
+
+#heat-header .heat-header-action {
+    width: 42px;
+    height: 42px;
+    color: var(--heat-text-soft) !important;
+    background: rgba(255,255,255,.028);
+    border-color: rgba(255,255,255,.075);
+    border-radius: 13px;
+    backdrop-filter: none;
+}
+
+#heat-header .heat-header-action i {
+    font-size: 17px;
+    line-height: 1;
+}
+
+#heat-header .heat-header-action:hover {
+    color: #fff !important;
+    background: rgba(255,61,145,.12);
+    border-color: rgba(255,61,145,.25);
+}
+
+#heat-header .heat-active-account {
+    min-width: 0;
+    width: 100%;
+    height: 48px;
+    background: rgba(255,255,255,.032) !important;
+    border-color: rgba(255,255,255,.08) !important;
+    border-radius: 14px !important;
+    backdrop-filter: none;
+}
+
+#heat-header .heat-account-dropdown {
+    top: calc(100% + 8px);
+}
+
+.heat-header-shortcuts {
+    width: min(1240px, calc(100% - 48px));
+    margin: 12px auto 0;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.heat-header-shortcut {
+    min-width: 0;
+    min-height: 56px;
+    padding: 9px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: var(--heat-text-soft) !important;
+    background: rgba(255,255,255,.026);
+    border: 1px solid rgba(255,255,255,.072);
+    border-radius: 13px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.018);
+    transition: transform .2s ease, color .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.heat-header-shortcut i {
+    flex: 0 0 auto;
+    color: var(--heat-pink);
+    font-size: 18px;
+}
+
+.heat-header-shortcut span {
+    overflow: hidden;
+    font-size: 10px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+.heat-header-shortcut:hover {
+    color: #fff !important;
+    background: rgba(255,61,145,.085);
+    border-color: rgba(255,61,145,.22);
+    transform: translateY(-2px);
+}
+
+.heat-social-header-dashboard {
+    width: min(1240px, calc(100% - 48px));
+    min-height: 258px;
+    margin: 18px auto 0;
+    padding: 12px;
+    display: grid;
+    grid-template-columns:
+        minmax(340px, 1.42fr)
+        minmax(165px, .50fr)
+        minmax(250px, .88fr);
+    gap: 12px;
+    background:
+        linear-gradient(145deg, rgba(255,61,145,.035), rgba(66,198,255,.015)),
+        #111520;
+    border: 1px solid var(--heat-border-bright);
+    border-radius: 22px;
+    box-shadow: 0 20px 45px rgba(0,0,0,.25);
+}
+
+.heat-social-banner,
+.heat-social-clock-card,
+.heat-social-weather-card,
+.heat-social-guidebook-card {
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+    background: var(--heat-panel);
+    border: 1px solid var(--heat-border);
+    border-radius: 17px;
+}
+
+.heat-social-banner {
+    min-height: 234px;
+    display: block;
+}
+
+.heat-social-banner-image {
+    position: absolute;
+    inset: 0;
+    background:
+        url('../assets/heat-social-banner.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: transform .4s ease, filter .4s ease;
+}
+
+.heat-social-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(8,10,18,.02) 20%, rgba(8,10,18,.12) 48%, rgba(8,10,18,.92) 100%);
+}
+
+.heat-social-banner-copy {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 20px;
+    z-index: 2;
+}
+
+.heat-social-guidebook-copy small,
+.heat-social-clock-card small,
+.heat-social-weather-card small {
+    display: block;
+    color: var(--heat-pink);
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.heat-social-banner-copy small,.heat-social-banner-copy strong {
+    display: none;
+    margin-top: 5px;
+    color: #fff;
+    font-family: var(--heat-font-display);
+    font-size: clamp(27px, 3vw, 40px);
+    font-weight: 800;
+    line-height: 1;
+
+    text-shadow:
+        0 2px 5px rgba(0,0,0,.65),
+        0 0 8px rgba(255,61,145,.30),
+        0 0 18px rgba(255,122,24,.18);
+}
+
+.heat-social-banner-copy em {
+    display: none;
+    margin-top: 12px;
+    color: rgba(255,255,255,.76);
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 750;
+}
+
+.heat-social-banner:hover .heat-social-banner-image {
+    filter: saturate(.78) brightness(.78);
+    transform: scale(1.025);
+}
+
+.heat-social-info-column {
+    min-width: 0;
+    display: grid;
+    grid-template-rows: 128px 94px;
+    gap: 12px;
+}
+
+.heat-social-clock-card {
+    padding: 15px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    background:
+        radial-gradient(circle at 90% 5%, rgba(255,61,145,.12), transparent 42%),
+        var(--heat-panel);
+}
+
+.heat-social-clock-card .heat-live-clock {
+    display: block;
+    margin-top: 9px;
+    color: #fff;
+    font-family: var(--heat-font-display);
+    font-size: clamp(27px, 3.2vw, 40px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: .9;
+}
+
+.heat-social-clock-card .heat-live-date {
+    display: block;
+    margin-top: 11px;
+    color: var(--heat-muted);
+    font-size: 9.5px;
+    line-height: 1.3;
+}
+
+.heat-social-live-chip {
+    align-self: flex-start;
+    padding: 6px 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--heat-text-soft);
+    background: rgba(255,255,255,.035);
+    border: 1px solid var(--heat-border);
+    border-radius: 999px;
+    font-size: 8px;
+    font-weight: 750;
+    text-transform: uppercase;
+}
+
+.heat-social-live-chip i {
+    width: 6px;
+    height: 6px;
+    background: var(--heat-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(82,214,129,.75);
+}
+
+.heat-social-weather-card {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 36px minmax(0,1fr) auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.heat-social-weather-card .heat-compact-weather-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,200,87,.08);
+    border: 1px solid rgba(255,200,87,.12);
+    border-radius: 11px;
+    font-size: 18px;
+}
+
+.heat-social-weather-card .heat-weather-current strong {
+    display: block;
+    margin-top: 3px;
+    color: #fff;
+    font-family: var(--heat-font-display);
+    font-size: 19px;
+    line-height: 1;
+}
+
+.heat-social-weather-card .heat-weather-current span,
+.heat-social-weather-card .heat-weather-range span {
+    color: var(--heat-muted);
+    font-size: 9px;
+    line-height: 1.25;
+}
+
+.heat-social-weather-card .heat-weather-range {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+}
+
+.heat-social-guidebook-card {
+    min-height: 234px;
+    display: block;
+}
+
+.heat-social-guidebook-image {
+    position: absolute;
+    inset: 0;
+    background:
+        url('../assets/heat-guidebook.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: transform .4s ease, filter .4s ease;
+}
+
+.heat-social-guidebook-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(8,10,18,.08), rgba(8,10,18,.30) 40%, rgba(8,10,18,.96) 100%),
+        linear-gradient(135deg, rgba(66,198,255,.08), rgba(255,61,145,.10));
+}
+
+.heat-social-guidebook-copy {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 19px;
+    z-index: 2;
+}
+
+.heat-social-guidebook-copy strong {
+    display: block;
+    margin-top: 5px;
+    color: #fff;
+    font-family: var(--heat-font-display);
+    font-size: 23px;
+    font-weight: 800;
+    line-height: 1.05;
+}
+
+.heat-social-guidebook-copy > span {
+    display: block;
+    max-width: 260px;
+    margin-top: 7px;
+    color: rgba(255,255,255,.62);
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+.heat-social-guidebook-copy em {
+    display: inline-flex;
+    margin-top: 13px;
+    padding: 8px 11px;
+    color: #fff;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 9px;
+    font-size: 8.5px;
+    font-style: normal;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.heat-social-guidebook-card:hover .heat-social-guidebook-image {
+    filter: saturate(.8) brightness(.72);
+    transform: scale(1.025);
+}
+
+.heat-notification-bar {
+    width: min(1240px, calc(100% - 48px));
+    min-height: 48px;
+    margin: 10px auto 0;
+    padding: 9px 14px;
+    display: grid;
+    grid-template-columns: auto minmax(0,1fr) auto;
+    align-items: center;
+    gap: 13px;
+    color: var(--heat-text-soft) !important;
+    background: #111520;
+    border: 1px solid var(--heat-border);
+    border-radius: 13px;
+    box-shadow: 0 12px 24px rgba(0,0,0,.16);
+}
+
+.heat-notification-pill {
+    padding: 6px 10px;
+    color: var(--heat-pink);
+    background: rgba(255,61,145,.075);
+    border: 1px solid rgba(255,61,145,.12);
+    border-radius: 999px;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.heat-notification-text {
+    overflow: hidden;
+    color: var(--heat-muted);
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+.heat-notification-arrow {
+    color: var(--heat-pink);
+    font-size: 14px;
+}
+
+.heat-notification-bar:hover {
+    color: #fff !important;
+    border-color: rgba(255,61,145,.20);
+}
+
+@media screen and (max-width: 1050px) {
+    #heat-header .heat-header-content,
+    .heat-header-shortcuts,
+    .heat-social-header-dashboard,
+    .heat-notification-bar {
+        width: calc(100% - 32px);
+    }
+
+    #heat-header .heat-header-tools {
+        grid-template-columns: minmax(180px, 1fr) auto 54px;
+    }
+
+    .heat-header-shortcuts {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .heat-social-header-dashboard {
+        grid-template-columns: minmax(300px, 1.25fr) minmax(200px, .75fr);
+    }
+
+    .heat-social-guidebook-card {
+        min-height: 190px;
+        grid-column: 1 / -1;
+    }
+
+    .heat-social-guidebook-copy > span {
+        max-width: 420px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .heat-header-shortcuts {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #heat-header .heat-header-content {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    #heat-header .heat-header-tools {
+        grid-template-columns: minmax(0,1fr) auto 48px;
+    }
+
+    .heat-social-header-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .heat-social-banner,
+    .heat-social-guidebook-card {
+        min-height: 240px;
+    }
+
+    .heat-social-info-column {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: none;
+    }
+
+    .heat-notification-text {
+        white-space: normal;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .heat-app-layout {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    #heat-sidebar,
+    #heat-main {
+        width: 100% !important;
+        grid-column: 1 !important;
+    }
+
+    #innerwrapper {
+        padding-right: 10px !important;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    #heat-header .heat-header-content,
+    .heat-header-shortcuts,
+    .heat-social-header-dashboard,
+    .heat-notification-bar {
+        width: calc(100% - 20px);
+    }
+
+    #heat-header .heat-header-tools {
+        grid-template-columns: minmax(0,1fr) 44px;
+    }
+
+    .heat-header-shortcuts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #heat-header .heat-header-actions {
+        display: none;
+    }
+
+    .heat-social-header-dashboard {
+        padding: 9px;
+        border-radius: 17px;
+    }
+
+    .heat-social-info-column {
+        grid-template-columns: 1fr;
+    }
+
+    .heat-social-clock-card {
+        min-height: 150px;
+    }
+
+    .heat-social-weather-card {
+        min-height: 92px;
+    }
+
+    .heat-social-banner,
+    .heat-social-guidebook-card {
+        min-height: 215px;
+    }
+
+}
+
+#wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#heat-main {
+    min-width: 0;
+}
+
+#innerwrapper {
+    width: 100%;
+    max-width: none;
+    padding: 25px;
+}
+
+#submenu {
+    display: none !important;
+}
+
+/* =========================================================
+   HEAT FIRST-PAINT PASS 6 — NATIVE FAUX-BROWSER BREADCRUMBS
+
+   #navi now lives inside the faux address bar and contains Jcink's
+   server-rendered navigation output. The native breadcrumb is
+   styled in place instead of being hidden, cloned, and rebuilt by JS.
+   ========================================================= */
+
+#navi {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+
+    display: block;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#navi br,
+#navstrip img {
+    display: none;
+}
+
+#navstrip {
+    min-width: 0;
+    margin: 0;
+    padding: 0 0 0 7px;
+
+    overflow: hidden;
+
+    color: var(--heat-muted);
+
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    text-transform: lowercase;
+    white-space: nowrap;
+}
+
+#navstrip a {
+    color: var(--heat-text-soft);
+}
+
+#navstrip a:hover {
+    color: #ffffff;
+}
+
+/* heat.online already supplies the board-root label. Jcink normally emits
+   that same root as the first breadcrumb link, so suppress only that exact
+   root-shaped first link while preserving every real parent destination. */
+#navstrip > a:first-of-type[href*="index.php"]:not([href*="?"]) {
+    display: none;
+}
+
+#heat-jcink-header-source,
+#userlinks {
+    width: 1px !important;
+    height: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+}
+
+.heat-app-layout {
+    width: 100%;
+    display: grid;
+    grid-template-columns:
+        var(--heat-sidebar-width)
+        minmax(0, 1fr);
+    align-items: stretch;
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(66, 198, 255, 0.055),
+            transparent 26%
+        ),
+        var(--heat-bg-soft);
+}
+
+#heat-sidebar {
+    grid-column: 1;
+}
+
+#heat-main {
+    grid-column: 2;
+}
+
+/* =========================================================
+   TOPIC / POSTING FOCUS CANVAS
+
+   One saved root class owns the optional desktop state.
+   CSS performs the complete layout change. The sidebar toggle
+   script only adds or removes that class after a direct click.
+   ========================================================= */
+
+@media screen and (min-width: 761px) {
+    html:is(.heat-route-topic, .heat-route-posting)
+    .heat-sidebar-focus-toggle {
+        display: inline-flex;
+    }
+
+    html.heat-sidebar-collapsed:is(
+        .heat-route-topic,
+        .heat-route-posting
+    )
+    .heat-app-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    html.heat-sidebar-collapsed:is(
+        .heat-route-topic,
+        .heat-route-posting
+    )
+    #heat-sidebar {
+        display: none;
+    }
+
+    html.heat-sidebar-collapsed:is(
+        .heat-route-topic,
+        .heat-route-posting
+    )
+    #heat-main {
+        width: 100%;
+        grid-column: 1;
+    }
+}
+
+#heat-sidebar {
+    min-width: 0;
+    min-height: 800px;
+    padding: 28px 18px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.018),
+            transparent
+        ),
+        #0d111b;
+    border-right: 1px solid var(--heat-border);
+}
+
+.heat-sidebar-label {
+    margin: 0 10px 10px;
+    color: var(--heat-muted);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.heat-main-navigation,
+.heat-explore-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.heat-nav-link,
+.heat-explore-link {
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--heat-text-soft);
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.heat-nav-link:hover,
+.heat-explore-link:hover,
+.heat-nav-link.is-active,
+html.heat-route-index
+    .heat-nav-link[data-heat-page="home"],
+html.heat-route-active-topics
+    .heat-nav-link[data-heat-page="activity"],
+html.heat-route-members
+    .heat-nav-link[data-heat-page="members"],
+html.heat-route-stats
+    .heat-nav-link[data-heat-page="stats"],
+html.heat-route-leaders
+    .heat-nav-link[data-heat-page="leaders"] {
+    color: #fff;
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1) 17%,
+                rgba(255,255,255,.032)
+            ),
+            color-mix(
+                in srgb,
+                var(--heat-active-group-2) 11%,
+                rgba(255,255,255,.022)
+            ) 54%,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-3) 9%,
+                rgba(255,255,255,.018)
+            )
+        );
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1) 27%,
+            var(--heat-border)
+        );
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.035),
+        0 5px 12px rgba(0,0,0,.10);
+}
+
+.heat-nav-icon {
+    flex: 0 0 auto;
+    width: 20px;
+    display: inline-flex;
+    justify-content: center;
+    font-size: 17px;
+}
+
+.heat-sidebar-divider {
+    height: 1px;
+    margin: 20px 8px;
+    background: var(--heat-border);
+}
+
+.heat-sidebar-user {
+    margin-bottom: 22px;
+    padding: 16px;
+    position: relative;
+    overflow: visible;
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(255, 61, 145, 0.08),
+            transparent 42%
+        ),
+        var(--heat-panel);
+    border: 1px solid var(--heat-border-bright);
+    border-radius: 18px;
+    box-shadow: var(--heat-shadow-small);
+}
+
+.heat-sidebar-user-top {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+}
+
+.heat-sidebar-avatar {
+    width: 52px;
+    height: 52px;
+    border: 2px solid var(--heat-pink);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.26);
+}
+
+.heat-sidebar-online {
+    width: 10px;
+    height: 10px;
+    background: var(--heat-green);
+    border: 2px solid #111621;
+    box-shadow: 0 0 8px rgba(82, 214, 129, 0.70);
+}
+
+.heat-sidebar-user-copy {
+    min-width: 0;
+}
+
+.heat-sidebar-character-name {
+    display: block;
+    overflow: hidden;
+    color: var(--heat-text);
+    font-size: 14px;
+    font-weight: 750;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.heat-sidebar-username {
+    display: block;
+    overflow: hidden;
+    margin-top: 3px;
+    color: var(--heat-muted);
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.heat-sidebar-stats {
+    margin-top: 14px;
+    padding-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--heat-border);
+}
+
+.heat-sidebar-stat {
+    min-width: 0;
+    text-align: center;
+}
+
+.heat-sidebar-stat + .heat-sidebar-stat {
+    border-left: 1px solid var(--heat-border);
+}
+
+.heat-sidebar-stat strong {
+    display: block;
+    overflow: hidden;
+    color: var(--heat-pink);
+    font-family: var(--heat-font-display);
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.heat-sidebar-stat span {
+    display: block;
+    margin-top: 5px;
+    color: var(--heat-muted);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.heat-sidebar-user-actions {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.heat-sidebar-user-actions > a,
+.heat-sidebar-notification-toggle {
+    width: 100%;
+    min-width: 0;
+    min-height: 36px;
+    padding: 0 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    position: relative;
+    color: var(--heat-text-soft);
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--heat-border);
+    border-radius: 9px;
+    font-size: 9px;
+    font-weight: 750;
+    text-transform: uppercase;
+    cursor: pointer;
+    line-height: 1.15;
+}
+
+.heat-sidebar-user-actions > a:hover,
+.heat-sidebar-notification-toggle:hover,
+.heat-sidebar-notification-toggle.is-open {
+    color: #fff;
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1) 22%,
+                rgba(255,255,255,.035)
+            ),
+            color-mix(
+                in srgb,
+                var(--heat-active-group-2) 14%,
+                rgba(255,255,255,.025)
+            )
+        );
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1) 36%,
+            var(--heat-border)
+        );
+}
+
+/* Phase 10C: static guest/member sidebar state. */
+.heat-sidebar-username-guest {
+    display: none;
+}
+
+#heat-browser:is(
+    [data-member-id="0"],
+    [data-member-id=""],
+    [data-group="Guest" i],
+    [data-group="Guests" i]
+) .heat-sidebar-username-member,
+#heat-browser:is(
+    [data-member-id="0"],
+    [data-member-id=""],
+    [data-group="Guest" i],
+    [data-group="Guests" i]
+) .heat-member-action {
+    display: none;
+}
+
+#heat-browser:is(
+    [data-member-id="0"],
+    [data-member-id=""],
+    [data-group="Guest" i],
+    [data-group="Guests" i]
+) .heat-sidebar-username-guest {
+    display: block;
+}
+
+#heat-browser:not([data-member-id="0"]):not([data-member-id=""]):not([data-group="Guest" i]):not([data-group="Guests" i])
+.heat-guest-action {
+    display: none;
+}
+
+.heat-sidebar-notifications {
+    min-width: 0;
+    position: relative;
+}
+
+.heat-sidebar-alert-badge,
+.heat-sidebar-menu-count {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: var(--heat-pink);
+    border-radius: 999px;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.heat-sidebar-alert-badge {
+    position: absolute;
+    top: -6px;
+    right: -5px;
+    z-index: 3;
+}
+
+.heat-sidebar-notification-menu {
+    width: 175px;
+    padding: 6px;
+    display: none;
+    position: absolute;
+    top: calc(100% + 7px);
+    right: 0;
+    z-index: 100;
+    background: #12141f;
+    border: 1px solid var(--heat-border);
+    border-radius: 11px;
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.38);
+}
+
+.heat-sidebar-notification-menu.is-open {
+    display: block;
+}
+
+.heat-sidebar-notification-link {
+    min-height: 38px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--heat-text-soft);
+    border-radius: 7px;
+    font-size: 9.5px;
+    font-weight: 650;
+    line-height: 1.25;
+}
+
+.heat-sidebar-notification-link > span:first-child,
+.heat-sidebar-notification-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.heat-sidebar-notification-link:hover {
+    color: #fff;
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1) 18%,
+                rgba(255,255,255,.025)
+            ),
+            color-mix(
+                in srgb,
+                var(--heat-active-group-2) 10%,
+                transparent
+            )
+        );
+}
+
+.heat-sidebar-community {
+    width: 100%;
+    min-width: 0;
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/*
+ * The native Board Stats source is emitted only on the real Board Index.
+ * Use actual rendered Jcink DOM, not URL routing, as the final visibility
+ * authority. This also handles Fast Reply > More Options screens produced
+ * from POST data while the browser URL looks like index.php.
+ */
+.heat-app-layout:has(#heat-boardstats-source)
+.heat-sidebar-community {
+    display: flex;
+}
+
+.heat-sidebar-widget {
+    min-width: 0;
+    padding: 16px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.018),
+            transparent 55%
+        ),
+        var(--heat-panel);
+    border: 1px solid var(--heat-border);
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.heat-widget-heading {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.heat-widget-heading small {
+    display: block;
+    color: var(--heat-pink);
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.heat-widget-heading strong {
+    display: block;
+    color: var(--heat-text);
+    font-family: var(--heat-font-display);
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.heat-widget-heading > a,
+.heat-widget-heading > span {
+    flex: 0 0 auto;
+    color: var(--heat-muted);
+    font-size: 7px;
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.heat-live-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.heat-live-label i {
+    width: 6px;
+    height: 6px;
+    display: block;
+    background: var(--heat-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(82, 214, 129, 0.75);
+}
+
+.heat-community-grid,
+.heat-board-activity-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.heat-community-stat,
+.heat-board-activity-stat {
+    min-width: 0;
+    padding: 13px 8px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--heat-border);
+    border-radius: 11px;
+}
+
+.heat-community-stat strong,
+.heat-board-activity-stat strong {
+    display: block;
+    color: #fff;
+    font-family: var(--heat-font-display);
+    font-size: 17px;
+    line-height: 1;
+}
+
+.heat-community-stat span,
+.heat-board-activity-stat span {
+    display: block;
+    margin-top: 6px;
+    color: var(--heat-muted);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.heat-category {
+    width: 100%;
+    margin: 0 0 38px;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+}
+
+.heat-category-header {
+    width: 100%;
+    min-height: 58px;
+    margin: 0;
+    padding: 9px 14px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+    color: var(--heat-text);
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.018),
+            transparent
+        ),
+        #111621;
+    border: 1px solid var(--heat-border-bright);
+    border-radius: 17px 17px 0 0;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.heat-category-header::before {
+    content: "";
+    width: 37px;
+    height: 9px;
+    display: block;
+    background:
+        radial-gradient(circle at 4px 4.5px, #ff5f57 0 3.5px, transparent 4px),
+        radial-gradient(circle at 18px 4.5px, #febc2e 0 3.5px, transparent 4px),
+        radial-gradient(circle at 32px 4.5px, #28c840 0 3.5px, transparent 4px);
+}
+
+.heat-category-header::after {
+    content: "☆  ⋮";
+    display: block;
+    color: var(--heat-muted);
+    font-size: 15px;
+    letter-spacing: 6px;
+    line-height: 1;
+}
+
+.heat-category-icon,
+.heat-category-decoration,
+.heat-category-label {
+    display: none !important;
+}
+
+.heat-category-title {
+    width: 100%;
+    min-width: 0;
+    min-height: 38px;
+    padding: 0 17px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid var(--heat-border);
+    border-radius: 999px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.018);
+}
+
+.heat-category-title > a,
+.heat-category-title > a:link,
+.heat-category-title > a:visited,
+.heat-category-title > a:active {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--heat-text) !important;
+    font-size: 14px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.heat-category-title > a::before {
+    content: "/";
+    margin-right: 9px;
+    color: var(--heat-muted);
+    font-weight: 500;
+}
+
+.heat-category-title > a:hover {
+    color: #fff !important;
+}
+
+.heat-category-body {
+    width: 100%;
+    padding: 18px;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 16px;
+    background: #0e121d;
+    border: 1px solid var(--heat-border);
+    border-top: 0;
+    border-radius: 0 0 18px 18px;
+}
+
+.heat-category-body > br,
+.cat-lb {
+    display: none;
+}
+
+.heat-category.heat-layout-wide .heat-category-body {
+    grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.heat-category.heat-layout-mixed .heat-category-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.heat-category.heat-layout-mixed .heat-mixed-featured {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   HEAT CLEANUP 03 — CATEGORY LAYOUT FIRST-PAINT MAP
+
+   Category Header exposes the native category name directly on
+   .heat-category. The current live layout choices therefore resolve
+   in CSS before paint instead of waiting for JavaScript to read text,
+   remove classes, and rebuild the grid after DOMContentLoaded.
+
+   DEFAULT: square (two cards per row)
+   CURRENT WIDE CATEGORIES: listed below
+   ========================================================= */
+
+.heat-category:is(
+    [data-heat-category-name="jump in baby girl hop on this d" i],
+    [data-heat-category-name="you know that i'ma beat" i],
+    [data-heat-category-name="all this drip got your ass in heat" i],
+    [data-heat-category-name="everythin' designer that's on me" i]
+) .heat-category-body {
+    grid-template-columns: minmax(0, 1fr) !important;
+}
+
+/* =========================================================
+   HEAT MiamiOS v2.1 DEV — MAIN FORUM MEDIA CARDS
+   Authoritative main-index forum-card system.
+
+   Architecture:
+   - artwork on top
+   - frosted information panel at the BOTTOM of the artwork
+   - latest activity retained
+   - compact statistics retained
+   - slim scrollable subforum tabs retained
+   - no browser/window title bar on main-board cards
+   - no late redesign override layer
+   ========================================================= */
+
+/* Shared forum-card primitives. Subforum-directory geometry is still
+   owned by the dedicated subforum section in MIAMI Webpage CSS. */
+.heat-forum-tile {
+    --heat-forum-placeholder-artwork:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.028) 0%,
+            rgba(255, 255, 255, 0.008) 45%,
+            rgba(66, 198, 255, 0.018) 100%
+        ),
+        radial-gradient(
+            circle at 18% 24%,
+            rgba(255, 61, 145, 0.055),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 82% 76%,
+            rgba(255, 200, 87, 0.035),
+            transparent 32%
+        ),
+        repeating-linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.014) 0,
+            rgba(255, 255, 255, 0.014) 1px,
+            transparent 1px,
+            transparent 18px
+        ),
+        linear-gradient(
+            145deg,
+            #151a25,
+            #0d111a 58%,
+            #101520
+        );
+    --heat-forum-artwork:
+        var(--heat-forum-placeholder-artwork);
+
+    min-width: 0;
+    position: relative;
+    color: var(--heat-text);
+    box-sizing: border-box;
+}
+
+.heat-forum-photo {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--heat-panel-light);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.heat-forum-photo-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.heat-forum-lastpost {
+    min-width: 0;
+}
+
+.heat-lastpost-avatar {
+    position: relative;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+}
+
+.heat-lastpost-avatar-image {
+    width: auto;
+    height: auto;
+    position: absolute;
+    inset: 2px;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 30% 22%,
+            rgba(255, 255, 255, .14),
+            transparent 38%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, .075),
+            rgba(255, 255, 255, .022) 58%,
+            rgba(255, 255, 255, .04)
+        ),
+        rgba(13, 17, 28, .84);
+    border: 1px solid rgba(255, 255, 255, .11);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .11),
+        inset 0 -1px 0 rgba(255, 255, 255, .025),
+        0 5px 14px rgba(0, 0, 0, .18);
+}
+
+.heat-lastpost-avatar-image::before {
+    content: "";
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    opacity: .68;
+    background:
+        center / contain no-repeat
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='%23ffffff'/%3E%3Cpath d='M4.5 20c.8-4.4 3.3-6.6 7.5-6.6s6.7 2.2 7.5 6.6z' fill='%23ffffff'/%3E%3C/svg%3E");
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, .22));
+    transform: translate(-50%, -50%);
+}
+
+.heat-lastpost-avatar-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, .07),
+            transparent 42%,
+            rgba(255, 255, 255, .018)
+        );
+}
+
+.heat-lastpost-avatar-native {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+    image-rendering: auto;
+}
+
+.heat-lastpost-avatar-native[hidden],
+.heat-lastpost-avatar-native[src=""] {
+    display: none;
+}
+
+.heat-lastpost-online {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    background: var(--heat-green);
+    border: 2px solid #10141e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(82, 214, 129, .72);
+}
+
+.heat-lastpost-copy,
+.heat-lastpost-topic,
+.heat-lastpost-meta {
+    min-width: 0;
+}
+
+/* MAIN INDEX ONLY */
+html.heat-route-index .heat-category-body {
+    align-items: stretch;
+}
+
+html.heat-route-index .heat-forum-window-v2 {
+    --heat-forum-media-photo-h: 174px;
+    /* FIX 33 — stacked dual-bubble geometry. The artwork and information
+       panel are separate rounded surfaces with a deliberate air gap. */
+    --heat-forum-media-info-h: 124px;
+    --heat-forum-media-gap: 8px;
+    --heat-forum-media-tab-h: 40px;
+    --heat-forum-artwork:
+        var(--heat-forum-placeholder-artwork);
+
+    width: 100%;
+    height: calc(
+        var(--heat-forum-media-photo-h)
+        + var(--heat-forum-media-gap)
+        + var(--heat-forum-media-info-h)
+    );
+    min-height: calc(
+        var(--heat-forum-media-photo-h)
+        + var(--heat-forum-media-gap)
+        + var(--heat-forum-media-info-h)
+    );
+    max-height: calc(
+        var(--heat-forum-media-photo-h)
+        + var(--heat-forum-media-gap)
+        + var(--heat-forum-media-info-h)
+    );
+    align-self: stretch;
+    display: grid;
+    grid-template-rows:
+        var(--heat-forum-media-photo-h)
+        var(--heat-forum-media-info-h);
+    row-gap: var(--heat-forum-media-gap);
+    position: relative;
+    overflow: visible;
+    box-sizing: border-box;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    isolation: isolate;
+    transition:
+        transform .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease;
+}
+
+/* FIX 34 — FULL-WIDTH LOWER BUBBLE TRUE-FROST SOURCE
+   The stacked design remains intact, but the lower information bubble now
+   fills the complete forum-card footprint instead of leaving exposed strips
+   of category background around its sides. The blur stays clipped inside the
+   bubble and still uses filter, never backdrop-filter. */
+html.heat-route-index .heat-forum-window-v2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(
+        var(--heat-forum-media-photo-h)
+        + var(--heat-forum-media-gap)
+    );
+    bottom: 0;
+    z-index: 3;
+    pointer-events: none;
+    background-image: var(--heat-forum-artwork);
+    background-position: center 74%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(15px) saturate(.78) brightness(.55);
+    opacity: 1;
+    border-radius: 22px;
+    clip-path: inset(0 round 22px);
+    transform: none;
+    transform-origin: center;
+}
+
+html.heat-route-index .heat-forum-window-v2:hover {
+    transform: translateY(-2px);
+}
+
+/* The former browser/window bar is intentionally absent from the new
+   Forum Row. Keep this fallback hidden for compatibility with cached rows. */
+html.heat-route-index .heat-forum-v2-bar {
+    display: none;
+}
+
+/* Clean artwork. No title bar and no grayscale/blur takeover. */
+html.heat-route-index .heat-forum-v2-photo {
+    width: calc(100% - 4px);
+    height: var(--heat-forum-media-photo-h);
+    min-height: var(--heat-forum-media-photo-h);
+    max-height: var(--heat-forum-media-photo-h);
+    justify-self: center;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-position: center;
+    background-size: cover;
+    border: 1px solid rgba(255, 255, 255, .09);
+    border-radius: 20px;
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, .23),
+        inset 0 1px 0 rgba(255, 255, 255, .035);
+    transform: scale(1.001);
+    transition: transform .28s ease, filter .28s ease, border-color .22s ease;
+}
+
+html.heat-route-index .heat-forum-v2-photo .heat-forum-photo-overlay {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(6, 8, 15, .015) 0%,
+            rgba(6, 8, 15, .03) 54%,
+            rgba(6, 8, 15, .24) 100%
+        );
+}
+
+html.heat-route-index .heat-forum-window-v2:hover .heat-forum-v2-photo {
+    transform: scale(1.018);
+    filter: brightness(.98) saturate(1.03);
+}
+
+/* The hidden copy remains in the DOM because it is the source used by
+   forum artwork selectors and whole-card navigation. */
+html.heat-route-index .heat-forum-photo-copy {
+    display: none;
+}
+
+/* FIX 34 — STACKED FULL-WIDTH LOWER FROST BUBBLE
+   The approved dual-bubble design is preserved. The lower metadata surface
+   now spans the full available width so the latest-poster section occupies
+   the complete bottom footprint without exposed background gutters. */
+html.heat-route-index .heat-forum-v2-info {
+    width: 100%;
+    box-sizing: border-box;
+    height: var(--heat-forum-media-info-h);
+    min-height: var(--heat-forum-media-info-h);
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: var(--heat-forum-media-tab-h);
+    position: relative;
+    z-index: 5;
+    justify-self: stretch;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 102px;
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "latest stats";
+    overflow: visible;
+    background:
+        radial-gradient(
+            ellipse at 14% 12%,
+            rgba(255, 255, 255, .082),
+            rgba(255, 255, 255, .024) 36%,
+            transparent 64%
+        ),
+        radial-gradient(
+            ellipse at 82% 108%,
+            rgba(255, 255, 255, .040),
+            rgba(255, 255, 255, .010) 42%,
+            transparent 68%
+        ),
+        linear-gradient(
+            118deg,
+            rgba(255, 255, 255, .048),
+            rgba(255, 255, 255, .012) 46%,
+            rgba(255, 255, 255, .028)
+        ),
+        rgba(6, 10, 18, .62);
+    border: 1px solid rgba(255, 255, 255, .10);
+    border-radius: 22px;
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, .28),
+        0 3px 10px rgba(0, 0, 0, .16),
+        inset 0 1px 0 rgba(255, 255, 255, .085),
+        inset 0 -1px 0 rgba(255, 255, 255, .020);
+}
+
+html.heat-route-index .heat-forum-v2-info::before {
+    content: "";
+    height: 2px;
+    position: absolute;
+    top: 0;
+    left: 14px;
+    right: 14px;
+    z-index: 3;
+    background: var(--heat-group-gradient, var(--heat-gradient));
+    border-radius: 999px;
+    opacity: .78;
+}
+
+html.heat-route-index .heat-forum-v2-info::after {
+    content: "";
+    height: var(--heat-forum-media-tab-h);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, .012),
+            rgba(0, 0, 0, .035)
+        );
+    border: 0;
+    border-radius: 0 0 21px 21px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .026);
+}
+
+html.heat-route-index .heat-forum-media-heading,
+html.heat-route-index .heat-forum-v2-lastpost,
+html.heat-route-index .heat-forum-v2-stats {
+    position: relative;
+    z-index: 1;
+}
+
+/* Forum identity is a floating label above the glass tab rail. */
+html.heat-route-index .heat-forum-media-heading {
+    width: auto;
+    min-width: 0;
+    max-width: calc(100% - 24px);
+    padding: 0;
+    position: absolute;
+    /* The heading lives inside the footer markup, so this calculation lifts
+       it to the actual upper-right corner of the artwork instead of merely
+       nudging it a few pixels above the tab rail. */
+    top: calc(
+        -1 * (
+            var(--heat-forum-media-photo-h)
+            + var(--heat-forum-media-gap)
+        )
+        + 12px
+    );
+    right: 14px;
+    z-index: 9;
+    display: flex;
+    justify-content: flex-end;
+    overflow: visible;
+}
+
+html.heat-route-index .heat-forum-media-title {
+    min-width: 0;
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    /* The title link already clips its own text/background to the pill.
+       Keeping this wrapper hidden was clipping the pill's rounded outer
+       shadow against a rectangular parent box, creating the square tab
+       visible at the badge edge. Let the rounded shadow render freely. */
+    overflow: visible;
+    color: #fff;
+    font-family: var(--heat-font-display);
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html.heat-route-index .heat-forum-media-title a,
+html.heat-route-index .heat-forum-media-title a:link,
+html.heat-route-index .heat-forum-media-title a:visited,
+html.heat-route-index .heat-forum-media-title a:hover,
+html.heat-route-index .heat-forum-media-title a:focus-visible {
+    max-width: min(200px, 70vw);
+    min-width: 30px;
+    min-height: 30px;
+    padding: 0 10px;
+    display: inline-flex;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    color: #fff;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, .11),
+            rgba(255, 255, 255, .035)
+        ),
+        rgba(5, 8, 15, .70);
+    border: 1px solid rgba(255, 255, 255, .26);
+    border-radius: 999px;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, .30),
+        inset 0 1px 0 rgba(255, 255, 255, .11);
+    text-decoration: none;
+    text-overflow: ellipsis;
+    text-transform: lowercase;
+    white-space: nowrap;
+}
+
+html.heat-route-index .heat-forum-media-description {
+    display: none;
+}
+
+html.heat-route-index .heat-forum-media-description:empty {
+    display: none;
+}
+
+/* Latest activity stays visible as compact metadata over the shared dark
+   frosted footer surface. Children remain transparent so the blurred artwork
+   and glaze read as one continuous panel instead of stacked internal boxes. */
+html.heat-route-index .heat-forum-v2-lastpost {
+    grid-area: latest;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 8px 14px 9px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+}
+
+html.heat-route-index .heat-lastpost-copy {
+    width: 100%;
+    min-width: 0;
+    padding-left: 2px;
+    align-self: center;
+    display: grid;
+    align-content: center;
+}
+
+html.heat-route-index .heat-lastpost-topic,
+html.heat-route-index .heat-lastpost-meta {
+    width: 100%;
+}
+
+html.heat-route-index .heat-lastpost-avatar {
+    width: 52px;
+    height: 52px;
+    padding: 2px;
+    background: var(--heat-group-gradient, var(--heat-gradient));
+    border: 0;
+    border-radius: 14px;
+    box-shadow:
+        0 7px 16px rgba(0, 0, 0, .24),
+        0 0 0 2px rgba(var(--heat-group-rgb-2, 105, 112, 255), .07);
+}
+
+html.heat-route-index .heat-lastpost-avatar-image {
+    border-radius: 12px;
+}
+
+html.heat-route-index .heat-lastpost-topic {
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--heat-text-soft);
+    font-family: var(--heat-font-display);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+html.heat-route-index .heat-lastpost-topic a,
+html.heat-route-index .heat-lastpost-topic a:hover,
+html.heat-route-index .heat-lastpost-topic a:focus-visible {
+    color: inherit;
+    text-decoration: none;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+html.heat-route-index .heat-lastpost-meta {
+    max-width: 100%;
+    margin-top: 4px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: min-content;
+    align-content: start;
+    gap: 3px;
+    overflow: hidden;
+    color: var(--heat-muted);
+    font-size: 10px;
+    line-height: 1.15;
+}
+
+html.heat-route-index .heat-lastpost-author {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html.heat-route-index .heat-lastpost-author,
+html.heat-route-index .heat-lastpost-author a,
+html.heat-route-index .heat-lastpost-author span,
+html.heat-route-index .heat-lastpost-author * {
+    font-size: 14px;
+    line-height: 1.08;
+}
+
+html.heat-route-index .heat-lastpost-time {
+    min-width: 0;
+    overflow: hidden;
+    color: #8f96a870;
+    font-family: 'Viga';
+    font-size: 10px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html.heat-route-index .heat-lastpost-separator {
+    display: none;
+}
+
+/* Compact counters occupy the reference card's small right-side action
+   area without returning to the old stat-box treatment. */
+html.heat-route-index .heat-forum-v2-stats {
+    grid-area: stats;
+    min-width: 102px;
+    min-height: 0;
+    box-sizing: border-box;
+    padding: 8px 7px 8px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: 0;
+    background: transparent;
+    border-left: 1px solid rgba(255, 255, 255, .065);
+}
+
+html.heat-route-index .heat-forum-v2-stat {
+    min-width: 0;
+    padding: 5px 4px;
+    text-align: center;
+}
+
+html.heat-route-index .heat-forum-v2-stat + .heat-forum-v2-stat {
+    border-left: 1px solid rgba(255, 255, 255, .055);
+}
+
+html.heat-route-index .heat-forum-v2-stat strong {
+    display: block;
+    background: var(--heat-group-gradient, var(--heat-gradient));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    font-family: var(--heat-font-display);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+html.heat-route-index .heat-forum-v2-stat span {
+    display: block;
+    margin-top: 5px;
+    color: var(--heat-muted);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .45px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+/* FIX 36 — inset bottom-tab rail + native scrollbar-button cleanup.
+   The full-width lower frost bubble remains unchanged. The scrollable tab rail
+   itself now sits INSIDE that bubble with a real perimeter gutter, so neither
+   the tabs nor the scrollbar hardware touch or hang beyond the rounded edges. */
+html.heat-route-index .heat-forum-v2-subforums {
+    width: auto;
+    min-width: 0;
+    box-sizing: border-box;
+    height: calc(var(--heat-forum-media-tab-h) - 6px);
+    min-height: calc(var(--heat-forum-media-tab-h) - 6px);
+    max-height: calc(var(--heat-forum-media-tab-h) - 6px);
+    margin: 0;
+    padding: 3px 0 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 4px;
+    position: absolute;
+    right: 10px;
+    bottom: 3px;
+    left: 10px;
+    z-index: 7;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background: transparent;
+    border: 0;
+    border-radius: 0 0 14px 14px;
+    font-size: 0;
+    white-space: nowrap;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 10px;
+    scrollbar-width: thin;
+    scrollbar-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-2, var(--heat-blue)) 84%,
+            transparent
+        )
+        transparent;
+}
+
+/* Flex spacers keep the first and last tab away from the rail ends even at
+   the absolute scroll limits. */
+html.heat-route-index .heat-forum-v2-subforums::before,
+html.heat-route-index .heat-forum-v2-subforums::after {
+    content: "";
+    width: 10px;
+    min-width: 10px;
+    height: 1px;
+    flex: 0 0 10px;
+    pointer-events: none;
+}
+
+/* Cards without native subforums KEEP the same bottom rail geometry.
+   Jcink's live native subforum fragment exposes each real destination as
+   a.tooltip and each blank last-post/status helper as a.subforums-macro.
+   Use those native classes directly instead of inferring meaning from text,
+   sibling order, or post-render JavaScript. */
+html.heat-route-index
+.heat-forum-window-v2:not(:has(> .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]))
+> .heat-forum-v2-subforums {
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    scrollbar-width: none;
+    background: transparent;
+    border: 0;
+}
+
+/* No-subforum cards keep the same bottom rail geometry, but the empty rail is more
+   translucent so it reads as intentional floating glass instead of a blank
+   reserved strip. Cards with actual tabs keep the approved darker frost. */
+html.heat-route-index
+.heat-forum-window-v2:not(:has(> .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]))
+> .heat-forum-v2-info {
+    background:
+        radial-gradient(
+            ellipse at 14% 12%,
+            rgba(255, 255, 255, .078),
+            rgba(255, 255, 255, .022) 36%,
+            transparent 64%
+        ),
+        radial-gradient(
+            ellipse at 82% 108%,
+            rgba(255, 255, 255, .036),
+            rgba(255, 255, 255, .009) 42%,
+            transparent 68%
+        ),
+        linear-gradient(
+            118deg,
+            rgba(255, 255, 255, .044),
+            rgba(255, 255, 255, .011) 46%,
+            rgba(255, 255, 255, .025)
+        ),
+        rgba(6, 10, 18, .62);
+}
+
+/* FIX 38 — no-tab divider match. */
+html.heat-route-index
+.heat-forum-window-v2:not(:has(> .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]))
+> .heat-forum-v2-info::after {
+    height: var(--heat-forum-media-tab-h);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, .012),
+            rgba(0, 0, 0, .035)
+        );
+    border-radius: 0 0 21px 21px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .026);
+    opacity: 1;
+}
+
+html.heat-route-index
+.heat-forum-window-v2:not(:has(> .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]))
+> .heat-forum-v2-subforums::-webkit-scrollbar {
+    display: none;
+}
+
+/* =========================================================
+   HEAT FIRST-PAINT PASS 3 — FIX 3 NATIVE MACRO CLASSES
+
+   Verified live Jcink structure:
+   - a.subforums-macro = blank get-last-post/status helper
+   - a.tooltip[href*="showforum="] = visible nested-forum destination
+
+   Hide the helper anchor from first paint and style only the real destination.
+   No text classifier, sibling guess, or DOM mutation is required.
+   ========================================================= */
+html.heat-route-index .heat-forum-v2-subforums br,
+html.heat-route-index .heat-forum-v2-subforums img,
+html.heat-route-index .heat-forum-v2-subforums a.subforums-macro {
+    display: none;
+}
+
+html.heat-route-index .heat-forum-v2-subforums a.tooltip[href*="showforum=" i],
+html.heat-route-index .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]:link,
+html.heat-route-index .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]:visited,
+html.heat-route-index .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]:active {
+    min-width: max-content;
+    max-width: 165px;
+    height: 20px;
+    min-height: 20px;
+    padding: 0 7px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    align-items: center;
+    gap: 3px;
+    overflow: hidden;
+    color: rgba(210, 215, 228, .76);
+    background: rgba(7, 10, 17, .30);
+    border: 1px solid rgba(255, 255, 255, .072);
+    border-radius: 6px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .018);
+    font-family: 'Viga';
+    font-size: 8.5px;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition:
+        color .18s ease,
+        background .18s ease,
+        border-color .18s ease;
+}
+
+html.heat-route-index .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]::before {
+    content: none;
+    display: none;
+}
+
+html.heat-route-index .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]::after {
+    content: "×";
+    margin-left: 0;
+    color: rgba(255, 255, 255, .28);
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+}
+
+html.heat-route-index .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]:hover,
+html.heat-route-index .heat-forum-v2-subforums a.tooltip[href*="showforum=" i]:focus-visible {
+    color: #fff;
+    background: rgba(255, 255, 255, .045);
+    border-color: color-mix(
+        in srgb,
+        var(--heat-active-group-2, var(--heat-blue)) 24%,
+        rgba(255, 255, 255, .072)
+    );
+    outline: none;
+}
+
+html.heat-route-index .heat-forum-v2-subforums::-webkit-scrollbar {
+    height: 2px;
+}
+
+html.heat-route-index .heat-forum-v2-subforums::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Edge/Chromium on Windows can render native horizontal scrollbar arrow
+   buttons at both ends. They are not HEAT controls and were visibly hanging
+   beyond the rounded lower bubble, so suppress only those native buttons. */
+html.heat-route-index .heat-forum-v2-subforums::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+html.heat-route-index .heat-forum-v2-subforums::-webkit-scrollbar-thumb {
+    min-width: 26px;
+    background: var(--heat-active-group-gradient, var(--heat-gradient));
+    border-radius: 999px;
+}
+
+/* Main-board-only elements that are not used by the redesigned card. */
+html.heat-route-index .heat-forum-v2-caption,
+html.heat-route-index .heat-forum-hover-panel,
+html.heat-route-index .heat-forum-v2-hover,
+html.heat-route-index .heat-forum-v2-status,
+html.heat-route-index .heat-forum-status {
+    display: none;
+}
+
+/* On subforum-directory pages, the new main-board heading is suppressed and
+   the existing compact directory renderer continues to own the card. */
+body.heat-subforum-page .heat-forum-media-heading {
+    display: none;
+}
+
+@media screen and (max-width: 1180px) {
+    html.heat-route-index .heat-forum-window-v2 {
+        --heat-forum-media-photo-h: 164px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    html.heat-route-index .heat-forum-window-v2 {
+        --heat-forum-media-photo-h: 170px;
+    }
+
+    html.heat-route-index .heat-forum-v2-info {
+        grid-template-columns: minmax(0, 1fr) 94px;
+    }
+
+    html.heat-route-index .heat-forum-v2-stats {
+        min-width: 94px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    html.heat-route-index .heat-forum-window-v2 {
+        --heat-forum-media-photo-h: 158px;
+        --heat-forum-media-info-h: 120px;
+        --heat-forum-media-tab-h: 36px;
+    }
+
+    html.heat-route-index .heat-forum-v2-info {
+        grid-template-columns: minmax(0, 1fr) 86px;
+    }
+
+    html.heat-route-index .heat-forum-media-heading {
+        top: calc(
+            -1 * (
+                var(--heat-forum-media-photo-h)
+                + var(--heat-forum-media-gap)
+            )
+            + 10px
+        );
+        right: 10px;
+        max-width: calc(100% - 20px);
+    }
+
+    html.heat-route-index .heat-forum-media-title a,
+    html.heat-route-index .heat-forum-media-title a:link,
+    html.heat-route-index .heat-forum-media-title a:visited {
+        max-width: 170px;
+        min-width: 28px;
+        min-height: 28px;
+        padding-inline: 9px;
+        border-radius: 999px;
+        font-size: 10.5px;
+    }
+
+    html.heat-route-index .heat-forum-media-description {
+        display: none;
+    }
+
+    html.heat-route-index .heat-forum-v2-lastpost {
+        padding: 7px 11px 8px;
+        grid-template-columns: 48px minmax(0, 1fr);
+        gap: 11px;
+    }
+
+    html.heat-route-index .heat-lastpost-avatar {
+        width: 48px;
+        height: 48px;
+    }
+
+    html.heat-route-index .heat-forum-v2-stats {
+        min-width: 86px;
+        padding-inline: 5px;
+    }
+}
+
+
+
+.heat-forum-photo {
+    background-image:
+        var(--heat-forum-artwork);
+}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=6"], [href*="showforum=6&"])) .heat-forum-photo {
+    background-image: var(--heat-forum-placeholder-artwork);}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=86"], [href*="showforum=86&"])) .heat-forum-photo {
+    background-image: var(--heat-forum-placeholder-artwork);}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=87"], [href*="showforum=87&"])) .heat-forum-photo {
+    background-image: var(--heat-forum-placeholder-artwork);}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=88"], [href*="showforum=88&"])) .heat-forum-photo {
+    background-image: var(--heat-forum-placeholder-artwork);}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=89"], [href*="showforum=89&"])) .heat-forum-photo {
+    background-image: var(--heat-forum-placeholder-artwork);}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=157"], [href*="showforum=157&"])) .heat-forum-photo {
+    background-image: var(--heat-forum-placeholder-artwork);}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=233"], [href*="showforum=233&"])) .heat-forum-photo {
+    background-image: var(--heat-forum-placeholder-artwork);}
+
+
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=1"], [href*="showforum=1&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.pinimg.com/1200x/ce/ee/f4/ceeef4d537ca602d8543de5b3c01b7ba.jpg");}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=11"], [href*="showforum=11&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.pinimg.com/1200x/18/bc/e2/18bce2a9b1ef02ee98c9cba8e54e0497.jpg");}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=119"], [href*="showforum=119&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.pinimg.com/736x/9b/f3/e3/9bf3e397a0569a34408a47408cea5c87.jpg");}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=123"], [href*="showforum=123&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.pinimg.com/736x/da/6b/7a/da6b7ad9e2103349b4b1b68b4f86ad8d.jpg");}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=122"], [href*="showforum=122&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.pinimg.com/1200x/f7/b2/48/f7b248d51213da3c62fd4cee15c100b8.jpg");}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=125"], [href*="showforum=125&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.pinimg.com/1200x/fc/60/e5/fc60e54a0187d4ef4f1d231695f1a137.jpg");}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=2"], [href*="showforum=2&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.pinimg.com/736x/23/f3/24/23f324d366750839d61b7678b35f34c2.jpg");}
+
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=5"], [href*="showforum=5&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.pinimg.com/736x/4a/df/62/4adf62843736e33f5ed32937896863da.jpg");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=129"], [href*="showforum=129&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/V4KF1px.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=81"], [href*="showforum=81&"])) .heat-forum-photo {
+    background-image:        url("https://i.imgur.com/bU4QFJT.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=7"], [href*="showforum=7&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/mQ05vJ6.png");}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=19"], [href*="showforum=19&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/XvhF4V0.png");}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=20"], [href*="showforum=20&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/cYr97Os.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=58"], [href*="showforum=58&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/dnnuteR.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=59"], [href*="showforum=59&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/hpTllYy.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=60"], [href*="showforum=60&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/rcuZkZw.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=61"], [href*="showforum=61&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/Oc8Pts2.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=62"], [href*="showforum=62&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/4GXjy5z.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=63"], [href*="showforum=63&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.postimg.cc/HkMm5JdH/Horizontal-home1.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=64"], [href*="showforum=64&"])) .heat-forum-photo {
+    background-image:
+        url("https://i.imgur.com/Klv7uNd.png");}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=25"], [href*="showforum=25&"])) .heat-forum-photo {
+    background-image:
+        var(--heat-forum-placeholder-artwork);}
+
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=26"], [href*="showforum=26&"])) .heat-forum-photo {
+    background-image:
+        var(--heat-forum-placeholder-artwork);}
+
+
+/* HEAT SHARED FORUM ARTWORK VARIABLE
+   Mirror each approved forum artwork URL to the forum-card root on every
+   forum-card route. Main-board cards and compact subforum cards can now reuse
+   the same native CSS artwork source for their own visual treatments without
+   JavaScript image duplication. */
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=6"], [href*="showforum=6&"])) {
+    --heat-forum-artwork: var(--heat-forum-placeholder-artwork);
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=86"], [href*="showforum=86&"])) {
+    --heat-forum-artwork: var(--heat-forum-placeholder-artwork);
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=87"], [href*="showforum=87&"])) {
+    --heat-forum-artwork: var(--heat-forum-placeholder-artwork);
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=88"], [href*="showforum=88&"])) {
+    --heat-forum-artwork: var(--heat-forum-placeholder-artwork);
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=89"], [href*="showforum=89&"])) {
+    --heat-forum-artwork: var(--heat-forum-placeholder-artwork);
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=157"], [href*="showforum=157&"])) {
+    --heat-forum-artwork: var(--heat-forum-placeholder-artwork);
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=233"], [href*="showforum=233&"])) {
+    --heat-forum-artwork: var(--heat-forum-placeholder-artwork);
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=1"], [href*="showforum=1&"])) {
+    --heat-forum-artwork: url("https://i.pinimg.com/1200x/ce/ee/f4/ceeef4d537ca602d8543de5b3c01b7ba.jpg");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=11"], [href*="showforum=11&"])) {
+    --heat-forum-artwork: url("https://i.pinimg.com/1200x/18/bc/e2/18bce2a9b1ef02ee98c9cba8e54e0497.jpg");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=119"], [href*="showforum=119&"])) {
+    --heat-forum-artwork: url("https://i.pinimg.com/736x/9b/f3/e3/9bf3e397a0569a34408a47408cea5c87.jpg");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=123"], [href*="showforum=123&"])) {
+    --heat-forum-artwork: url("https://i.pinimg.com/736x/da/6b/7a/da6b7ad9e2103349b4b1b68b4f86ad8d.jpg");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=122"], [href*="showforum=122&"])) {
+    --heat-forum-artwork: url("https://i.pinimg.com/1200x/f7/b2/48/f7b248d51213da3c62fd4cee15c100b8.jpg");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=125"], [href*="showforum=125&"])) {
+    --heat-forum-artwork: url("https://i.pinimg.com/1200x/fc/60/e5/fc60e54a0187d4ef4f1d231695f1a137.jpg");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=2"], [href*="showforum=2&"])) {
+    --heat-forum-artwork: url("https://i.pinimg.com/736x/23/f3/24/23f324d366750839d61b7678b35f34c2.jpg");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=5"], [href*="showforum=5&"])) {
+    --heat-forum-artwork: url("https://i.pinimg.com/736x/4a/df/62/4adf62843736e33f5ed32937896863da.jpg");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=129"], [href*="showforum=129&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/44cq3v3z/Verticalinperson.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=81"], [href*="showforum=81&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/CM8XKCKH/Vertical-socialmedia.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=7"], [href*="showforum=7&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/kGWphCHR/Vertical-comm.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=19"], [href*="showforum=19&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/7PzdL1Ls/Vertical-text.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=20"], [href*="showforum=20&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/FRM6ZzT0/Vertical-call1.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=58"], [href*="showforum=58&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/tgHjzX4F/Horizontal-restaurant.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=59"], [href*="showforum=59&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/8CVSb1zn/Horizontal-shopping1.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=60"], [href*="showforum=60&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/jjQrgGWV/Horizontal-workplace2.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=61"], [href*="showforum=61&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/kgSC8Vqx/Horizontal-leisure1.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=62"], [href*="showforum=62&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/cL3WYK0m/Horizontal-outdoors.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=63"], [href*="showforum=63&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/HkMm5JdH/Horizontal-home1.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=64"], [href*="showforum=64&"])) {
+    --heat-forum-artwork: url("https://i.postimg.cc/pX4xpQbd/Horizontal-hotel.png");
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=25"], [href*="showforum=25&"])) {
+    --heat-forum-artwork: var(--heat-forum-placeholder-artwork);
+}
+html:is(.heat-route-index, .heat-route-subforum) .heat-forum-tile:has(.heat-forum-title a:is([href$="showforum=26"], [href*="showforum=26&"])) {
+    --heat-forum-artwork: var(--heat-forum-placeholder-artwork);
+}
+
+
+.row1,
+.row2,
+.row3,
+.row4,
+.hlight,
+.dlight,
+.post1,
+.post2 {
+    color: var(--heat-text-soft);
+    background: var(--heat-panel);
+}
+
+.darkrow1,
+.darkrow2,
+.darkrow3,
+.activeuserstrip,
+.titlemedium {
+    color: var(--heat-text);
+}
+
+.row1,
+.row2,
+.row3,
+.row4,
+.darkrow1,
+.darkrow2,
+.darkrow3,
+.tablefill,
+.tablepad {
+    padding: 9px;
+}
+
+.tableborder,
+.tablefill,
+.tablepad,
+.plainborder {
+    color: var(--heat-text-soft);
+}
+
+.tableborder {
+    margin-bottom: 18px;
+    overflow: hidden;
+    border-radius: var(--heat-radius);
+}
+
+.tablebasic {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.maintitle {
+    min-height: 54px;
+    padding: 0 28px 0 104px;
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background: #0d1018;
+    border-bottom: 1px solid var(--heat-border);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.maintitle::after {
+    content: "";
+    position: absolute;
+    top: 9px;
+    right: 14px;
+    bottom: 9px;
+    left: 82px;
+    z-index: -1;
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid var(--heat-border);
+    border-radius: 999px;
+}
+
+.maintitle::before {
+    content: "";
+    width: 11px;
+    height: 11px;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    background: #ff5f57;
+    border-radius: 50%;
+    box-shadow: 19px 0 0 #febc2e, 38px 0 0 #28c840;
+    transform: translateY(-50%);
+}
+
+.maintitle a {
+    position: relative;
+    z-index: 1;
+    color: #fff !important;
+}
+
+.titlemedium,
+.pformstrip {
+    padding: 8px 12px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.desc,
+.postdetails,
+.edit,
+.signature {
+    color: var(--heat-muted);
+}
+
+.postcolor {
+    color: var(--heat-text-soft);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.pformleft,
+.pformleftw,
+.pformright {
+    padding: 10px;
+    color: var(--heat-text-soft);
+    background: var(--heat-panel);
+    border-color: var(--heat-border);
+}
+
+.button-large,
+.button-small,
+input[type="submit"]:not(.search-button):not(.heat-login-submit):not(.heat-register-submit):not(.heat-register-final-submit),
+input[type="button"],
+input[type="reset"] {
+    width: auto;
+    min-width: 0;
+    min-height: 30px;
+    margin: 3px;
+    padding: 0 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--heat-text-soft);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--heat-border);
+    border-radius: 11px;
+    box-shadow: none;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.button-large:hover,
+.button-small:hover,
+input[type="submit"]:not(.search-button):not(.heat-login-submit):not(.heat-register-submit):not(.heat-register-final-submit):hover,
+input[type="button"]:hover,
+input[type="reset"]:hover {
+    color: #fff;
+    background: rgba(255, 61, 145, 0.09);
+    border-color: rgba(255, 61, 145, 0.30);
+    transform: translateY(-1px);
+}
+
+select {
+    max-width: 100%;
+    color: var(--heat-text-soft);
+    background-color: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 10px;
+}
+
+select:hover,
+select:focus {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 61, 145, 0.28);
+    outline: none;
+}
+
+#QUOTE,
+#CODE {
+    margin: 10px 0;
+    padding: 13px;
+    color: var(--heat-text-soft);
+    background: var(--heat-panel-light);
+    border: 1px solid var(--heat-border);
+    border-left: 4px solid var(--heat-pink);
+    border-radius: var(--heat-radius-sm);
+    font-size: 11px;
+    white-space: normal;
+}
+
+#CODE {
+    font-family: Consolas, "Courier New", monospace;
+    border-left-color: var(--heat-blue);
+}
+
+#ucpmenu,
+#ucpcontent {
+    color: var(--heat-text-soft);
+    background: var(--heat-panel);
+    border: 1px solid var(--heat-border);
+}
+
+.pagination .pagination_current,
+.pagination a {
+    min-width: 31px;
+    height: 31px;
+    margin: 2px;
+    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+}
+
+.pagination a {
+    color: var(--heat-text-soft);
+    background: var(--heat-panel-light);
+    border: 1px solid var(--heat-border);
+}
+
+.pagination a:hover,
+.pagination .pagination_current {
+    color: #fff;
+    background: var(--heat-gradient);
+    border-color: transparent;
+}
+
+.pagination_pagetxt { display: none; }
+
+.thin {
+    margin: 4px 0;
+    padding: 10px 0;
+    color: var(--heat-text-soft);
+    border-top: 1px solid var(--heat-border);
+    border-bottom: 1px solid var(--heat-border);
+}
+
+.newstext {
+    margin-bottom: 16px;
+    padding: 12px;
+    color: var(--heat-text-soft);
+    background: var(--heat-panel);
+    border: 1px solid var(--heat-border);
+    border-radius: var(--heat-radius);
+}
+
+#skin_selector { margin: 12px 0; }
+
+#heat-footer {
+    margin-top: 25px;
+    padding: 30px 20px 20px;
+    color: var(--heat-muted);
+    border-top: 1px solid var(--heat-border);
+    text-align: center;
+}
+
+.heat-footer-brand {
+    color: var(--heat-text);
+    font-family: var(--heat-font-display);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.heat-footer-tagline {
+    margin: 3px 0 12px;
+    color: var(--heat-muted);
+    font-size: 10px;
+}
+
+.copyright {
+    padding: 18px;
+    color: var(--heat-muted);
+    font-size: 10px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.copyright a { color: var(--heat-text-soft); }
+#innerwrapper table { max-width: 100%; }
+
+@media screen and (max-width: 1050px) {
+    .heat-header-actions { display: none; }
+
+    .heat-active-account {
+        min-width: 54px;
+        width: 54px;
+        padding: 6px !important;
+        grid-template-columns: 1fr;
+    }
+
+    .heat-active-copy,
+    .heat-account-chevron {
+        display: none;
+    }
+}
+
+/* =========================================================
+   HEATWAVE STEALTH BACKEND — FORUM 294
+
+   Forum 294 must remain readable and postable so the HeatWave
+   webpage can use Jcink as its authenticated data store. These
+   selectors remove only its ordinary board-directory entry points.
+   The Records link inside #heatwave-app remains available.
+   ========================================================= */
+
+html.heat-route-index
+.heat-main-forum-card:has(.heat-forum-title a:is(
+    [href$="showforum=294" i],
+    [href*="showforum=294&" i],
+    [href*="showforum=294#" i]
+)),
+html.heat-route-subforum
+.heat-subforum-directory-card:has(.heat-forum-title a:is(
+    [href$="showforum=294" i],
+    [href*="showforum=294&" i],
+    [href*="showforum=294#" i]
+)),
+html.heat-route-index
+.heat-forum-v2-subforums a:is(
+    [href$="showforum=294" i],
+    [href*="showforum=294&" i],
+    [href*="showforum=294#" i]
+),
+html.heat-route-subforum
+.heat-forum-v2-subforums a:is(
+    [href$="showforum=294" i],
+    [href*="showforum=294&" i],
+    [href*="showforum=294#" i]
+) {
+    display: none;
+}
+
+/* Avoid leaving an empty category shell when its only forum is 294. */
+html.heat-route-index
+.heat-category:has(
+    .heat-main-forum-card .heat-forum-title a:is(
+        [href$="showforum=294" i],
+        [href*="showforum=294&" i],
+        [href*="showforum=294#" i]
+    )
+):not(:has(
+    .heat-main-forum-card .heat-forum-title a[href*="showforum=" i]:not(:is(
+        [href$="showforum=294" i],
+        [href*="showforum=294&" i],
+        [href*="showforum=294#" i]
+    ))
+)) {
+    display: none;
+}
+
+		

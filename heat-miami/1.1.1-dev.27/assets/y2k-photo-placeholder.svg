@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-labelledby="title desc">
+  <title id="title">Replaceable profile photo placeholder</title>
+  <desc id="desc">A blue and violet Y2K-style placeholder labeled Your Photo.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071a4d"/>
+      <stop offset="0.52" stop-color="#214fb5"/>
+      <stop offset="1" stop-color="#7c3cff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.25" cy="0.18" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <rect width="400" height="500" fill="url(#glow)"/>
+  <g fill="none" stroke="#fff" stroke-opacity="0.32">
+    <circle cx="318" cy="92" r="74"/>
+    <circle cx="318" cy="92" r="52"/>
+    <path d="M-20 385 C95 310 204 466 430 318"/>
+    <path d="M-20 420 C112 337 240 487 430 355"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">
+    <text x="200" y="232" font-size="22" font-weight="700" letter-spacing="4">YOUR PHOTO</text>
+    <text x="200" y="263" font-size="11" opacity="0.7" letter-spacing="2">REPLACE THIS IMAGE URL</text>
+  </g>
+</svg>
