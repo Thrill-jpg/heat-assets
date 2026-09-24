@@ -4149,8 +4149,97 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     };
   }
 
+  var COMM_GROUP_NAME_TO_ID = {
+    guest: "2",
+    guests: "2",
+    member: "3",
+    members: "3",
+    admin: "4",
+    admins: "4",
+    staff: "4",
+    administrator: "4",
+    administrators: "4",
+    adminstaff: "4",
+    adminroot: "4",
+
+    giveon: "6",
+    rihanna: "7",
+    beyonce: "8",
+    beyonc: "8",
+    drake: "9",
+    pink: "10",
+    loa: "11",
+    leaveofabsence: "11",
+    archived: "12",
+    archive: "12",
+    kendrick: "13",
+    kendricklamar: "13",
+    sza: "14",
+    nasx: "15",
+    lilnasx: "15",
+    sam: "16",
+    samsmith: "16",
+    paramore: "17",
+    summer: "18",
+    summerwalker: "18",
+    baby: "19",
+    lilbaby: "19",
+    doja: "20",
+    dojacat: "20",
+    flo: "21",
+    flomilli: "21",
+    cxh: "22",
+    chloexhalle: "22",
+    chlexhalle: "22",
+    adele: "23",
+    prince: "24",
+    pnd: "25",
+    partynextdoor: "25",
+    brent: "26",
+    brentfaiyaz: "26",
+    meg: "27",
+    megan: "27",
+    megantheestallion: "27",
+    lizzo: "28",
+    burna: "29",
+    burnaboy: "29",
+    solange: "30",
+    her: "31",
+    chance: "32",
+    chancetherapper: "32",
+    silksonic: "34",
+    silk: "34",
+
+    wrath: "35",
+    lust: "36",
+    envy: "37",
+    gluttony: "38",
+    greed: "39",
+    pride: "40",
+    sloth: "41"
+  };
+
+  function normalizeCommGroupName(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/&amp;/g, "and")
+      .replace(/[^a-z0-9]+/g, "");
+  }
+
   function rowGroupId(row) {
     if (!row) return "";
+
+    /*
+       Page 1 is the live document and can resolve group ownership
+       through HEAT's CSS engine.
+
+       Paginated pages are fetched with DOMParser. Their HEAT CSS and
+       runtime do NOT execute, so getComputedStyle() cannot be relied on.
+       Read both numeric and named Jcink group markers from the raw
+       server-rendered markup instead.
+    */
 
     var candidates = [row].concat(
       Array.from(
@@ -4158,14 +4247,20 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
           "[data-heat-group-id], " +
           "[data-group-id], " +
           "[data-gid], " +
+          "[data-group], " +
           ".heat-mini-profile, " +
-          ".heat-mini-name"
+          ".heat-mini-name, " +
+          ".heat-post-profile-column [class]"
         )
       )
     );
 
     for (var index = 0; index < candidates.length; index += 1) {
       var candidate = candidates[index];
+
+      if (!candidate || !candidate.getAttribute) {
+        continue;
+      }
 
       var direct = cleanText(
         candidate.getAttribute("data-heat-group-id") ||
@@ -4177,6 +4272,17 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         return direct;
       }
 
+      var namedData =
+        COMM_GROUP_NAME_TO_ID[
+          normalizeCommGroupName(
+            candidate.getAttribute("data-group")
+          )
+        ];
+
+      if (namedData) {
+        return namedData;
+      }
+
       var classes = Array.from(candidate.classList || []);
 
       for (
@@ -4184,32 +4290,47 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         classIndex < classes.length;
         classIndex += 1
       ) {
-        var match = classes[classIndex].match(
+        var className = classes[classIndex];
+
+        var match = className.match(
           /^(?:g|go|group)[-_]?(\d+)$/i
         );
 
         if (match) {
           return match[1];
         }
+
+        var namedClass =
+          COMM_GROUP_NAME_TO_ID[
+            normalizeCommGroupName(className)
+          ];
+
+        if (namedClass) {
+          return namedClass;
+        }
       }
     }
 
     /*
-       Some Jcink post rows receive their palette through the group
-       engine's :has() selector instead of carrying a numeric class in
-       their own markup. Read the engine's resolved ID once so collected
-       replies keep the actual replier's palette after moving into the
-       opening post.
+       Live page fallback only.
+       Detached DOMParser pages do not participate in the live document's
+       CSS cascade, so reading computed custom properties there can return
+       nothing useful.
     */
 
-    var resolved = cleanText(
-      window
-        .getComputedStyle(row)
-        .getPropertyValue("--heat-group-id-value")
-    );
+    if (
+      row.ownerDocument === document &&
+      row.isConnected
+    ) {
+      var resolved = cleanText(
+        window
+          .getComputedStyle(row)
+          .getPropertyValue("--heat-group-id-value")
+      );
 
-    if (/^\d+$/.test(resolved)) {
-      return resolved;
+      if (/^\d+$/.test(resolved)) {
+        return resolved;
+      }
     }
 
     return "";
@@ -4270,7 +4391,10 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     var groupId = rowGroupId(row);
 
     if (groupId) {
-      message.setAttribute("data-heat-group-id", groupId);
+      message.setAttribute(
+        "data-heat-group-id",
+        groupId
+      );
     }
   }
 
@@ -4278,10 +4402,8 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     if (!message || !row) return;
 
     /*
-       Group ownership is part of every collected message, not only
-       the optional nickname/GIF identity modes. Keep this separate
-       so each reply can resolve its own HEAT palette after it moves
-       into the opening comm.
+       Group ownership belongs to every collected message.
+       It must not depend on nickname/GIF identity mode.
     */
     stampMessageGroup(message, row);
 
@@ -4802,8 +4924,7 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     }
 
     /*
-       Always stamp the opening message's source group, even when the
-       optional comm identity mode is not enabled.
+       Always establish the opening post's own group ownership.
     */
     decorateOpeningMessage(
       opening,
