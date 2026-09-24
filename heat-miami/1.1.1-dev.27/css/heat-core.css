@@ -5220,6 +5220,11 @@ a[href] {
 
     border: 0;
     border-radius: 12px;
+
+    /* Neutral depth only — no border, no group-color glow. */
+    box-shadow:
+        0 3px 0 rgba(0, 0, 0, 0.16),
+        0 7px 14px rgba(0, 0, 0, 0.24);
 }
 
 
