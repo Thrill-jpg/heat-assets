@@ -3488,6 +3488,40 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     text-transform: uppercase;
 }
 
+
+/* ---------------------------------------------------------
+   Popout presence label follows the existing portrait dot.
+   The avatar dot remains the only visual status indicator.
+   --------------------------------------------------------- */
+
+.heat-mini-popout-presence-online {
+    display: none;
+}
+
+.heat-mini-popout-presence-offline {
+    display: inline;
+}
+
+.heat-mini-rail:has(.heat-mini-online.is-online)
+.heat-mini-popout-presence-online {
+    display: inline;
+}
+
+.heat-mini-rail:has(.heat-mini-online.is-online)
+.heat-mini-popout-presence-offline {
+    display: none;
+}
+
+.heat-mini-rail:has(.heat-mini-online.is-offline)
+.heat-mini-popout-presence-online {
+    display: none;
+}
+
+.heat-mini-rail:has(.heat-mini-online.is-offline)
+.heat-mini-popout-presence-offline {
+    display: inline;
+}
+
 .heat-mini-popout-group {
     width: fit-content;
     max-width: 100%;
@@ -4062,21 +4096,74 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
 }
 
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions a,
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions input,
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions span {
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions
+:is(a, input, span) {
     margin: 0;
 }
 
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions .button-small,
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions a {
-    min-width: auto;
-    min-height: 44px;
+/*
+ * Jcink action macros can render a native .button-small control
+ * inside an anchor wrapper. Keep the wrapper visually inert so
+ * Quote / Edit / Delete / Report render as ONE button, not two
+ * nested rounded boxes.
+ */
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions
+> a:not(.button-small):has(> .button-small),
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions
+> a:not(.button-small):has(> input[type="button"]),
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions
+> a:not(.button-small):has(> input[type="submit"]) {
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+
+    display: inline-flex;
+
+    color: inherit;
+    background: transparent;
+
+    border: 0;
+    border-radius: 0;
+
+    box-shadow: none;
+    text-decoration: none;
+    transform: none;
+}
+
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions
+> a:not(.button-small):has(> .button-small):is(:hover, :focus-visible),
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions
+> a:not(.button-small):has(> input[type="button"]):is(:hover, :focus-visible),
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions
+> a:not(.button-small):has(> input[type="submit"]):is(:hover, :focus-visible) {
+    color: inherit;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Actual visible native action control. */
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions
+:is(
+    > a.button-small,
+    > .button-small,
+    > input[type="button"],
+    > input[type="submit"],
+    > a:not(.button-small) > .button-small,
+    > a:not(.button-small) > input[type="button"],
+    > a:not(.button-small) > input[type="submit"]
+) {
+    width: auto;
+    min-width: 0;
+    min-height: 38px;
     max-width: none;
-    padding: 0 18px;
+
+    margin: 0;
+    padding: 0 14px;
 
     display: inline-flex;
     align-items: center;
@@ -4084,25 +4171,52 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     color: var(--heat-text-soft);
     background: rgba(255, 255, 255, 0.025);
+    background-image: none;
 
     border: 1px solid var(--heat-border);
-    border-radius: 10px;
+    border-radius: 9px;
 
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .02);
+    box-shadow: none;
 
+    font-family: var(--heat-font-display);
     font-size: 9px;
     font-weight: 800;
     line-height: 1.1;
     text-decoration: none;
+
+    transform: none;
 }
 
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions .button-small:hover,
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions a:hover {
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions
+:is(
+    > a.button-small,
+    > .button-small,
+    > input[type="button"],
+    > input[type="submit"],
+    > a:not(.button-small) > .button-small,
+    > a:not(.button-small) > input[type="button"],
+    > a:not(.button-small) > input[type="submit"]
+):is(:hover, :focus-visible) {
     color: #ffffff;
 
-    background: color-mix(in srgb, var(--heat-post-accent) 8%, rgba(255,255,255,.025));
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 8%,
+            rgba(255,255,255,.025)
+        );
+    background-image: none;
 
-    border-color: color-mix(in srgb, var(--heat-post-accent) 28%, var(--heat-border));
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 28%,
+            var(--heat-border)
+        );
+
+    box-shadow: none;
+    outline: none;
+    transform: none;
 }
 
 @media screen and (max-width: 760px) {
@@ -4113,12 +4227,21 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     .heat-post-header-actions {
         grid-column: 2;
         grid-row: 1;
+        gap: 4px;
     }
 
-    #heat-browser #heat-main .heat-post-row .heat-post-header-actions .button-small,
-    #heat-browser #heat-main .heat-post-row .heat-post-header-actions a {
-        min-height: 38px;
-        padding: 0 13px;
+    #heat-browser #heat-main .heat-post-row .heat-post-header-actions
+    :is(
+        > a.button-small,
+        > .button-small,
+        > input[type="button"],
+        > input[type="submit"],
+        > a:not(.button-small) > .button-small,
+        > a:not(.button-small) > input[type="button"],
+        > a:not(.button-small) > input[type="submit"]
+    ) {
+        min-height: 34px;
+        padding: 0 10px;
     }
 }
 
