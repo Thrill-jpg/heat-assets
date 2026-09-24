@@ -6285,10 +6285,14 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
 
         /*
          * Topic Row is Field 2 only.
-         * Keep the portrait slot blank on first paint and never start
-         * an uncached profile request before window load finishes.
+         * Keep the portrait slot blank on first paint, but do not wait
+         * for the full window load event. Topic Row Field 2 work may
+         * begin once the DOM is interactive/ready.
          */
-        if (!cached && !pageLoadComplete) {
+        if (
+            !cached &&
+            document.readyState === "loading"
+        ) {
             return Promise.resolve(false);
         }
 
@@ -6368,16 +6372,7 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         return scope.querySelector(selector);
     }
 
-    function scan() {
-        /*
-         * Forum Row stays native.
-         *
-         * Topic Row is intentionally different: its latest image
-         * uses profile Field 2. Jcink does not expose Field 2 in
-         * Topic Row markup, so Topic Rows use the existing deferred,
-         * cached profile-media service and request AVATAR ONLY.
-         */
-
+    function scanTopicField2() {
         document
             .querySelectorAll(".heat-topic-row")
             .forEach(function (row) {
@@ -6400,6 +6395,19 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
                     );
                 }
             });
+    }
+
+    function scan() {
+        /*
+         * Forum Row stays native.
+         *
+         * Topic Row is intentionally different: its latest image
+         * uses profile Field 2. Topic Row Field 2 starts at DOM-ready,
+         * while the rest of compact-media decoration still waits
+         * until full page load.
+         */
+
+        scanTopicField2();
 
         document
             .querySelectorAll(".heat-online-avatar[href]")
@@ -6458,6 +6466,26 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         try { sessionStorage.removeItem(key); } catch (error) {}
         try { localStorage.removeItem(key); } catch (error) {}
     };
+
+    function releaseTopicField2AtDomReady() {
+        /*
+         * Topic Row Field 2 is the actual visible avatar source on
+         * subforum pages, so start it as soon as DOM parsing is done.
+         * requestProfileMedia() still deduplicates/caches requests and
+         * the shared queue still limits concurrency.
+         */
+        scanTopicField2();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            releaseTopicField2AtDomReady,
+            { once: true }
+        );
+    } else {
+        releaseTopicField2AtDomReady();
+    }
 
     function releaseCompactMediaAfterLoad() {
         pageLoadComplete = true;
