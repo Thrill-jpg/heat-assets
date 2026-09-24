@@ -3294,18 +3294,16 @@ grid-template-columns: clamp(190px, 29%, 265px) minmax(0, 1fr);
 .heat-comm-message.is-starter { align-items: flex-end; }
 
 /*
-   COLLECTED MESSAGE GROUP OWNERSHIP
-   Each reply receives data-heat-group-id from the collector.
-   Rebind message accents locally so the bubble uses the source
-   poster's group instead of the opening/live account palette.
+   MODERN COMM — PER-MESSAGE GROUP OWNERSHIP
+   The collector stamps each message with its source poster's group.
+   The rooted group engine then resolves the palette directly on that
+   message, including messages fetched from later Jcink topic pages.
 */
 .heat-comm-message[data-heat-group-id] {
   --comm-message-accent:
     var(--heat-group-color-1, var(--comm-accent));
   --comm-message-accent-two:
     var(--heat-group-color-3, var(--comm-accent-two));
-  --comm-message-rgb-1:
-    var(--heat-group-rgb-1, 255, 22, 133);
 }
 
 .heat-comm-bubble {
