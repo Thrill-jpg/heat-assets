@@ -718,11 +718,12 @@ html.heat-route-posting
 
 #heat-browser .pagination .pagination_current,
 #heat-browser .pagination a {
+    width: 30px;
     min-width: 30px;
     height: 30px;
     min-height: 30px;
     margin: 3px;
-    padding: 0 9px;
+    padding: 0;
 
     display: inline-flex;
     align-items: center;
@@ -732,7 +733,7 @@ html.heat-route-posting
     background: rgba(255, 255, 255, 0.04);
 
     border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 999px;
+    border-radius: 50%;
 
     box-shadow: none;
 
@@ -749,11 +750,13 @@ html.heat-route-posting
         transform .2s ease;
 }
 
-/* Single-number pagination reads as a true circle.
-   Longer labels such as Last » expand into a compact pill. */
-#heat-browser .pagination .pagination_current {
-    width: 30px;
-    padding: 0;
+/* Jcink emits Last » as the final pagination link.
+   Let only that text control expand beyond the number circles. */
+#heat-browser .pagination a:last-of-type {
+    width: auto;
+    min-width: 48px;
+    padding: 0 11px;
+    border-radius: 999px;
 }
 
 #heat-browser .pagination a:is(:hover, :focus-visible) {
@@ -4694,17 +4697,16 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     width: 100%;
     min-width: 0;
-    min-height: 104px;
+    min-height: 92px;
 
     position: relative;
 
     display: grid;
     grid-template-columns:
-        58px
+        54px
         minmax(0, 1fr)
-        106px
-        145px
-        82px;
+        102px
+        minmax(188px, 220px);
 
     align-items: center;
 
@@ -4880,7 +4882,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-topic-information {
     min-width: 0;
-    padding: 14px 16px;
+    padding: 12px 14px;
 
     display: flex;
     flex-direction: column;
@@ -5035,7 +5037,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-topic-statistics {
     min-width: 0;
-    padding: 13px 8px;
+    padding: 11px 8px;
 
     display: grid;
     grid-template-columns:
@@ -5083,35 +5085,49 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 
 /* =========================================================
-   LATEST REPLY
+   LATEST REPLY MINI CARD
    ========================================================= */
 
-.heat-topic-latest {
+.heat-topic-latest-card {
     min-width: 0;
-    min-height: 70px;
-    padding: 12px 14px;
+    margin: 8px 12px 8px 6px;
+    padding: 8px 9px 8px 11px;
 
-    display: flex;
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        50px;
     align-items: center;
-    justify-content: flex-end;
+    gap: 10px;
 
-    border-left:
-        1px solid rgba(255, 255, 255, 0.045);
+    background:
+        linear-gradient(
+            145deg,
+            color-mix(
+                in srgb,
+                var(--heat-topic-accent) 3%,
+                transparent
+            ),
+            rgba(255, 255, 255, 0.012)
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.055);
+    border-radius: 12px;
 }
 
 .heat-topic-latest-copy {
     min-width: 0;
-    width: 100%;
 
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .heat-topic-latest-label {
     color: var(--heat-muted);
 
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 800;
     letter-spacing: 0.65px;
     text-transform: uppercase;
@@ -5126,15 +5142,20 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     color: var(--heat-text-soft);
 
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
 
-    text-align: right;
+    text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-#heat-browser #heat-main .heat-topic-row .heat-topic-latest .heat-topic-last-poster a[href] {
+#heat-browser
+#heat-main
+.heat-topic-row
+.heat-topic-latest-card
+.heat-topic-last-poster
+a[href] {
     color: var(--heat-text-soft);
 }
 
@@ -5146,25 +5167,26 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     color: var(--heat-muted);
 
-    font-size: 9.5px;
+    font-size: 8.5px;
     line-height: 1.25;
 
-    text-align: right;
+    text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 
 /* =========================================================
-   LARGE LAST-POSTER GIF AVATAR
+   LAST-POSTER FIELD 2 IMAGE
+   Native avatar remains first-paint fallback.
    ========================================================= */
 
 .heat-topic-last-avatar {
-    width: 62px;
-    height: 72px;
+    width: 50px;
+    height: 58px;
 
     position: relative;
-    justify-self: center;
+    justify-self: end;
 
     overflow: visible;
 
@@ -5175,21 +5197,21 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
             var(--heat-topic-accent-2)
         );
 
-    border-radius: 15px;
+    border-radius: 12px;
 
     box-shadow:
-        0 10px 24px rgba(0, 0, 0, 0.28);
+        0 8px 18px rgba(0, 0, 0, 0.24);
 }
 
 .heat-topic-last-avatar-image {
     position: absolute;
-    inset: 3px;
+    inset: 2px;
 
     overflow: hidden;
 
     background-color: #151925;
 
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 .heat-topic-last-avatar-image::before {
@@ -5203,9 +5225,9 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     align-items: center;
     justify-content: center;
 
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(255, 255, 255, 0.62);
 
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .heat-topic-last-avatar-native {
@@ -5228,13 +5250,17 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     display: none;
 }
 
+.heat-topic-last-avatar-image.has-field2-media::before {
+    display: none;
+}
+
 .heat-topic-last-online {
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
 
     position: absolute;
     right: -2px;
-    bottom: 3px;
+    bottom: 2px;
     z-index: 5;
 
     background: #646b7a;
@@ -5244,7 +5270,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     box-shadow: none;
 }
-
 
 /* =========================================================
    LEGACY CLEANUP
@@ -5271,11 +5296,10 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     .heat-topic-row {
         grid-template-columns:
-            56px
+            54px
             minmax(0, 1fr)
-            94px
-            130px
-            74px;
+            92px
+            minmax(174px, 194px);
     }
 
     .heat-topic-information {
@@ -5283,14 +5307,9 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         padding-left: 12px;
     }
 
-    .heat-topic-latest {
-        padding-right: 10px;
-        padding-left: 10px;
-    }
-
-    .heat-topic-last-avatar {
-        width: 58px;
-        height: 68px;
+    .heat-topic-latest-card {
+        margin-right: 9px;
+        margin-left: 4px;
     }
 
 }
@@ -5301,8 +5320,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     .heat-topic-row {
         grid-template-columns:
             56px
-            minmax(0, 1fr)
-            74px;
+            minmax(0, 1fr);
 
         align-items: center;
     }
@@ -5314,11 +5332,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     .heat-topic-information {
         grid-column: 2;
-        grid-row: 1;
-    }
-
-    .heat-topic-last-avatar {
-        grid-column: 3;
         grid-row: 1;
     }
 
@@ -5334,25 +5347,11 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         border-left: 0;
     }
 
-    .heat-topic-latest {
-        grid-column: 2 / -1;
+    .heat-topic-latest-card {
+        grid-column: 2;
         grid-row: 2;
 
-        justify-content: flex-start;
-
-        border-top:
-            1px solid rgba(255, 255, 255, 0.045);
-
-        border-left: 0;
-    }
-
-    .heat-topic-latest-copy {
-        align-items: flex-start;
-    }
-
-    .heat-topic-last-poster,
-    .heat-topic-last-time {
-        text-align: left;
+        margin: 7px 9px 7px 8px;
     }
 
 }
@@ -5363,8 +5362,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     .heat-topic-row {
         grid-template-columns:
             52px
-            minmax(0, 1fr)
-            68px;
+            minmax(0, 1fr);
     }
 
     .heat-topic-message-avatar {
@@ -5394,21 +5392,16 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         font-size: 9px;
     }
 
-    .heat-topic-last-avatar {
-        width: 52px;
-        height: 62px;
-    }
-
     .heat-topic-statistics {
         grid-column: 1 / -1;
         grid-row: 2;
     }
 
-    .heat-topic-latest {
+    .heat-topic-latest-card {
         grid-column: 1 / -1;
         grid-row: 3;
 
-        min-height: auto;
+        margin: 7px 9px 9px;
     }
 
 }
@@ -9221,10 +9214,13 @@ html.heat-route-index
 /* Browsing users: the permanent shell owns the appearance. */
 html.heat-route-subforum .heat-topic-list-browsers-shell {
     min-height: 0;
-    padding: 5px 10px;
+    padding: 9px 14px;
     color: var(--heat-muted);
-    background: rgba(255, 255, 255, 0.012);
-    border: 0;
+    background: #10151f;
+    border-top: 1px solid rgba(255, 255, 255, 0.045);
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
     font-family: var(--heat-font-body);
     font-size: 9px;
     font-weight: 600;
@@ -9249,8 +9245,13 @@ html.heat-route-subforum .heat-topic-list-browsers-shell {
 
 /* Sorting controls: permanent shell + native form/table structure. */
 html.heat-route-subforum .heat-topic-list-filters-shell:has(select) {
-    margin-top: 8px;
+    margin-top: 0;
     overflow: visible;
+
+    background: #0f141e;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.045);
 }
 
 .heat-topic-list-filters-shell form,
@@ -9267,7 +9268,7 @@ html.heat-route-subforum .heat-topic-list-filters-shell :is(td, div):has(> selec
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    padding: 8px 10px;
+    padding: 9px 12px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
