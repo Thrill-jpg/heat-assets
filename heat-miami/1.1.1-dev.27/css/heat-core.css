@@ -4706,7 +4706,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         56px
         minmax(0, 1fr)
         106px
-        minmax(202px, 232px);
+        minmax(184px, 212px);
 
     align-items: center;
 
@@ -5102,15 +5102,15 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-topic-latest-card {
     min-width: 0;
-    margin: 12px 12px 12px 6px;
-    padding: 10px 10px 10px 12px;
+    margin: 12px 8px 12px 6px;
+    padding: 10px 7px 10px 9px;
 
     display: grid;
     grid-template-columns:
         minmax(0, 1fr)
         52px;
     align-items: center;
-    gap: 11px;
+    gap: 7px;
 
     background:
         linear-gradient(
@@ -5336,7 +5336,7 @@ a[href] {
             54px
             minmax(0, 1fr)
             96px
-            minmax(188px, 208px);
+            minmax(174px, 194px);
     }
 
     .heat-topic-information {
@@ -5345,7 +5345,7 @@ a[href] {
     }
 
     .heat-topic-latest-card {
-        margin: 10px 9px 10px 4px;
+        margin: 10px 7px 10px 4px;
     }
 
 }
