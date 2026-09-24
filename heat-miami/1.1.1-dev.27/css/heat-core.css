@@ -5190,7 +5190,7 @@ a[href] {
 
 /* =========================================================
    LAST-POSTER FIELD 2 IMAGE
-   Native avatar remains first-paint fallback.
+   Blank first paint. Field 2 only.
    ========================================================= */
 
 .heat-topic-last-avatar {
@@ -5226,22 +5226,6 @@ a[href] {
     border-radius: 10px;
 }
 
-.heat-topic-last-avatar-image::before {
-    content: "👤";
-
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: rgba(255, 255, 255, 0.62);
-
-    font-size: 17px;
-}
-
 .heat-topic-last-avatar-native {
     width: 100%;
     height: 100%;
@@ -5259,10 +5243,6 @@ a[href] {
 }
 
 .heat-topic-last-avatar-native[hidden] {
-    display: none;
-}
-
-.heat-topic-last-avatar-image.has-field2-media::before {
     display: none;
 }
 
