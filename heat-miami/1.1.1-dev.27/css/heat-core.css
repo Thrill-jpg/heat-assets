@@ -3109,10 +3109,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         text-align: center;
     }
 
-    .heat-mini-player {
-        margin-top: 12px;
-    }
-
     .heat-post-header {
         grid-template-columns:
             minmax(0, 1fr)
@@ -3419,40 +3415,24 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
  * instead of letting it sit on top of the outer border/radius.
  */
 .heat-mini-popout-scroll {
-    width: calc(100% - 14px);
+    width: 100%;
     max-height: 545px;
-    margin-right: 14px;
-    padding: 16px 12px 16px 16px;
+    margin: 0;
+    padding: 16px 20px 16px 16px;
 
     overflow-x: hidden;
     overflow-y: auto;
+    overscroll-behavior: contain;
 
-    scrollbar-width: thin;
-    scrollbar-color:
-        var(--heat-post-accent)
-        transparent;
+    /* Scroll normally, but keep browser scrollbar chrome hidden. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .heat-mini-popout-scroll::-webkit-scrollbar {
-    width: 5px;
-}
-
-.heat-mini-popout-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.heat-mini-popout-scroll::-webkit-scrollbar-thumb {
-    background:
-        color-mix(
-            in srgb,
-            var(--heat-post-accent) 82%,
-            transparent
-        );
-
-    border: 2px solid transparent;
-    border-radius: 999px;
-
-    background-clip: padding-box;
+    width: 0;
+    height: 0;
+    display: none;
 }
 
 .heat-mini-rail:hover .heat-mini-popout,
@@ -3984,42 +3964,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     background: color-mix(in srgb, var(--heat-post-accent) 13%, var(--heat-panel-light));
     border-color: color-mix(in srgb, var(--heat-post-accent) 25%, var(--heat-border));
-}
-
-/* =========================================================
-   MINI PLAYER INFO
-   ========================================================= */
-
-.heat-mini-player {
-    margin-top: 10px;
-    padding-top: 10px;
-
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 4px;
-
-    color: #717c8e;
-
-    border-top: 1px solid var(--heat-border);
-
-    font-size: 8px;
-    line-height: 1.35;
-}
-
-.heat-mini-player strong {
-    color: var(--heat-group-text);
-    font-size: 8.5px;
-}
-
-.heat-mini-player small {
-    width: 100%;
-    margin-top: 2px;
-
-    color: var(--heat-muted);
-
-    font-size: 7px;
-    line-height: 1.3;
 }
 
 /* =========================================================
@@ -4570,6 +4514,45 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     letter-spacing: 0.45px;
     text-transform: uppercase;
     line-height: 1.3;
+}
+
+.heat-post-player-tag {
+    min-height: 30px;
+    padding: 0 11px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    color: var(--heat-muted);
+    background: rgba(255, 255, 255, .022);
+
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 16%,
+            var(--heat-border)
+        );
+    border-radius: 9px;
+
+    font-size: 7.5px;
+    font-weight: 800;
+    letter-spacing: .45px;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.heat-post-player-label {
+    color: var(--heat-muted);
+}
+
+.heat-post-player-alias {
+    color: var(--heat-group-text);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    text-transform: uppercase;
 }
 
 .heat-post-group-chip {
@@ -10104,7 +10087,7 @@ body.heat-usercp-page #heat-browser textarea::placeholder {
 }
 
 #heat-browser #heat-main .heat-post-row
-:is(.heat-mini-player strong, .heat-post-header-location, .heat-post-reaction span) {
+:is(.heat-post-header-location, .heat-post-reaction span) {
     color: var(--heat-group-text);
     -webkit-text-fill-color: currentColor;
     text-transform: capitalize;
