@@ -4371,7 +4371,6 @@ img[src*="/emoticons/" i] {
 .heat-traditional-phone {
   position: relative;
   width: 100%;
-  min-height: 410px;
   padding: 38px 16px 15px;
   overflow: hidden;
   background:
@@ -4907,7 +4906,6 @@ img[src*="/emoticons/" i] {
   }
 
   .heat-traditional-phone {
-    min-height: 440px;
     padding: 40px 17px 16px;
     border-radius: 22px;
   }
