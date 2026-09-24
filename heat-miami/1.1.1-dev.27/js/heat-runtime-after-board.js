@@ -6266,28 +6266,10 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
 
     function scan() {
         /*
-         * Pass 8 FIX 1: Forum Row avatar ownership is native.
-         * Forum Row renders |last_poster_avatar_url| directly,
-         * so compact-media JS must never scan or overwrite it.
+         * Forum Row + Topic Row avatar ownership is native.
+         * Both render |last_poster_avatar_url| directly,
+         * so compact-media JS must never fetch profiles for those slots.
          */
-
-        document
-            .querySelectorAll(".heat-topic-row")
-            .forEach(function (row) {
-                const link = profileLink(
-                    row,
-                    '.heat-topic-last-poster a[href*="showuser="], ' +
-                    '.heat-topic-last-poster a[href*="MID="], ' +
-                    '.heat-topic-last-poster a[href*="mid="]'
-                );
-                const target = row.querySelector(
-                    ".heat-topic-last-avatar-image"
-                );
-
-                if (link && target) {
-                    decorate(target, link.href);
-                }
-            });
 
         document
             .querySelectorAll(".heat-online-avatar[href]")
