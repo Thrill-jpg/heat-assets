@@ -2974,6 +2974,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     position: relative;
     z-index: 2;
+    align-self: stretch;
 
     background: #10131d;
     border-right: 1px solid var(--heat-border);
@@ -3049,6 +3050,9 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     .heat-mini-profile {
         min-height: auto;
+        height: auto;
+        position: relative;
+        top: auto;
     }
 
     .heat-mini-rail {
@@ -3204,9 +3208,17 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-mini-profile {
     width: 100%;
-    min-height: 100%;
+    min-height: 0;
+    height: max-content;
 
-    position: relative;
+    /*
+     * Sticky belongs on this wrapper, not the inner rail.
+     * Its parent (.heat-post-profile-column) stretches to the full
+     * post height, so this wrapper now has actual travel distance.
+     */
+    position: sticky;
+    top: 18px;
+    align-self: start;
 
     color: var(--heat-text);
 }
@@ -3214,11 +3226,9 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 .heat-mini-rail {
     width: 100%;
     min-height: 0;
-    height: max-content;
+    height: auto;
 
-    position: sticky;
-    top: 18px;
-    align-self: start;
+    position: relative;
 
     display: flex;
     flex-direction: column;
