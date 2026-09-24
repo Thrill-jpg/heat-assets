@@ -718,35 +718,64 @@ html.heat-route-posting
 
 #heat-browser .pagination .pagination_current,
 #heat-browser .pagination a {
-    min-width: 31px;
-    height: 31px;
-    margin: 2px;
-    padding: 0 8px;
+    min-width: 30px;
+    min-height: 30px;
+    margin: 3px;
+    padding: 0 10px;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 999px;
-}
 
-#heat-browser .pagination a {
     color: var(--heat-text-soft);
-    background: var(--heat-panel-light);
-    border: 1px solid var(--heat-border);
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 11px;
+
+    box-shadow: none;
+
+    font-family: var(--heat-font-display);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+
+    transition:
+        color .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
 }
 
-#heat-browser .pagination a:is(:hover, :focus-visible),
+#heat-browser .pagination a:is(:hover, :focus-visible) {
+    color: #ffffff;
+    background: var(--heat-ui-hover-surface);
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-ui-accent-1) 40%,
+            rgba(255, 255, 255, 0.09)
+        );
+
+    outline: none;
+    transform: translateY(-1px);
+}
+
 #heat-browser .pagination .pagination_current {
     color: #ffffff;
     background: var(--heat-ui-selected-surface);
+
     border-color:
         color-mix(
             in srgb,
             var(--heat-ui-accent-1) 42%,
             transparent
         );
+
     box-shadow:
-        0 0 0 3px var(--heat-ui-focus-ring);
-    outline: none;
+        inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 #heat-browser .pagination_pagetxt { display: none; }
@@ -2974,7 +3003,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     position: relative;
     z-index: 2;
-    align-self: stretch;
 
     background: #10131d;
     border-right: 1px solid var(--heat-border);
@@ -3050,9 +3078,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     .heat-mini-profile {
         min-height: auto;
-        height: auto;
-        position: relative;
-        top: auto;
     }
 
     .heat-mini-rail {
@@ -3208,17 +3233,9 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-mini-profile {
     width: 100%;
-    min-height: 0;
-    height: max-content;
+    min-height: 100%;
 
-    /*
-     * Sticky belongs on this wrapper, not the inner rail.
-     * Its parent (.heat-post-profile-column) stretches to the full
-     * post height, so this wrapper now has actual travel distance.
-     */
-    position: sticky;
-    top: 18px;
-    align-self: start;
+    position: relative;
 
     color: var(--heat-text);
 }
@@ -3229,6 +3246,8 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     height: auto;
 
     position: relative;
+    top: auto;
+    align-self: auto;
 
     display: flex;
     flex-direction: column;
@@ -4939,14 +4958,64 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 .heat-topic-pages {
-    color: var(--heat-topic-accent);
+    min-width: 0;
 
-    font-size: 9.5px;
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    color: var(--heat-muted);
+
+    font-size: 8.5px;
     font-weight: 750;
 }
 
 .heat-topic-pages:empty {
     display: none;
+}
+
+#heat-browser #heat-main .heat-topic-pages a {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0 7px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--heat-text-soft);
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 9px;
+
+    font-family: var(--heat-font-display);
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+
+    transition:
+        color .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+#heat-browser #heat-main .heat-topic-pages a:is(:hover, :focus-visible) {
+    color: #ffffff;
+    background: var(--heat-ui-hover-surface);
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-ui-accent-1) 40%,
+            rgba(255, 255, 255, 0.09)
+        );
+
+    outline: none;
+    transform: translateY(-1px);
 }
 
 
@@ -5109,9 +5178,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     overflow: hidden;
 
     background-color: #151925;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 
     border-radius: 12px;
 }
@@ -5121,6 +5187,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     position: absolute;
     inset: 0;
+    z-index: 0;
 
     display: flex;
     align-items: center;
@@ -5131,7 +5198,23 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     font-size: 20px;
 }
 
-.heat-topic-last-avatar-image[style*="background-image"]::before {
+.heat-topic-last-avatar-native {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+    z-index: 1;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    border: 0;
+    border-radius: inherit;
+}
+
+.heat-topic-last-avatar-native[hidden] {
     display: none;
 }
 
@@ -7080,7 +7163,7 @@ html:not(.heat-route-subforum)
 
 body.heat-subforum-page .heat-subforum-directory {
     width: 100%;
-    margin: 0;
+    margin: 0 0 14px;
     padding: 0;
     display: flex;
     flex-direction: column;
