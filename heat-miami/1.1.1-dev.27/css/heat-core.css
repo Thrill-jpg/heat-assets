@@ -3084,9 +3084,12 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         right: 12px;
 
         width: auto;
-        max-height: 520px;
 
         border-radius: 18px;
+    }
+
+    .heat-mini-popout-scroll {
+        max-height: 520px;
     }
 
     .heat-mini-popout::before {
@@ -3375,15 +3378,14 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-mini-popout {
     width: 330px;
-    max-height: 545px;
-    padding: 16px;
+    padding: 0;
 
     position: absolute;
     top: 14px;
     left: 106px;
     z-index: 60;
 
-    overflow: auto;
+    overflow: visible;
 
     opacity: 0;
     visibility: hidden;
@@ -3409,13 +3411,52 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     backdrop-filter: blur(19px);
     -webkit-backdrop-filter: blur(19px);
 
-    scrollbar-width: thin;
-    scrollbar-color: var(--heat-post-accent) rgba(255, 255, 255, .04);
-
     transition:
         opacity .18s ease,
         transform .18s ease,
         visibility .18s ease;
+}
+
+/*
+ * The popup frame no longer owns scrolling.
+ * This inset inner scroller keeps the thumb inside the rounded card
+ * instead of letting it sit on top of the outer border/radius.
+ */
+.heat-mini-popout-scroll {
+    width: calc(100% - 8px);
+    max-height: 545px;
+    margin-right: 8px;
+    padding: 16px 10px 16px 16px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        var(--heat-post-accent)
+        transparent;
+}
+
+.heat-mini-popout-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.heat-mini-popout-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.heat-mini-popout-scroll::-webkit-scrollbar-thumb {
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 82%,
+            transparent
+        );
+
+    border: 2px solid transparent;
+    border-radius: 999px;
+
+    background-clip: padding-box;
 }
 
 .heat-mini-rail:hover .heat-mini-popout,
