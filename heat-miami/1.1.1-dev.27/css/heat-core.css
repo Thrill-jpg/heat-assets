@@ -5217,13 +5217,57 @@ a[href] {
 
 .heat-topic-last-avatar-image {
     position: absolute;
-    inset: 2px;
+    inset: 1px;
 
     overflow: hidden;
 
     background-color: #151925;
 
-    border-radius: 10px;
+    border-radius: 11px;
+}
+
+
+/* Loading feedback only.
+   Shows while Field 2 is actively resolving, then disappears.
+   Missing/broken Field 2 stays blank. */
+.heat-topic-last-avatar-image.is-field2-pending::before,
+.heat-topic-last-avatar-image.is-field2-pending::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    z-index: 0;
+
+    display: block;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    transform: translateX(-50%);
+
+    pointer-events: none;
+}
+
+.heat-topic-last-avatar-image.is-field2-pending::before {
+    width: 12px;
+    height: 12px;
+
+    top: 15px;
+
+    border-radius: 50%;
+}
+
+.heat-topic-last-avatar-image.is-field2-pending::after {
+    width: 26px;
+    height: 13px;
+
+    top: 30px;
+
+    border-radius: 13px 13px 7px 7px;
+}
+
+.heat-topic-last-avatar-image.has-field2-media::before,
+.heat-topic-last-avatar-image.has-field2-media::after {
+    display: none;
 }
 
 .heat-topic-last-avatar-native {
