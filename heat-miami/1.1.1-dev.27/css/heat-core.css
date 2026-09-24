@@ -9957,26 +9957,58 @@ a.heat-mini-action:hover {
     backdrop-filter: blur(8px) saturate(1.08);
 }
 
-/* Accent-side comm messages use the post author's softer glass gradient. */
+/* Modern comm starter-side bubbles stay dark with restrained group tint. */
 .heat-post-row
 [data-heat-comm]:not(.heat-y2k--aim)
 .heat-comm-message.is-starter
-.heat-comm-bubble {
+.heat-comm-bubble:not(.is-media-only) {
     color: #ffffff !important;
+
     background:
-        var(--heat-post-frosted-gradient) !important;
+        linear-gradient(
+            180deg,
+            color-mix(
+                in srgb,
+                var(--heat-group-color-1) 11%,
+                rgba(20,27,39,.98)
+            ),
+            color-mix(
+                in srgb,
+                var(--heat-group-color-3) 7%,
+                rgba(15,21,32,.98)
+            )
+        ) !important;
+
     border:
-        1px solid #000;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.10),
-        0 9px 20px rgba(0,0,0,.18),
-        0 0 16px
+        1px solid
         color-mix(
             in srgb,
-            var(--heat-group-color-1) 12%,
+            var(--heat-group-color-1) 24%,
+            rgba(255,255,255,.07)
+        ) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 10px 20px rgba(0,0,0,.16),
+        0 0 14px
+        color-mix(
+            in srgb,
+            var(--heat-group-color-1) 7%,
             transparent
         ) !important;
-    backdrop-filter: blur(10px) saturate(1.08);
+
+    backdrop-filter: blur(10px) saturate(1.04);
+}
+
+/* Real image-only comm messages must not regain a text bubble from core. */
+.heat-post-row
+[data-heat-comm]:not(.heat-y2k--aim)
+.heat-comm-message.is-starter
+.heat-comm-bubble.is-media-only {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none;
 }
 
 .heat-post-row
