@@ -4939,359 +4939,601 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT PHONE CALL COMMS
-   Three variants: frosted photo, contact photo, no photo
+   HEAT PHONE CALL COMMS — NIGHTLINE
+   Approved redesign: original Nightline B placement.
+   Existing HTML contract and four call variants preserved.
    ========================================================= */
 
 .heat-call {
-  --call-accent: #bc6f91;
-  --call-accent-two: #7056aa;
+  --call-accent: var(--heat-template-group-1, #ff1685);
+  --call-accent-two: var(--heat-template-group-3, #ff9d18);
   --call-bg: #070b12;
   --call-panel: #0d131d;
-  --call-line: rgba(255, 255, 255, 0.095);
-  --call-text: #f4f6f9;
-  --call-muted: #8d96a6;
-  width: min(100%, 350px);
-  min-height: 510px;
+  --call-line: rgba(255, 255, 255, 0.09);
+  --call-text: #f5f7fb;
+  --call-muted: #8f99ab;
+
+  width: min(100%, 360px);
+  min-height: 520px;
   margin: 18px auto;
+
   position: relative;
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
-  color: var(--call-text);
-  background:
-    linear-gradient(
-      180deg,
-      #0a0e18 0%,
-      #070b12 48%,
-      #050810 100%
-    );
-  border: 1px solid rgba(255, 255, 255, 0.095);
-  border-radius: 24px;
-  box-shadow:
-    0 14px 32px rgba(0, 0, 0, 0.30),
-    inset 0 1px rgba(255, 255, 255, 0.035);
-  font: 13px/1.55 "Abel", Arial, sans-serif;
   isolation: isolate;
-}
 
-/* Plain + small-avatar call variants use a clean neutral shell.
-   No group-color wash on the phone background. */
-.heat-call:not(.heat-call--frosted):not(.heat-call--clear),
-.heat-call--plain {
+  color: var(--call-text);
+
   background:
+    radial-gradient(
+      circle at 50% 28%,
+      rgba(var(--heat-template-group-rgb-1), .14),
+      transparent 24%
+    ),
     linear-gradient(
       180deg,
-      #0a0e18 0%,
-      #070b12 48%,
-      #050810 100%
+      #090d15 0%,
+      #070a11 58%,
+      #05080e 100%
     );
+
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 30px;
+
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, .36),
+    inset 0 1px 0 rgba(255, 255, 255, .025);
+
+  font: 13px/1.55 "Abel", Arial, sans-serif;
 }
 
-.heat-call::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 18px;
-  width: 54px;
-  height: 2px;
-  z-index: 4;
-  pointer-events: none;
-  background: linear-gradient(90deg, var(--call-accent), transparent);
-  border-radius: 999px;
+.heat-call,
+.heat-call * {
+  box-sizing: border-box;
 }
 
-
-.heat-call * { box-sizing: border-box; }
-
+/* Background media is used only by the existing frosted and
+   clear-photo variants. */
 .heat-call-bg {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: -3;
+
   width: 100%;
   height: 100%;
+
+  display: block;
   object-fit: cover;
-  transform: scale(1.12);
-  opacity: .9;
-  filter: blur(12px) saturate(.58) brightness(.28) contrast(1.05);
+  object-position: center;
 }
 
-.heat-call--frosted::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(
-      circle at 50% -6%,
-      rgba(var(--heat-template-group-rgb-1), .08),
-      transparent 38%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(6, 10, 18, .46) 0%,
-      rgba(5, 8, 17, .70) 100%
-    ),
-    rgba(8, 12, 22, .24);
-  backdrop-filter: blur(2px) saturate(95%);
-  -webkit-backdrop-filter: blur(2px) saturate(95%);
-}
+/* ---------------------------------------------------------
+   DEVICE STATUS
+   Nightline intentionally has no handset notch.
+   --------------------------------------------------------- */
 
 .heat-call-topbar {
   position: relative;
-  min-height: 46px;
+  z-index: 4;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 13px 20px 8px;
-  color: rgba(255, 255, 255, .82);
-  font-size: 10px;
-  font-weight: 750;
-  letter-spacing: .04em;
-}
+  gap: 8px;
 
-.heat-call-signal {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 9px;
-  letter-spacing: .08em;
+  padding: 15px 18px 8px;
+
+  color: #7e8798;
+
+  font-family: "Viga", Arial, sans-serif;
+  font-size: 7px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .10em;
   text-transform: uppercase;
 }
 
-.heat-call-signal::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  background: #43dc8a;
-  border-radius: 50%;
-  box-shadow: 0 0 9px rgba(67, 220, 138, .72);
+.heat-call-top-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: rgba(255, 255, 255, .68);
+  font-size: 12px;
 }
 
+.heat-call-signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #8b95a7;
+
+  font-family: "Viga", Arial, sans-serif;
+  font-size: 7px;
+  font-weight: 400;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+}
+
+/* The connected state lives beneath the contact identity in
+   Nightline, so the service label does not need another dot. */
+.heat-call-signal::before {
+  content: none;
+}
+
+/* ---------------------------------------------------------
+   CONTACT IDENTITY
+   Original Nightline B placement.
+   --------------------------------------------------------- */
+
 .heat-call-contact {
+  position: relative;
+  z-index: 3;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 18px 20px 10px;
+
+  padding: 34px 20px 30px;
+
   text-align: center;
 }
 
 .heat-call-avatar {
-  width: 66px;
-  height: 66px;
+  width: 92px;
+  height: 92px;
   aspect-ratio: 1 / 1;
+
   display: block;
   overflow: hidden;
+
+  margin-bottom: 20px;
+
   object-fit: cover;
   object-position: center;
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: 18px;
-  box-shadow: none;
+
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 0 5px #080c14,
+    0 0 0 6px rgba(var(--heat-template-group-rgb-1), .40),
+    0 0 38px rgba(var(--heat-template-group-rgb-1), .13);
 }
 
-.heat-call--frosted .heat-call-avatar,
+/* No-photo call: replace the missing contact image with the
+   approved group-color pulse ring. */
 .heat-call--plain .heat-call-avatar {
   display: none;
 }
 
+.heat-call--plain .heat-call-contact::before {
+  content: "";
+
+  width: 92px;
+  height: 92px;
+
+  margin-bottom: 20px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      #0a0f17 0 44%,
+      transparent 45%
+    ),
+    conic-gradient(
+      from 40deg,
+      rgba(var(--heat-template-group-rgb-1), .90),
+      rgba(var(--heat-template-group-rgb-3), .50),
+      rgba(var(--heat-template-group-rgb-1), .14),
+      rgba(var(--heat-template-group-rgb-1), .90)
+    );
+
+  box-shadow:
+    0 0 34px rgba(var(--heat-template-group-rgb-1), .10);
+}
+
+/* Frostered and clear background variants already use the large
+   photo as their identity media, so the small avatar stays hidden. */
+.heat-call--frosted .heat-call-avatar,
+.heat-call--clear .heat-call-avatar {
+  display: none;
+}
+
+/* Preserve the same tall Nightline identity zone even when a
+   background photo replaces the avatar. */
+.heat-call--frosted .heat-call-contact,
+.heat-call--clear .heat-call-contact {
+  padding-top: 112px;
+}
+
 .heat-call-name {
-  max-width: 100%;
-  overflow: hidden;
-  color: #fff;
-  font-family: Limelight, Georgia, serif;
-  font-size: 27px;
+  position: relative;
+  z-index: 2;
+
+  max-width: 90%;
+
+  color: #ffffff;
+
+  font-family: "Limelight", Georgia, serif;
+  font-size: 31px;
   font-weight: 400;
-  line-height: 1;
-  letter-spacing: -.02em;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  line-height: .95;
+  letter-spacing: -.025em;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+/* Nightline signature: audio-signal bars live behind the name,
+   exactly like the approved B concept. */
+.heat-call-name::before,
+.heat-call-name::after {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  z-index: -1;
+
+  width: 74px;
+  height: 56px;
+
+  transform: translateY(-50%);
+
+  opacity: .30;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 4%,
+      rgba(var(--heat-template-group-rgb-1), .70) 4% 6%,
+      transparent 6% 15%,
+      rgba(var(--heat-template-group-rgb-3), .55) 15% 17%,
+      transparent 17% 29%,
+      rgba(var(--heat-template-group-rgb-1), .55) 29% 31%,
+      transparent 31% 45%,
+      rgba(var(--heat-template-group-rgb-3), .72) 45% 47%,
+      transparent 47% 61%,
+      rgba(var(--heat-template-group-rgb-1), .75) 61% 63%,
+      transparent 63% 78%,
+      rgba(var(--heat-template-group-rgb-3), .50) 78% 80%,
+      transparent 80%
+    );
+
+  -webkit-mask:
+    linear-gradient(
+      180deg,
+      transparent,
+      #000 30%,
+      #000 70%,
+      transparent
+    );
+  mask:
+    linear-gradient(
+      180deg,
+      transparent,
+      #000 30%,
+      #000 70%,
+      transparent
+    );
+
+  pointer-events: none;
+}
+
+.heat-call-name::before {
+  right: calc(100% + 10px);
+}
+
+.heat-call-name::after {
+  left: calc(100% + 10px);
+  transform: translateY(-50%) scaleX(-1);
 }
 
 .heat-call-length {
-  margin-top: 7px;
-  color: rgba(231, 234, 245, .68);
-  font-size: 11px;
-  letter-spacing: .08em;
+  margin-top: 9px;
+
+  color: #8f99ab;
+
+  font-family: "Viga", Arial, sans-serif;
+  font-size: 7px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .12em;
   text-transform: uppercase;
 }
 
+.heat-call-length::before {
+  content: "connected • ";
+
+  color: #4ddb8a;
+}
+
+/* ---------------------------------------------------------
+   LIVE TRANSCRIPT
+   --------------------------------------------------------- */
+
 .heat-call-dialogue {
+  position: relative;
+  z-index: 3;
+
   flex: 1;
-  margin: 8px 17px 15px;
-  padding: 16px 16px 16px 18px;
-  color: #e9ebf5;
+
+  min-height: 138px;
+  margin: 0 20px 18px;
+  padding: 18px;
+
+  overflow-wrap: anywhere;
+
+  color: #e8ebf0;
+
   background:
     linear-gradient(
       180deg,
-      rgba(15, 20, 31, 0.96),
-      rgba(9, 13, 22, 0.96)
+      rgba(17, 23, 34, .84),
+      rgba(10, 14, 22, .92)
     );
-  border: 1px solid rgba(255, 255, 255, 0.085);
-  border-left: 2px solid color-mix(in srgb, var(--call-accent) 78%, transparent);
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(8px);
-  overflow-wrap: anywhere;
+
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: 18px;
+
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, .18);
 }
 
 .heat-call-dialogue::before {
-  content: "live call";
+  content: "live transcript";
+
   display: block;
-  margin-bottom: 14px;
-  color: var(--call-accent);
-  font-size: 9px;
-  font-weight: 850;
+
+  width: max-content;
+  margin-bottom: 12px;
+
+  background: var(--heat-template-group-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  font-family: "Viga", Arial, sans-serif;
+  font-size: 7px;
+  font-weight: 400;
+  line-height: 1;
   letter-spacing: .15em;
   text-transform: uppercase;
 }
 
-.heat-call-dialogue p:first-child { margin-top: 0; }
-.heat-call-dialogue p:last-child { margin-bottom: 0; }
+.heat-call-dialogue p:first-child {
+  margin-top: 0;
+}
+
+.heat-call-dialogue p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------
+   CALL CONTROLS
+   --------------------------------------------------------- */
 
 .heat-call-controls {
+  position: relative;
+  z-index: 3;
+
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 17px;
-  padding: 0 16px 18px;
+  gap: 20px;
+
+  padding: 0 18px 20px;
 }
 
 .heat-call-control {
+  min-width: 50px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
-  color: #a9b0c4;
-  font-size: 8px;
-  letter-spacing: .08em;
+  gap: 6px;
+
+  color: #727d90;
+
+  font-family: "Viga", Arial, sans-serif;
+  font-size: 6px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .09em;
   text-transform: uppercase;
 }
 
 .heat-call-control-icon {
   width: 44px;
   height: 44px;
+
   display: grid;
   place-items: center;
-  color: #edf0f8;
-  background: rgba(21, 27, 39, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+
+  color: #e8edf5;
+  background: rgba(20, 27, 39, .94);
+
+  border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 50%;
-  font-size: 19px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .025);
+
+  font-size: 17px;
 }
 
 .heat-call-control--end .heat-call-control-icon {
-  color: #fff;
-  background: #d64c62;
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff547a,
+      #d83b59
+    );
+
   border-color: transparent;
-  box-shadow: 0 9px 23px rgba(214, 76, 98, .32);
+
+  box-shadow:
+    0 10px 22px rgba(216, 59, 89, .22);
 }
 
-.heat-call--plain .heat-call-contact {
-  padding-top: 56px;
+/* ---------------------------------------------------------
+   FROSTED PHOTO VARIANT
+   Background treatment changes; Nightline geometry does not.
+   --------------------------------------------------------- */
+
+.heat-call--frosted {
+  background: #080c14;
 }
 
-@media (max-width: 480px) {
-  .heat-call {
-    width: 100%;
-    min-height: 580px;
-    border-radius: 24px;
-  }
+.heat-call--frosted .heat-call-bg {
+  transform: scale(1.10);
 
-  .heat-call-contact { padding-top: 24px; }
-  .heat-call--plain .heat-call-contact { padding-top: 45px; }
-  .heat-call-dialogue { margin-inline: 16px; }
+  opacity: .90;
+
+  filter:
+    blur(18px)
+    brightness(.34)
+    saturate(.72);
 }
 
-/* =========================================================
-   VERSION FOUR: FULLY CLEAR PHOTO
-   ========================================================= */
+.heat-call--frosted::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 8, 15, .42),
+      rgba(5, 8, 15, .70)
+    ),
+    radial-gradient(
+      circle at 50% 28%,
+      rgba(var(--heat-template-group-rgb-1), .11),
+      transparent 25%
+    );
+
+  pointer-events: none;
+}
+
+.heat-call--frosted .heat-call-dialogue {
+  background: rgba(8, 12, 20, .70);
+
+  backdrop-filter: blur(8px) saturate(108%);
+  -webkit-backdrop-filter: blur(8px) saturate(108%);
+}
+
+/* ---------------------------------------------------------
+   CLEAR PHOTO VARIANT
+   Photo remains clear; only the writing receives glass.
+   --------------------------------------------------------- */
 
 .heat-call--clear {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  background: transparent !important;
+  background: #080b11;
 }
 
 .heat-call--clear .heat-call-bg {
+  opacity: 1;
+  transform: none;
+
+  filter: none;
+  -webkit-filter: none;
+}
+
+.heat-call--clear::before {
+  content: "";
+
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
 
-  width: 100%;
-  height: 100%;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 7, 12, .18) 0%,
+      rgba(5, 7, 12, .08) 30%,
+      rgba(5, 7, 12, .22) 55%,
+      rgba(5, 7, 12, .62) 100%
+    );
 
-  object-fit: cover;
-  object-position: center;
-
-  filter: none !important;
-  -webkit-filter: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-
-  opacity: 1 !important;
-  transform: none !important;
+  pointer-events: none;
 }
 
-/* Remove every overlay from the clear version */
-
-.heat-call--clear::before,
-.heat-call--clear::after {
-  content: none !important;
-  display: none !important;
-  background: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+.heat-call--clear .heat-call-name,
+.heat-call--clear .heat-call-length,
+.heat-call--clear .heat-call-topbar {
+  text-shadow:
+    0 2px 9px rgba(0, 0, 0, .84);
 }
-
-/* Keep the content above the photo */
-
-.heat-call--clear .heat-call-topbar,
-.heat-call--clear .heat-call-contact,
-.heat-call--clear .heat-call-dialogue,
-.heat-call--clear .heat-call-controls {
-  position: relative;
-  z-index: 2;
-}
-
-/* The clear-photo call is the single featured dialogue treatment.
-   Its photo stays clear while the writing receives a readable
-   group-colored glass panel. Every other call variant continues
-   to use the shared dark dialogue box above. */
 
 .heat-call--clear .heat-call-dialogue {
   background:
     linear-gradient(
       135deg,
-      rgba(var(--heat-template-group-rgb-1), .16),
-      rgba(var(--heat-template-group-rgb-2), .10) 52%,
-      rgba(var(--heat-template-group-rgb-3), .14)
+      rgba(var(--heat-template-group-rgb-1), .10),
+      rgba(var(--heat-template-group-rgb-2), .05) 50%,
+      rgba(var(--heat-template-group-rgb-3), .08)
     ),
-    rgba(10, 14, 26, .78);
-  border: 1px solid rgba(var(--heat-template-group-rgb-1), .42);
+    rgba(7, 10, 17, .64);
+
+  border-color: rgba(255, 255, 255, .11);
+
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .06),
-    0 14px 34px rgba(0, 0, 0, .28),
-    0 0 20px rgba(var(--heat-template-group-rgb-1), .10);
-  backdrop-filter: blur(14px) saturate(118%);
-  -webkit-backdrop-filter: blur(14px) saturate(118%);
-  text-shadow: none;
+    0 16px 34px rgba(0, 0, 0, .25);
+
+  backdrop-filter: blur(14px) saturate(114%);
+  -webkit-backdrop-filter: blur(14px) saturate(114%);
 }
 
-.heat-call--clear .heat-call-dialogue::before {
-  background: var(--heat-template-group-gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+.heat-call--clear .heat-call-control-icon {
+  background: rgba(8, 11, 17, .60);
+
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
 }
 
-.heat-call--clear .heat-call-topbar,
-.heat-call--clear .heat-call-contact,
-.heat-call--clear .heat-call-controls {
-  text-shadow:
-    0 2px 4px rgba(0, 0, 0, 1),
-    0 4px 12px rgba(0, 0, 0, 0.85);
+/* ---------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+  .heat-call {
+    width: 100%;
+    min-height: 500px;
+    border-radius: 28px;
+  }
+
+  .heat-call-contact {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .heat-call--frosted .heat-call-contact,
+  .heat-call--clear .heat-call-contact {
+    padding-top: 96px;
+  }
+
+  .heat-call-dialogue {
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+
+  .heat-call-name::before,
+  .heat-call-name::after {
+    width: 55px;
+  }
 }
 
 /* =========================================================
@@ -5411,12 +5653,12 @@ img[src*="/emoticons/" i] {
 /* Centered handset speaker/notch.
    Compact and traditional text comms already carry their own
    matching hardware detail; this completes Phone Call + FaceTime. */
-.heat-call-topbar::before,
 .heat-facetime-topbar::before {
   content: "";
 
   position: absolute;
   left: 50%;
+  top: -7px;
   z-index: 0;
 
   width: 88px;
@@ -5436,15 +5678,6 @@ img[src*="/emoticons/" i] {
     0 3px 8px rgba(0, 0, 0, 0.24);
 }
 
-.heat-call-topbar::before {
-  top: 7px;
-}
-
-.heat-facetime-topbar::before {
-  top: -7px;
-}
-
-.heat-call-topbar > *,
 .heat-facetime-topbar > * {
   position: relative;
   z-index: 1;
@@ -12498,23 +12731,20 @@ img[src*="/emoticons/" i] {
 
 /* ---------------------------------------------------------
    PHONE CALL CONTROLS
-   Non-end controls use the poster's complete palette.
+   Nightline keeps utility controls neutral. Group identity is
+   carried by the contact ring, waveform, and transcript label.
    --------------------------------------------------------- */
 .heat-call-control:not(.heat-call-control--end)
 .heat-call-control-icon {
-    background: var(--heat-template-group-gradient);
-    border-color: rgba(var(--heat-template-group-rgb-1), .40);
+    background: rgba(20, 27, 39, .94);
+    border-color: rgba(var(--heat-template-group-rgb-1), .14);
     box-shadow:
-        0 9px 23px rgba(var(--heat-template-group-rgb-1), .24),
-        inset 0 1px 0 rgba(255,255,255,.18);
+        0 0 16px rgba(var(--heat-template-group-rgb-1), .07),
+        inset 0 1px 0 rgba(255, 255, 255, .025);
 }
 
 .heat-call-control:not(.heat-call-control--end) {
-    color: color-mix(
-        in srgb,
-        var(--heat-template-group-text) 72%,
-        #ffffff 28%
-    );
+    color: #727d90;
 }
 
 /* ---------------------------------------------------------
