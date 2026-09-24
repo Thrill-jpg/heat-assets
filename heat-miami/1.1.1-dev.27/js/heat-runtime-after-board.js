@@ -4651,6 +4651,58 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
       });
     }
 
+    /*
+       MEDIA-ONLY CLASSIFICATION
+
+       Do this in JS rather than CSS :only-child.
+
+       CSS :only-child ignores text nodes, so a reply such as:
+         "that is crazy 😂"
+       can still have an <img> as its only ELEMENT child and be
+       mistaken for an image-only message.
+
+       Mark a bubble as media-only only when:
+       - it contains no readable text
+       - it contains exactly one image
+       - that image is not a native Jcink smilie/emoticon
+    */
+
+    var bubbleText = bubble.textContent
+      .replace(/\u00a0/g, " ")
+      .trim();
+
+    var bubbleImages = Array.from(
+      bubble.querySelectorAll("img")
+    );
+
+    var realMediaImages = bubbleImages.filter(
+      function (image) {
+        var alt = cleanText(
+          image.getAttribute("alt")
+        ).toLowerCase();
+
+        var src = String(
+          image.getAttribute("src") ||
+          image.src ||
+          ""
+        ).toLowerCase();
+
+        return !(
+          alt === "smilie" ||
+          src.indexOf("/html/emoticons/") !== -1 ||
+          src.indexOf("/emoticons/") !== -1
+        );
+      }
+    );
+
+    if (
+      !bubbleText &&
+      bubbleImages.length === 1 &&
+      realMediaImages.length === 1
+    ) {
+      bubble.classList.add("is-media-only");
+    }
+
     var time = document.createElement("div");
 
     time.className = "heat-comm-time";
