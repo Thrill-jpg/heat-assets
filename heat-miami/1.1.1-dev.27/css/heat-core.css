@@ -3071,6 +3071,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     }
 
     .heat-mini-rail-group {
+        width: auto;
         max-width: 118px;
     }
 
@@ -3212,10 +3213,12 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-mini-rail {
     width: 100%;
-    min-height: 100%;
+    min-height: 0;
+    height: max-content;
 
     position: sticky;
     top: 18px;
+    align-self: start;
 
     display: flex;
     flex-direction: column;
@@ -3273,10 +3276,11 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 .heat-mini-rail-group {
-    max-width: 92px;
+    width: min(96px, 100%);
+    max-width: 96px;
     padding: 6px 9px;
 
-    overflow: hidden;
+    overflow: visible;
 
     color: var(--heat-text-soft);
     background:
@@ -3287,16 +3291,18 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         );
 
     border: 1px solid var(--heat-border);
-    border-radius: 999px;
+    border-radius: 10px;
 
     font-family: var(--heat-font-display);
     font-size: 7px;
     font-weight: 800;
     letter-spacing: 0.55px;
-    line-height: 1;
-    text-overflow: ellipsis;
+    line-height: 1.25;
+    text-align: center;
+    text-overflow: clip;
     text-transform: uppercase;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 .heat-mini-rail-awards {
