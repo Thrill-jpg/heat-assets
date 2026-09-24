@@ -5561,42 +5561,42 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   HEAT FACETIME COMMS
-   VERSION ONE: COMPACT FULL-SCREEN PARTNER VIEW
+   HEAT FACETIME COMMS — GLASSROOM
+   Approved redesign. Existing FaceTime HTML contract preserved.
+   Full partner view + floating self-view + glass captions + dock.
    ========================================================= */
 
 .heat-facetime {
-  --ft-accent: #bc6f91;
-  --ft-accent-two: #7056aa;
+  --ft-accent: var(--heat-template-group-1, #ff1685);
+  --ft-accent-two: var(--heat-template-group-3, #ff9d18);
+
+  width: min(100%, 390px);
+  height: 590px;
+  min-height: 590px;
+
   position: relative;
-  width: min(100%, 350px);
-  min-height: 510px;
   margin: 20px auto;
-  padding: 11px;
+
   overflow: hidden;
   isolation: isolate;
-  border-radius: 24px;
-  background: #070b12;
-  border: 1px solid rgba(255, 255, 255, 0.095);
-  box-shadow:
-    0 14px 32px rgba(0, 0, 0, 0.30),
-    inset 0 1px rgba(255, 255, 255, 0.035);
+
   color: #ffffff;
+  background: #070b12;
+
+  border: 1px solid rgba(255, 255, 255, .10);
+  border-radius: 30px;
+
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, .38),
+    inset 0 1px 0 rgba(255, 255, 255, .03);
+
   font-family: "Abel", Arial, sans-serif;
 }
-.heat-facetime::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 18px;
-  width: 54px;
-  height: 2px;
-  z-index: 5;
-  pointer-events: none;
-  background: linear-gradient(90deg, var(--ft-accent), transparent);
-  border-radius: 999px;
-}
 
+.heat-facetime,
+.heat-facetime * {
+  box-sizing: border-box;
+}
 
 
 /* =========================================================
@@ -5606,24 +5606,23 @@ img[src*="/emoticons/" i] {
 .heat-facetime-main {
   position: absolute;
   inset: 0;
-  z-index: -2;
-
-  display: block;
+  z-index: 0;
 
   width: 100%;
   height: 100%;
+  max-width: none;
+
+  display: block;
+  margin: 0;
 
   object-fit: cover;
   object-position: center;
-
-  filter: none;
-  opacity: 1;
 }
 
 
 /* =========================================================
    READABILITY GRADIENT
-   Does not blur the main photo
+   Main partner image stays clear.
    ========================================================= */
 
 .heat-facetime::before {
@@ -5631,75 +5630,71 @@ img[src*="/emoticons/" i] {
 
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
 
   pointer-events: none;
 
   background:
     linear-gradient(
-      to bottom,
-      rgba(7, 9, 15, 0.42) 0%,
-      rgba(7, 9, 15, 0.12) 24%,
-      rgba(7, 9, 15, 0.04) 48%,
-      rgba(7, 9, 15, 0.58) 100%
+      180deg,
+      rgba(5, 7, 12, .30) 0%,
+      transparent 24%,
+      transparent 52%,
+      rgba(4, 7, 12, .72) 100%
     );
+}
+
+/* Restrained group-color rail. */
+.heat-facetime::after {
+  content: "";
+
+  position: absolute;
+  left: 20px;
+  top: 0;
+  z-index: 7;
+
+  width: 82px;
+  height: 2px;
+
+  pointer-events: none;
+
+  background: var(--heat-template-group-gradient);
+  border-radius: 999px;
 }
 
 
 /* =========================================================
    TOP STATUS BAR
+   Glassroom intentionally has no handset notch.
    ========================================================= */
 
 .heat-facetime-topbar {
   position: relative;
-  z-index: 3;
+  z-index: 5;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 10px;
 
-  margin-bottom: 12px;
+  margin: 0;
+  padding: 17px 18px 8px;
 
-  color: #ffffff;
+  color: rgba(255, 255, 255, .76);
 
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: "Viga", Arial, sans-serif;
+  font-size: 7px;
+  font-weight: 400;
   line-height: 1;
+  letter-spacing: .12em;
   text-transform: uppercase;
 
-  text-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.9),
-    0 4px 14px rgba(0, 0, 0, 0.65);
+  text-shadow: none;
 }
 
-/* Centered handset speaker/notch.
-   Compact and traditional text comms already carry their own
-   matching hardware detail; this completes Phone Call + FaceTime. */
 .heat-facetime-topbar::before {
-  content: "";
-
-  position: absolute;
-  left: 50%;
-  top: -7px;
-  z-index: 0;
-
-  width: 88px;
-  height: 15px;
-
-  transform: translateX(-50%);
-
-  pointer-events: none;
-
-  background: rgba(7, 8, 12, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.035);
-  border-top: 0;
-  border-radius: 0 0 12px 12px;
-
-  box-shadow:
-    inset 0 -1px 0 rgba(255, 255, 255, 0.025),
-    0 3px 8px rgba(0, 0, 0, 0.24);
+  content: none;
+  display: none;
 }
 
 .heat-facetime-topbar > * {
@@ -5713,20 +5708,21 @@ img[src*="/emoticons/" i] {
   align-items: center;
 
   min-height: 28px;
-  padding: 7px 9px;
+  padding: 7px 10px;
 
+  color: rgba(255, 255, 255, .80);
+
+  background: rgba(8, 12, 18, .42);
+
+  border: 1px solid rgba(255, 255, 255, .10);
   border-radius: 999px;
 
-  background: rgba(255, 255, 255, 0.12);
-
-  border: 1px solid rgba(255, 255, 255, 0.14);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .heat-facetime-status {
-  max-width: 210px;
+  max-width: 200px;
 
   overflow: hidden;
 
@@ -5741,27 +5737,37 @@ img[src*="/emoticons/" i] {
 
 .heat-facetime-contact {
   position: relative;
-  z-index: 3;
+  z-index: 5;
 
-  margin-top: 2px;
+  margin: 34px 0 0 20px;
 }
 
 .heat-facetime-name {
   display: inline-block;
-  max-width: 64%;
-  padding: 7px 10px;
-  border-radius: 13px;
-  background: rgba(8,12,18,.56);
-  border: 1px solid rgba(255,255,255,.09);
-  color: #fff;
-  font-family: Limelight, Georgia, serif;
-  font-size: 22px;
+
+  max-width: 72%;
+
+  padding: 0;
+
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+
+  color: #ffffff;
+  background: none;
+  border: 0;
+  border-radius: 0;
+
+  font-family: "Limelight", Georgia, serif;
+  font-size: 31px;
   font-weight: 400;
-  letter-spacing: -.02em;
-  line-height: 1;
-  text-shadow: 0 1px 3px rgba(0,0,0,.62);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  line-height: .95;
+  letter-spacing: -.025em;
+
+  text-shadow:
+    0 3px 14px rgba(0, 0, 0, .70);
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 
@@ -5771,23 +5777,30 @@ img[src*="/emoticons/" i] {
 
 .heat-facetime-selfview {
   position: absolute;
-  top: 52px;
-  right: 10px;
-  z-index: 4;
-  width: 78px;
+  top: 78px;
+  right: 16px;
+  z-index: 6;
+
+  width: 88px;
   aspect-ratio: 3 / 4;
+
   overflow: hidden;
-  border-radius: 14px;
-  background: rgba(12,16,24,.56);
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: 0 7px 18px rgba(0,0,0,.22);
+
+  background: rgba(12, 16, 24, .56);
+
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 18px;
+
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, .30),
+    0 0 0 1px rgba(var(--heat-template-group-rgb-1), .15);
 }
 
 .heat-facetime-selfview img {
-  display: block;
-
   width: 100%;
   height: 100%;
+
+  display: block;
 
   object-fit: cover;
   object-position: center;
@@ -5800,51 +5813,84 @@ img[src*="/emoticons/" i] {
 
   padding: 4px 7px;
 
+  color: #ffffff;
+  background: rgba(0, 0, 0, .52);
+
+  border: 0;
   border-radius: 999px;
 
-  background: rgba(0, 0, 0, 0.48);
-
-  color: #ffffff;
-
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-family: "Viga", Arial, sans-serif;
+  font-size: 7px;
+  font-weight: 400;
   line-height: 1;
+  letter-spacing: .10em;
   text-transform: uppercase;
 }
 
 
 /* =========================================================
-   DIALOGUE
+   LIVE CAPTIONS / DIALOGUE
    ========================================================= */
 
 .heat-facetime-dialogue {
   position: absolute;
-  left: 11px;
-  right: 11px;
-  bottom: 88px;
-  z-index: 3;
-  max-height: 184px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 13px 14px 13px 16px;
-  border-radius: 16px;
-  background: rgba(11, 15, 23, 0.58);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-left: 2px solid color-mix(in srgb, var(--ft-accent) 76%, transparent);
-  box-shadow: 0 8px 20px rgba(0,0,0,.18);
-  color: rgba(255, 255, 255, 0.96);
-  font-size: 12.5px;
-  line-height: 1.58;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.62);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  left: 18px;
+  right: 18px;
+  bottom: 104px;
+  z-index: 5;
+
+  max-height: 165px;
+
+  padding: 16px 17px;
+
+  overflow: auto;
+  overflow-wrap: anywhere;
+
+  color: #f0f2f6;
+
+  background: rgba(8, 12, 19, .56);
+
+  border: 1px solid rgba(255, 255, 255, .10);
+  border-left: 2px solid rgba(var(--heat-template-group-rgb-1), .68);
+  border-radius: 18px;
+
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, .22);
+
+  backdrop-filter: blur(16px) saturate(118%);
+  -webkit-backdrop-filter: blur(16px) saturate(118%);
+
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.30) transparent;
+  scrollbar-color:
+    var(--heat-template-group-1)
+    transparent;
+}
+
+.heat-facetime-dialogue::before {
+  content: "live captions";
+
+  display: block;
+
+  width: max-content;
+  margin-bottom: 10px;
+
+  background: var(--heat-template-group-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  font-family: "Viga", Arial, sans-serif;
+  font-size: 7px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .15em;
+  text-transform: uppercase;
 }
 
 .heat-facetime-dialogue::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 
 .heat-facetime-dialogue::-webkit-scrollbar-track {
@@ -5852,80 +5898,106 @@ img[src*="/emoticons/" i] {
 }
 
 .heat-facetime-dialogue::-webkit-scrollbar-thumb {
+  background: var(--heat-template-group-gradient);
   border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.35);
 }
 
 
 /* =========================================================
    FACETIME CONTROLS
+   Compact floating dock.
    ========================================================= */
 
 .heat-facetime-controls {
   position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  z-index: 3;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 5px;
+  left: 50%;
+  bottom: 18px;
+  z-index: 6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+
+  width: auto;
+
+  padding: 9px 11px;
+
+  transform: translateX(-50%);
+
+  background: rgba(6, 9, 15, .58);
+
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 999px;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .heat-facetime-control {
+  width: 42px;
+  height: 42px;
+  min-height: 0;
+
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-width: 0;
-  min-height: 56px;
-  padding: 7px 4px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.075);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+
+  padding: 0;
+
   color: #ffffff;
-  font-family: Viga, Arial, sans-serif;
-  font-size: 7px;
-  font-weight: 400;
-  letter-spacing: .07em;
+  background: rgba(255, 255, 255, .07);
+
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 50%;
+
+  box-shadow: none;
+
+  font-size: 0;
   line-height: 1;
-  text-align: center;
-  text-transform: uppercase;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+}
+
+.heat-facetime-control > span:last-child {
+  display: none;
 }
 
 .heat-facetime-control-icon {
+  width: 100%;
+  height: 100%;
+
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
+
+  color: #ffffff;
+  background: transparent;
+
+  border: 0;
   border-radius: 50%;
-  background:
-    linear-gradient(
-      135deg,
-      var(--ft-accent),
-      var(--ft-accent-two)
-    );
+
   box-shadow: none;
-  color: #fff;
-  font-size: 15px;
+
+  font-size: 17px;
   line-height: 1;
 }
 
-.heat-facetime-control--end .heat-facetime-control-icon {
+.heat-facetime-control--end {
   background:
     linear-gradient(
       135deg,
-      #ff718f,
-      #ff4f64
+      #ff607d,
+      #d73c58
     );
 
+  border-color: transparent;
+
   box-shadow:
-    0 0 18px rgba(255, 79, 100, 0.28);
+    0 8px 18px rgba(215, 60, 88, .20);
+}
+
+.heat-facetime-control--end .heat-facetime-control-icon {
+  color: #ffffff;
+  background: transparent;
+  box-shadow: none;
 }
 
 
@@ -5933,22 +6005,21 @@ img[src*="/emoticons/" i] {
    MOBILE
    ========================================================= */
 
-@media (max-width: 430px) {
-
+@media (max-width: 480px) {
   .heat-facetime {
-    width: calc(100% - 20px);
-    min-height: 560px;
+    width: 100%;
+    height: 570px;
+    min-height: 570px;
 
     margin: 20px auto;
-    padding: 12px;
 
-    border-radius: 26px;
+    border-radius: 28px;
   }
 
   .heat-facetime-topbar {
     gap: 6px;
-
-    font-size: 7px;
+    padding-right: 14px;
+    padding-left: 14px;
   }
 
   .heat-facetime-app,
@@ -5957,64 +6028,55 @@ img[src*="/emoticons/" i] {
     padding: 6px 8px;
   }
 
+  .heat-facetime-status {
+    max-width: 178px;
+  }
+
+  .heat-facetime-contact {
+    margin-top: 30px;
+    margin-left: 17px;
+  }
+
   .heat-facetime-name {
-    max-width: 62%;
-
-    padding: 7px 10px;
-
-    font-size: 19px;
+    max-width: 68%;
+    font-size: 28px;
   }
 
   .heat-facetime-selfview {
-    top: 53px;
-    right: 12px;
+    top: 72px;
+    right: 14px;
 
-    width: 84px;
+    width: 82px;
 
     border-radius: 16px;
   }
 
   .heat-facetime-dialogue {
-    left: 12px;
-    right: 12px;
-    bottom: 96px;
+    left: 15px;
+    right: 15px;
+    bottom: 100px;
 
-    max-height: 205px;
+    max-height: 160px;
 
-    padding: 12px 13px;
-
-    border-radius: 18px;
-
-    font-size: 12px;
+    padding: 14px 15px;
   }
 
   .heat-facetime-controls {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
+    bottom: 16px;
+    gap: 9px;
 
-    gap: 6px;
+    padding: 8px 10px;
   }
 
   .heat-facetime-control {
-    min-height: 62px;
-
-    padding: 8px 4px;
-
-    border-radius: 16px;
-
-    font-size: 7px;
+    width: 40px;
+    height: 40px;
   }
 
   .heat-facetime-control-icon {
-    width: 28px;
-    height: 28px;
-
-    font-size: 12px;
+    font-size: 16px;
   }
-
 }
-
 
 /* =========================================================
    DESTINY THREAD TEMPLATE
@@ -12396,12 +12458,18 @@ img[src*="/emoticons/" i] {
 /* Other comm families keep their existing display-name treatment. */
 .heat-traditional-name,
 .heat-call-name,
-.heat-facetime-name,
-.heat-facetime-selfname {
+.heat-facetime-name {
     font-family: "Limelight", Georgia, serif !important;
     font-weight: 400 !important;
     letter-spacing: normal !important;
     text-transform: lowercase !important;
+}
+
+.heat-facetime-selfname {
+    font-family: "Viga", Arial, sans-serif !important;
+    font-weight: 400 !important;
+    letter-spacing: .10em !important;
+    text-transform: uppercase !important;
 }
 
 
@@ -12484,12 +12552,6 @@ img[src*="/emoticons/" i] {
 .heat-facetime {
     --ft-accent: var(--heat-template-group-1);
     --ft-accent-two: var(--heat-template-group-3);
-}
-
-.heat-facetime-control:not(.heat-facetime-control--end)
-.heat-facetime-control-icon {
-    box-shadow:
-        0 0 18px rgba(var(--heat-template-group-rgb-1), .22);
 }
 
 /* ---------------------------------------------------------
@@ -12772,49 +12834,37 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   FACETIME ACCENTS + CONTROLS
+   FACETIME ACCENTS + CONTROLS — GLASSROOM
+   Group color remains restrained; utility chrome stays neutral.
    --------------------------------------------------------- */
+
 .heat-facetime-app,
-.heat-facetime-status,
+.heat-facetime-status {
+    border-color: rgba(255, 255, 255, .10);
+    background: rgba(8, 12, 18, .42);
+}
+
 .heat-facetime-name {
-    border-color: rgba(var(--heat-template-group-rgb-1), .22);
-    background:
-        linear-gradient(
-            135deg,
-            rgba(var(--heat-template-group-rgb-1), .075),
-            rgba(var(--heat-template-group-rgb-3), .035)
-        ),
-        rgba(255,255,255,.055);
+    background: none;
+    border: 0;
 }
 
 .heat-facetime-selfview {
-    border-color: rgba(var(--heat-template-group-rgb-1), .34);
+    border-color: rgba(255, 255, 255, .16);
     box-shadow:
-        0 10px 24px rgba(0,0,0,.28),
-        0 0 14px rgba(var(--heat-template-group-rgb-1), .10),
-        0 0 0 1px rgba(var(--heat-template-group-rgb-3), .06) inset;
+        0 12px 26px rgba(0, 0, 0, .30),
+        0 0 0 1px rgba(var(--heat-template-group-rgb-1), .15);
 }
 
 .heat-facetime-selfname {
-    border: 1px solid rgba(var(--heat-template-group-rgb-1), .30);
-    background:
-        linear-gradient(
-            90deg,
-            rgba(var(--heat-template-group-rgb-1), .34),
-            rgba(var(--heat-template-group-rgb-3), .24)
-        ),
-        rgba(0,0,0,.48);
+    border: 0;
+    background: rgba(0, 0, 0, .52);
 }
 
 .heat-facetime-dialogue {
-    border-color: rgba(var(--heat-template-group-rgb-1), .20);
-    background:
-        linear-gradient(
-            135deg,
-            rgba(var(--heat-template-group-rgb-1), .045),
-            rgba(var(--heat-template-group-rgb-3), .022)
-        ),
-        rgba(11,15,23,.58);
+    border-color: rgba(255, 255, 255, .10);
+    border-left-color: rgba(var(--heat-template-group-rgb-1), .68);
+    background: rgba(8, 12, 19, .56);
     scrollbar-color:
         var(--heat-template-group-1)
         transparent;
@@ -12825,34 +12875,23 @@ img[src*="/emoticons/" i] {
 }
 
 .heat-facetime-control:not(.heat-facetime-control--end) {
-    border-color: rgba(var(--heat-template-group-rgb-1), .22);
-    background:
-        linear-gradient(
-            135deg,
-            rgba(var(--heat-template-group-rgb-1), .08),
-            rgba(var(--heat-template-group-rgb-3), .04)
-        ),
-        rgba(255,255,255,.055);
-    box-shadow:
-        0 8px 18px rgba(0,0,0,.18),
-        0 0 12px rgba(var(--heat-template-group-rgb-1), .06);
+    border-color: rgba(255, 255, 255, .08);
+    background: rgba(255, 255, 255, .07);
+    box-shadow: none;
 }
 
 .heat-facetime-control:not(.heat-facetime-control--end)
 .heat-facetime-control-icon {
-    background: var(--heat-template-group-gradient) !important;
-    border: 1px solid rgba(255,255,255,.14);
-    box-shadow:
-        0 0 18px rgba(var(--heat-template-group-rgb-1), .30),
-        inset 0 1px 0 rgba(255,255,255,.20) !important;
+    color: #ffffff;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
 }
 
-/* Keep semantic controls semantic. */
-.heat-call-control--end .heat-call-control-icon,
+.heat-facetime-control--end,
 .heat-facetime-control--end .heat-facetime-control-icon {
     color: #ffffff;
 }
-
 
 /* =========================================================
    HEAT THREAD EMPHASIS SYSTEM — PREVIEW 5
@@ -25082,8 +25121,13 @@ img[src*="/emoticons/" i] {
 
   html.heat-sidebar-collapsed:is(.heat-route-topic, .heat-route-posting)
   #heat-browser #heat-main
-  :is(.heat-traditional-comm, .heat-call, .heat-facetime) {
+  :is(.heat-traditional-comm, .heat-call) {
     --heat-focus-template-cap: 350px;
+  }
+
+  html.heat-sidebar-collapsed:is(.heat-route-topic, .heat-route-posting)
+  #heat-browser #heat-main .heat-facetime {
+    --heat-focus-template-cap: 390px;
   }
 
   html.heat-sidebar-collapsed:is(.heat-route-topic, .heat-route-posting)
