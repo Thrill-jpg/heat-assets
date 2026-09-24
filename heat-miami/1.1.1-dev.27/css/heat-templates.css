@@ -3355,10 +3355,6 @@
   box-shadow: none;
 }
 
-/*
-   No-photo Modern Comm headers do not reserve an avatar column.
-   This is part of the base header layout, not a later override.
-*/
 .heat-comm-header:not(:has(> .heat-comm-avatar)),
 .heat-comm--compact-mobile
 .heat-comm-header:not(:has(> .heat-comm-avatar)) {
