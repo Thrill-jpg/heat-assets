@@ -5957,7 +5957,9 @@ img[src*="/emoticons/" i] {
   line-height: 1;
 }
 
-.heat-facetime-control > span:last-child {
+/* Real FaceTime member code uses the icon span as its only span.
+   Do not hide span:last-child here or the Phosphor icon disappears. */
+.heat-facetime-control > span:not(.heat-facetime-control-icon) {
   display: none;
 }
 
