@@ -6213,6 +6213,110 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         return true;
     }
 
+    function loadableAvatarUrl(media) {
+        const url = normalizeUrl(media && media.avatar);
+
+        if (!url) {
+            return Promise.resolve("");
+        }
+
+        return new Promise(function (resolve) {
+            const image = new Image();
+            image.decoding = "async";
+            image.fetchPriority = "low";
+
+            image.onload = function () {
+                resolve(url);
+            };
+
+            image.onerror = function () {
+                resolve("");
+            };
+
+            image.src = url;
+        });
+    }
+
+    function applyTopicField2(target, url) {
+        if (!target || !url) return false;
+
+        let image = target.querySelector(
+            ":scope > .heat-topic-last-avatar-native"
+        );
+
+        if (!image) {
+            image = document.createElement("img");
+            image.className = "heat-topic-last-avatar-native";
+            image.loading = "lazy";
+            image.decoding = "async";
+            image.fetchPriority = "low";
+            target.appendChild(image);
+        }
+
+        image.hidden = false;
+        image.src = url;
+
+        target.classList.add("has-field2-media");
+        target.classList.remove("is-field2-pending");
+        target.setAttribute("data-heat-topic-field2", "ready");
+
+        return true;
+    }
+
+    function decorateTopicField2(target, href, memberId) {
+        if (
+            !target ||
+            target.dataset.heatTopicField2 === "ready"
+        ) {
+            return Promise.resolve(false);
+        }
+
+        const id = memberId || profileIdFromHref(href);
+        const requestKey = id || String(href || "");
+
+        if (
+            target.dataset.heatTopicField2Request === requestKey &&
+            target.classList.contains("is-field2-pending")
+        ) {
+            return Promise.resolve(false);
+        }
+
+        const cached = readCached(id);
+
+        /*
+         * Field 2 is enhancement data on this page. Keep Jcink's
+         * native last-poster avatar as first paint and never start
+         * a profile request before window load finishes.
+         */
+        if (!cached && !pageLoadComplete) {
+            return Promise.resolve(false);
+        }
+
+        target.dataset.heatTopicField2Request = requestKey;
+        target.classList.add("is-field2-pending");
+
+        const mediaPromise =
+            cached
+                ? Promise.resolve(cached)
+                : requestProfileMedia(href, id);
+
+        return mediaPromise
+            .then(loadableAvatarUrl)
+            .then(function (url) {
+                if (url) {
+                    return applyTopicField2(target, url);
+                }
+
+                target.classList.remove("is-field2-pending");
+                target.setAttribute(
+                    "data-heat-topic-field2",
+                    "fallback"
+                );
+
+                return false;
+            });
+    }
+
     function decorate(target, href, memberId) {
         if (!target || target.dataset.heatCompactMedia === "ready") {
             return Promise.resolve(false);
@@ -6266,10 +6370,36 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
 
     function scan() {
         /*
-         * Forum Row + Topic Row avatar ownership is native.
-         * Both render |last_poster_avatar_url| directly,
-         * so compact-media JS must never fetch profiles for those slots.
+         * Forum Row stays native.
+         *
+         * Topic Row is intentionally different: its latest image
+         * uses profile Field 2. Jcink does not expose Field 2 in
+         * Topic Row markup, so Topic Rows use the existing deferred,
+         * cached profile-media service and request AVATAR ONLY.
          */
+
+        document
+            .querySelectorAll(".heat-topic-row")
+            .forEach(function (row) {
+                const link = profileLink(
+                    row,
+                    '.heat-topic-last-poster a[href*="showuser="], ' +
+                    '.heat-topic-last-poster a[href*="MID="], ' +
+                    '.heat-topic-last-poster a[href*="mid="]'
+                );
+
+                const target = row.querySelector(
+                    "[data-heat-topic-field2-target]"
+                );
+
+                if (link && target) {
+                    decorateTopicField2(
+                        target,
+                        link.href,
+                        profileIdFromHref(link.href)
+                    );
+                }
+            });
 
         document
             .querySelectorAll(".heat-online-avatar[href]")
