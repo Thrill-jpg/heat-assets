@@ -6284,9 +6284,9 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         const cached = readCached(id);
 
         /*
-         * Field 2 is enhancement data on this page. Keep Jcink's
-         * native last-poster avatar as first paint and never start
-         * a profile request before window load finishes.
+         * Topic Row is Field 2 only.
+         * Keep the portrait slot blank on first paint and never start
+         * an uncached profile request before window load finishes.
          */
         if (!cached && !pageLoadComplete) {
             return Promise.resolve(false);
@@ -6310,7 +6310,7 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
                 target.classList.remove("is-field2-pending");
                 target.setAttribute(
                     "data-heat-topic-field2",
-                    "fallback"
+                    "empty"
                 );
 
                 return false;
