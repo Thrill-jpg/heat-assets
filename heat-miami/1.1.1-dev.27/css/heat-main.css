@@ -225,35 +225,7 @@ a:hover {
     text-decoration: none;
 }
 
-html body textarea[name="Post"],
-html body textarea[name="post"],
-html body textarea#Post {
-    display: block !important;
-    width: 100% !important;
-    max-width: none !important;
-    min-height: 360px !important;
-    padding: 18px !important;
-    color: #eef1f8 !important;
-    -webkit-text-fill-color: #eef1f8 !important;
-    caret-color:
-        var(--heat-active-group-1, var(--heat-pink)) !important;
-    background: #0d1018 !important;
-    background-image: none !important;
-    border: 1px solid rgba(255, 255, 255, 0.11) !important;
-    border-radius: 12px !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025) !important;
-    font-size: 13px !important;
-    line-height: 1.7 !important;
-    overflow-x: auto;
-    overflow-y: scroll;
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
-    scrollbar-color:
-        var(--heat-active-group-1, var(--heat-pink))
-        rgba(255, 255, 255, 0.035);
-    resize: vertical;
-    outline: none !important;
-}
+/* Native posting textarea is owned pre-paint by Board Wrapper REV64. */
 
 html body textarea[name="Post"]:focus,
 html body textarea[name="post"]:focus,
