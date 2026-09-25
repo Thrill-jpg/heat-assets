@@ -7277,78 +7277,96 @@ html.heat-route-subforum .heat-subforum-directory-card {
     grid-template-rows: auto auto;
     overflow: hidden;
     isolation: isolate;
+
     color: var(--heat-text);
+
     background:
-        radial-gradient(
-            ellipse at 82% 18%,
-            color-mix(in srgb, var(--heat-group-color-2) 6%, transparent),
-            transparent 48%
-        ),
         linear-gradient(
             145deg,
-            rgba(255,255,255,.038),
-            rgba(255,255,255,.012) 44%,
-            rgba(7,10,17,.22)
+            color-mix(
+                in srgb,
+                var(--heat-group-color-1) 3.5%,
+                transparent
+            ),
+            transparent 35%
         ),
-        #121722;
-    border:
-        1px solid
-        color-mix(
-            in srgb,
-            var(--heat-group-color-1) 36%,
-            var(--heat-border)
-        );
-    border-radius: 18px;
+        #111722;
+
+    border: 1px solid rgba(255,255,255,.075);
+    border-radius: 17px;
+
     box-shadow:
-        0 14px 32px rgba(0,0,0,.24),
-        inset 0 1px 0 rgba(255,255,255,.045);
+        inset 0 1px 0 rgba(255,255,255,.018),
+        0 12px 28px rgba(0,0,0,.12);
+
     transition:
-        transform .22s ease,
-        border-color .22s ease,
-        box-shadow .22s ease;
+        border-color .20s ease,
+        box-shadow .20s ease;
+}
+
+html.heat-route-subforum .heat-subforum-directory-card::before {
+    content: "";
+
+    height: 2px;
+
+    position: absolute;
+    top: 0;
+    right: 18px;
+    left: 18px;
+    z-index: 4;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--heat-group-color-1) 20%,
+            var(--heat-group-color-2) 72%,
+            transparent
+        );
+
+    border-radius: 0 0 999px 999px;
+
+    opacity: .85;
+
+    pointer-events: none;
 }
 
 html.heat-route-subforum .heat-subforum-directory-card:hover,
 html.heat-route-subforum .heat-subforum-directory-card:focus-within {
-    transform: translateY(-2px);
     border-color:
         color-mix(
             in srgb,
-            var(--heat-group-color-1) 54%,
-            rgba(255,255,255,.18)
+            var(--heat-group-color-1) 22%,
+            rgba(255,255,255,.08)
         );
+
     box-shadow:
-        0 19px 38px rgba(0,0,0,.29),
-        0 0 18px
-        color-mix(
-            in srgb,
-            var(--heat-group-color-1) 10%,
-            transparent
-        ),
-        inset 0 1px 0 rgba(255,255,255,.06);
+        inset 0 1px 0 rgba(255,255,255,.025),
+        0 14px 30px rgba(0,0,0,.15);
 }
 
 /* Native nested-subforum rail. Status-image links do not create tabs. */
 body.heat-subforum-page .heat-subforum-directory-tabs {
     width: 100%;
     min-width: 0;
-    min-height: 39px;
-    padding: 7px 10px 5px;
+    min-height: 34px;
+    padding: 7px 9px 6px;
+
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
+
     overflow-x: auto;
     overflow-y: hidden;
+
     overscroll-behavior-inline: contain;
     scroll-snap-type: x proximity;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.032),
-            rgba(255,255,255,.008)
-        );
-    border-bottom: 1px solid rgba(255,255,255,.055);
+
+    background: rgba(255,255,255,.008);
+
+    border-bottom: 1px solid rgba(255,255,255,.045);
+
     scrollbar-width: thin;
     scrollbar-color:
         var(--heat-active-group-2, var(--heat-blue))
@@ -7377,27 +7395,36 @@ body.heat-subforum-page
     width: auto;
     min-width: max-content;
     max-width: 180px;
-    min-height: 24px;
+    min-height: 20px;
     padding: 0 8px;
+
     flex: 0 0 auto;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 4px;
+
     overflow: hidden;
+
     scroll-snap-align: start;
-    color: var(--heat-muted);
-    background: rgba(255,255,255,.028);
-    border: 1px solid rgba(255,255,255,.065);
-    border-radius: 7px;
+
+    color: #8995a8;
+    background: rgba(255,255,255,.025);
+
+    border: 1px solid rgba(255,255,255,.055);
+    border-radius: 999px;
+
     font-family: var(--heat-font-main);
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 400;
     line-height: 1;
+
     text-decoration: none;
     text-overflow: ellipsis;
     text-transform: lowercase;
     white-space: nowrap;
+
     transition:
         color .18s ease,
         background .18s ease,
@@ -7461,73 +7488,88 @@ body.heat-subforum-page
 /* One logical card body: forum identity on the left, activity on the right. */
 body.heat-subforum-page .heat-subforum-directory-body {
     min-width: 0;
-    min-height: 142px;
-    padding: 8px;
+    min-height: 132px;
+    padding: 9px;
+
     display: grid;
-    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+    grid-template-columns:
+        minmax(0, 43fr)
+        minmax(0, 57fr);
     align-items: stretch;
-    gap: 8px;
+    gap: 9px;
 }
 
 body.heat-subforum-page .heat-subforum-directory-artwork {
     width: 100%;
     min-width: 0;
-    min-height: 126px;
+    min-height: 114px;
+
     position: relative;
+
     overflow: hidden;
+
+    background-color: #0e141d;
     background-clip: padding-box;
-    border: 1px solid rgba(255,255,255,.065);
-    border-radius: 13px;
-    box-shadow:
-        0 10px 24px rgba(0,0,0,.22),
-        inset 0 1px 0 rgba(255,255,255,.025);
-    transform: scale(1.001);
+
+    border: 0;
+    border-radius: 12px;
+
+    box-shadow: none;
+
+    transform: none;
 }
 
 body.heat-subforum-page .heat-subforum-directory-overlay {
     background:
         linear-gradient(
-            180deg,
-            rgba(7,9,16,.015),
-            rgba(7,9,16,.10) 48%,
-            rgba(7,9,16,.74) 100%
+            90deg,
+            rgba(7,10,16,.76) 0%,
+            rgba(7,10,16,.28) 54%,
+            rgba(7,10,16,.12)
+        ),
+        linear-gradient(
+            0deg,
+            rgba(7,10,16,.66),
+            transparent 55%
         );
 }
 
 body.heat-subforum-page .heat-subforum-directory-identity {
     width: 100%;
     height: 100%;
-    padding: 13px;
+    padding: 16px 17px;
+
     position: absolute;
     inset: 0;
     z-index: 3;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+
     pointer-events: none;
 }
 
 body.heat-subforum-page .heat-subforum-directory-identity .heat-forum-kicker {
-    margin: 0 0 5px;
-    color: rgba(255,255,255,.62);
-    font-size: 8px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    line-height: 1;
-    text-transform: uppercase;
+    display: none;
 }
 
 body.heat-subforum-page .heat-subforum-directory-identity .heat-forum-title {
     max-width: 100%;
     margin: 0;
+
     overflow: hidden;
+
     color: #fff;
+
     font-family: var(--heat-font-main);
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 400;
     letter-spacing: normal;
-    line-height: 1.05;
+    line-height: .95;
+
     text-overflow: ellipsis;
+    text-shadow: 0 2px 14px rgba(0,0,0,.35);
     white-space: nowrap;
 }
 
@@ -7551,58 +7593,81 @@ body.heat-subforum-page
 
 body.heat-subforum-page .heat-subforum-directory-activity {
     min-width: 0;
-    min-height: 126px;
-    padding: 14px;
+    min-height: 114px;
+    padding: 15px 16px;
+
     position: relative;
+
     display: grid;
-    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-columns:
+        48px
+        minmax(0, 1fr);
     align-items: center;
-    gap: 11px;
+    gap: 12px;
+
     overflow: hidden;
+
     background:
-        radial-gradient(
-            ellipse at 12% 0%,
-            rgba(255,255,255,.085),
-            rgba(255,255,255,.025) 38%,
-            transparent 68%
-        ),
-        radial-gradient(
-            ellipse at 100% 100%,
-            color-mix(in srgb, var(--heat-group-color-2) 7%, transparent),
-            transparent 52%
-        ),
         linear-gradient(
-            150deg,
-            rgba(31,36,49,.84),
-            rgba(18,22,32,.91)
-        );
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 13px;
-    box-shadow:
-        0 10px 24px rgba(0,0,0,.20),
-        inset 0 1px 0 rgba(255,255,255,.075);
+            135deg,
+            color-mix(
+                in srgb,
+                var(--heat-group-color-1) 3.5%,
+                transparent
+            ),
+            color-mix(
+                in srgb,
+                var(--heat-group-color-2) 2.5%,
+                transparent
+            )
+        ),
+        #171d29;
+
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: 12px;
+
+    box-shadow: none;
 }
 
 body.heat-subforum-page .heat-subforum-directory-activity::before {
     content: "";
+
     height: 2px;
+
     position: absolute;
     top: 0;
-    right: 15px;
-    left: 15px;
-    background: var(--heat-group-gradient, var(--heat-gradient));
+    right: 16px;
+    left: 16px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--heat-group-color-1),
+            var(--heat-group-color-2),
+            transparent
+        );
+
     border-radius: 999px;
-    opacity: .68;
+
+    opacity: .70;
 }
 
 body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-avatar {
     width: 48px;
     height: 48px;
-    padding: 2px;
+    padding: 0;
+
     position: relative;
+
+    background: transparent;
+
     border: 0;
-    border-radius: 15px;
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 13px rgba(0,0,0,.24);
+
     transition:
         transform .2s ease,
         filter .2s ease;
@@ -7612,14 +7677,18 @@ body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-avatar-image {
     width: auto;
     height: auto;
+
     position: absolute;
-    inset: 2px;
+    inset: 0;
+
     overflow: hidden;
+
     background-color: rgba(255,255,255,.055);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    border-radius: 13px;
+
+    border-radius: 12px;
 }
 
 body.heat-subforum-page
@@ -7644,24 +7713,31 @@ body.heat-subforum-page
 
 body.heat-subforum-page .heat-subforum-activity-label {
     margin-bottom: 5px;
-    color: var(--heat-muted);
+
+    color: #7e8ca2;
+
     font-family: var(--heat-font-subtext);
-    font-size: 8px;
+    font-size: 6.5px;
     font-weight: 400;
-    letter-spacing: .9px;
+    letter-spacing: .75px;
     line-height: 1;
+
     text-transform: uppercase;
 }
 
 body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-topic {
     max-width: 100%;
+
     overflow: hidden;
-    color: var(--heat-text-soft);
+
+    color: #d7ddea;
+
     font-family: var(--heat-font-display);
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.25;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.2;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -7686,9 +7762,12 @@ body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-author {
     min-width: 0;
     max-width: 100%;
+
     overflow: hidden;
-    font-size: 14px;
-    line-height: 1.2;
+
+    font-size: 13px;
+    line-height: 1.15;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -7697,17 +7776,21 @@ body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-author,
 body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-author * {
-    font-size: 14px;
+    font-size: 13px;
 }
 
 body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-time {
     min-width: 0;
+
     overflow: hidden;
-    color: rgba(143,150,168,.70);
+
+    color: #748196;
+
     font-family: var(--heat-font-display);
-    font-size: 9px;
+    font-size: 7px;
     line-height: 1.25;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -7721,6 +7804,7 @@ body.heat-subforum-page
 @media screen and (max-width: 700px) {
     body.heat-subforum-page .heat-subforum-directory-body {
         min-height: 0;
+
         grid-template-columns: minmax(0, 1fr);
         grid-template-rows: 150px auto;
     }
@@ -7731,7 +7815,12 @@ body.heat-subforum-page
 
     body.heat-subforum-page .heat-subforum-directory-activity {
         min-height: 104px;
-        padding: 15px;
+        padding: 14px;
+    }
+
+    body.heat-subforum-page
+    .heat-subforum-directory-identity .heat-forum-title {
+        font-size: 20px;
     }
 }
 
@@ -10367,7 +10456,8 @@ a.heat-mini-action:hover {
     --heat-accent-2: var(--heat-group-color-3);
 }
 
-#heat-browser #heat-main .heat-forum-tile
+#heat-browser #heat-main
+.heat-forum-tile:not(.heat-subforum-directory-card)
 .heat-lastpost-avatar {
     background: var(--heat-group-gradient);
     border-color:
