@@ -4923,7 +4923,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     overflow: hidden;
 
-    /* Secondary thread description now sits beneath the meta tag. */
+    /* Same UI font language as SENT FROM, while preserving original casing. */
     color:
         color-mix(
             in srgb,
@@ -4931,10 +4931,11 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
             var(--heat-text-soft) 12%
         );
 
-    font-size: 9.5px;
-    font-weight: 550;
-    letter-spacing: 0.04px;
-    line-height: 1.35;
+    font-family: var(--heat-font-display);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.28px;
+    line-height: 1.2;
     text-transform: none;
 
     text-overflow: ellipsis;
