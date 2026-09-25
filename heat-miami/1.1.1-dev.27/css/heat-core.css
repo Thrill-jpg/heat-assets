@@ -752,7 +752,12 @@ html.heat-route-posting
 
 /* Jcink emits Last » as the final pagination link.
    Let only that text control expand beyond the number circles. */
-#heat-browser .pagination a:last-of-type {
+/* Only forum-list pagination uses the trailing Last » pill.
+   Topic/post-view pagination may end on a normal page number. */
+html.heat-route-subforum
+#heat-browser
+.pagination
+a:last-of-type {
     width: auto;
     min-width: 48px;
     padding: 0 11px;
