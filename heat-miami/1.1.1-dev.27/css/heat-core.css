@@ -7853,17 +7853,13 @@ body.heat-subforum-page
 }
 
 /* =========================================================
-   HEAT ACCOUNT SWITCHER — REFINED DIRECT CHARACTER LIST
+   PHASE 10 FIX 2 — RESTORE APPROVED CHARACTER SWITCHER CARD
+   Restores the pre-consolidation current-character panel.
    ========================================================= */
 
 .heat-switch-dropdown {
-    width: 292px;
-    padding: 10px;
-}
-
-#heat-header .heat-switch-dropdown {
-    top: calc(100% + 8px);
-    right: 0;
+    width: 268px;
+    padding: 7px;
 
     background:
         linear-gradient(
@@ -7873,42 +7869,52 @@ body.heat-subforum-page
         ),
         #111722;
 
-    border: 1px solid rgba(255,255,255,.10);
-    border-radius: 16px;
+    border-color: rgba(255,255,255,.10);
 
     box-shadow:
-        0 24px 55px rgba(0,0,0,.48);
+        0 20px 42px rgba(0,0,0,.42);
 }
 
-.heat-account-dropdown-title {
-    padding: 5px 6px 9px;
+.heat-switch-dropdown-head {
+    padding: 3px 4px 6px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 8px;
+}
+
+.heat-switch-dropdown .heat-account-dropdown-title {
+    padding: 0;
 
     color: #8c97a9;
 
     font-family: var(--heat-font-display);
     font-size: 7px;
     font-weight: 700;
-    letter-spacing: .8px;
+    letter-spacing: .14em;
     line-height: 1;
+
     text-transform: uppercase;
 }
 
-.heat-account-dropdown-count {
+.heat-switch-count {
+    flex: 0 0 auto;
+
     color: #5f6b7e;
+
     font-family: var(--heat-font-body);
     font-size: 7px;
     font-weight: 600;
-    letter-spacing: 0;
-    text-transform: none;
+    line-height: 1;
+}
+
+#heat-header .heat-switch-dropdown {
+    top: calc(100% + 8px);
+    right: 0;
 }
 
 #heat-header .heat-account-chevron {
-    color: #8793a7;
-    font-size: 15px;
     transition: transform .18s ease;
 }
 
@@ -7917,8 +7923,14 @@ body.heat-subforum-page
     transform: rotate(180deg);
 }
 
+
+/* =========================================================
+   REAL JCINK SUB-ACCOUNT SOURCE + ENHANCED LIST
+   ========================================================= */
+
 .heat-real-subaccounts {
     width: 100%;
+    min-width: 0;
 }
 
 .heat-real-subaccounts form,
@@ -7926,151 +7938,247 @@ body.heat-subforum-page
     width: 100%;
 }
 
+/* Functional native fallback if enhancement cannot initialize. */
 .heat-real-subaccounts select {
-    min-height: 48px;
-    padding: 0 38px 0 12px;
+    min-height: 38px;
+    padding: 0 34px 0 11px;
+
     color: var(--heat-text);
+
     background:
         linear-gradient(
             rgba(255,255,255,.04),
             rgba(255,255,255,.04)
         ),
         var(--heat-panel);
+
     border: 1px solid var(--heat-border);
-    border-radius: 11px;
+    border-radius: 10px;
+
     font-family: var(--heat-font-body);
     font-size: 10px;
     font-weight: 700;
+
     outline: none;
     cursor: pointer;
 }
 
 .heat-real-subaccounts select:hover,
 .heat-real-subaccounts select:focus {
-    border-color: rgba(66,198,255,.30);
-    background-color: rgba(66,198,255,.04);
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 34%,
+            var(--heat-border)
+        );
 }
 
-.heat-real-subaccounts option {
-    color: var(--heat-text);
-    background: var(--heat-panel);
-}
-
-.heat-real-subaccounts.is-enhanced form {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    white-space: nowrap;
-}
-
-.heat-subaccount-list {
+/* Hide the native source only after the card list is built. */
+.heat-real-subaccounts.is-enhanced
+> #subaccounts_menu,
+.heat-real-subaccounts.is-enhanced
+> form {
     display: none;
 }
 
-.heat-real-subaccounts.is-enhanced + .heat-subaccount-list {
+.heat-subaccount-list {
+    width: 100%;
+    max-height: min(390px, 56vh);
+    padding-right: 2px;
+
     display: grid;
     gap: 6px;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,.14) transparent;
+}
+
+.heat-subaccount-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.heat-subaccount-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.heat-subaccount-list::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.14);
+    border-radius: 999px;
 }
 
 .heat-subaccount-option {
     width: 100%;
+    min-width: 0;
     min-height: 56px;
     padding: 7px 9px;
+
     display: grid;
-    grid-template-columns: 40px minmax(0,1fr) 28px;
+    grid-template-columns: 40px minmax(0, 1fr) 28px;
     align-items: center;
     gap: 9px;
+
     color: #fff;
     background: rgba(255,255,255,.018);
+
     border: 1px solid rgba(255,255,255,.055);
     border-radius: 12px;
+
+    box-shadow: none;
+
     text-align: left;
     cursor: pointer;
+
     transition:
+        background .16s ease,
         border-color .16s ease,
-        background .16s ease;
+        transform .16s ease;
 }
 
 .heat-subaccount-option:hover,
 .heat-subaccount-option:focus-visible {
-    background: rgba(66,198,255,.035);
-    border-color: rgba(66,198,255,.18);
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 3.5%,
+            rgba(255,255,255,.018)
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 18%,
+            rgba(255,255,255,.055)
+        );
+
+    transform: translateY(-1px);
     outline: none;
 }
 
-.heat-subaccount-initial {
+.heat-subaccount-avatar {
     width: 40px;
     height: 40px;
+
+    position: relative;
+
     display: grid;
     place-items: center;
-    color: #d9e5ef;
+
+    overflow: hidden;
+
+    color: #748196;
+
     background:
         linear-gradient(
             145deg,
-            rgba(66,198,255,.10),
-            rgba(32,214,199,.035)
+            rgba(255,255,255,.05),
+            rgba(255,255,255,.015)
         ),
         #151b26;
-    border: 1px solid rgba(66,198,255,.14);
+
     border-radius: 11px;
-    font-family: var(--heat-font-display);
-    font-size: 14px;
-    font-weight: 700;
+
     box-shadow:
         0 5px 12px rgba(0,0,0,.18);
 }
 
+.heat-subaccount-avatar img {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    display: block;
+    object-fit: cover;
+
+    border-radius: inherit;
+}
+
+.heat-subaccount-avatar i {
+    position: relative;
+    z-index: 1;
+
+    font-size: 17px;
+}
+
+.heat-subaccount-avatar.is-fallback img {
+    display: none;
+}
+
 .heat-subaccount-copy {
     min-width: 0;
+
     display: flex;
     flex-direction: column;
 }
 
 .heat-subaccount-copy strong {
     overflow: hidden;
+
     color: var(--heat-text);
+
     font-family: var(--heat-font-display);
     font-size: 11px;
+    font-weight: 700;
     line-height: 1.05;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .heat-subaccount-copy small {
     margin-top: 4px;
+
+    overflow: hidden;
+
     color: #818da0;
+
+    font-family: var(--heat-font-body);
     font-size: 7px;
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .heat-subaccount-arrow {
     width: 26px;
     height: 26px;
+
     display: grid;
     place-items: center;
+
     color: #718095;
     background: rgba(255,255,255,.015);
+
     border: 1px solid rgba(255,255,255,.06);
     border-radius: 8px;
+
     font-size: 12px;
 }
 
-@media screen and (max-width: 1050px) {
-    #heat-header .heat-active-account {
-        min-height: 54px;
-        padding: 6px !important;
-        grid-template-columns: 1fr;
-    }
+.heat-subaccount-empty {
+    min-height: 52px;
+    padding: 10px 12px;
 
-    #heat-header .heat-active-avatar {
-        width: 40px;
-        height: 40px;
-        margin: 0 auto;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--heat-muted);
+    background: rgba(255,255,255,.018);
+
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: 11px;
+
+    font-size: 8px;
+    font-weight: 600;
+    text-align: center;
 }
 
 /* =========================================================
