@@ -506,7 +506,1256 @@ html.heat-route-subforum
     display: none;
 }
 
-/* Posting UI is owned pre-paint by Board Wrapper REV64. */
+/* =========================================================
+   HEAT — UNIFIED NATIVE POSTING ROOT / SAFE PASS 2
+
+   Structural owner:
+   the actual native posting form/table containing Jcink's real
+   Post textarea. No URL, CODE, or late route-class dependency.
+
+   Native layout ownership is preserved:
+   - #posting-form remains a table
+   - its native rows/cells remain rows/cells
+   - Topic Review keeps Jcink's native geometry
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   CENTER ONLY THE POSTING SHELL
+   Do NOT narrow the entire form or Topic Review.
+   --------------------------------------------------------- */
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(#posting-form) {
+    width: 100%;
+    max-width: 900px;
+    margin-inline: auto;
+
+    overflow: hidden;
+
+    color: var(--heat-text);
+    background:
+        radial-gradient(
+            circle at 8% 0%,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1, var(--heat-blue)) 4%,
+                transparent
+            ),
+            transparent 30%
+        ),
+        #101621;
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 18px;
+
+    box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.018);
+}
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    color: inherit;
+    background: transparent;
+    border: 0;
+}
+
+/* Fallback if a posting variant exposes #posting-form without
+   the usual .tableborder wrapper. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+> #posting-form {
+    max-width: 900px;
+    margin-inline: auto;
+
+    overflow: hidden;
+
+    background: #101621;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 18px;
+
+    box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------------------------------------------------------
+   POSTING TITLE
+   The same native title remains authoritative.
+   --------------------------------------------------------- */
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(#posting-form)
+:is(td.maintitle, th.maintitle),
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+:is(td.maintitle, th.maintitle) {
+    width: auto;
+    max-width: none;
+    height: 58px;
+    min-height: 0;
+    padding: 0 18px 0 72px;
+
+    position: relative;
+    isolation: isolate;
+
+    display: table-cell;
+    vertical-align: middle;
+
+    overflow: hidden;
+
+    color: #ffffff;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.018),
+            transparent
+        ),
+        #111722;
+
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+    border-radius: 0;
+
+    font-family: var(--heat-font-display);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.1;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* DIV-style posting titles used by some native variants. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(#posting-form)
+> .maintitle {
+    min-height: 58px;
+    padding: 0 18px 0 72px;
+
+    position: relative;
+    isolation: isolate;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    color: #ffffff;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.018),
+            transparent
+        ),
+        #111722;
+
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+    border-radius: 0;
+
+    font-family: var(--heat-font-display);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.1;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* HEAT dots. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(#posting-form)
+.maintitle::before,
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.maintitle::before {
+    content: "";
+
+    width: 8px;
+    height: 8px;
+
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    z-index: 2;
+
+    background:
+        var(--heat-active-group-1, var(--heat-blue));
+
+    border-radius: 50%;
+
+    box-shadow:
+        14px 0 0
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 76%,
+            #79869a
+        ),
+        28px 0 0
+        var(--heat-active-group-2, var(--heat-teal));
+
+    transform: translateY(-50%);
+}
+
+/* Replace the global address-pill pseudo with the integrated
+   accent line only inside the posting shell. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(#posting-form)
+.maintitle::after,
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.maintitle::after {
+    content: "";
+
+    height: 2px;
+
+    position: absolute;
+    top: auto;
+    right: 16px;
+    bottom: 0;
+    left: 16px;
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--heat-active-group-1, var(--heat-blue)),
+            var(--heat-active-group-2, var(--heat-teal)),
+            transparent
+        );
+
+    border: 0;
+    border-radius: 999px;
+
+    opacity: 0.76;
+}
+
+/* ---------------------------------------------------------
+   INTERNAL SECTION LABELS
+   Keep native pformstrip nodes, but stop them reading like
+   floating full-size bars.
+   --------------------------------------------------------- */
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(#posting-form)
+.pformstrip,
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.pformstrip {
+    min-height: 32px;
+    padding: 8px 12px;
+
+    color: #788599;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.010),
+            transparent
+        ),
+        #0f151f;
+
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.035);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+    border-radius: 0;
+
+    font-family: var(--heat-font-display);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.55px;
+    line-height: 1.15;
+    text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------
+   NATIVE TWO-COLUMN FORM GEOMETRY
+   Keep the smiley/label rail LEFT. No grid conversion.
+   --------------------------------------------------------- */
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+:is(.pformleft, .pformleftw, .pformright) {
+    color: var(--heat-text-soft);
+    background: transparent;
+
+    border: 0;
+
+    vertical-align: top;
+}
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+:is(.pformleft, .pformleftw) {
+    width: 154px;
+    min-width: 154px;
+    max-width: 154px;
+    padding: 10px 8px;
+
+    color: #748196;
+
+    font-size: 8px;
+    line-height: 1.45;
+}
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.pformright {
+    min-width: 0;
+    width: auto;
+    padding: 10px 12px;
+}
+
+/* ---------------------------------------------------------
+   TOPIC / POLL / EDIT CONTROLS
+   Same right-column alignment on every posting variant.
+   --------------------------------------------------------- */
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.pformright
+:is(
+    input[type="text"],
+    input[type="url"],
+    input[type="number"]
+) {
+    width: 100%;
+    max-width: 100%;
+    min-height: 38px;
+    margin: 0;
+    padding-inline: 11px;
+
+    color: var(--heat-text);
+    background: #0d121c;
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 10px;
+
+    box-shadow: none;
+    outline: none;
+}
+
+/* Native posting dropdowns are compact controls.
+   Do not stretch them to the full writing-column width. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.pformright
+select {
+    width: auto;
+    max-width: 100%;
+    min-width: 112px;
+    min-height: 34px;
+    margin: 2px 6px 2px 0;
+    padding: 0 30px 0 10px;
+
+    display: inline-block;
+
+    color: var(--heat-text);
+    background: #0d121c;
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 9px;
+
+    box-shadow: none;
+    outline: none;
+
+    vertical-align: middle;
+}
+
+/* Jcink often outputs several posting selects in the same cell.
+   Preserve that native side-by-side behavior. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.pformright:has(select) {
+    white-space: normal;
+}
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.pformright
+:is(
+    input[type="text"],
+    input[type="url"],
+    input[type="number"],
+    select
+):focus {
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 40%,
+            rgba(255, 255, 255, 0.10)
+        );
+
+    box-shadow:
+        0 0 0 3px
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 8%,
+            transparent
+        );
+}
+
+/* The textarea itself is sized by heat-main.css. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+textarea[name="Post"],
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+textarea[name="post"],
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+textarea#Post {
+    margin: 0;
+}
+
+/* ---------------------------------------------------------
+   COMPACT LOW-PRIORITY UTILITIES
+   Keep native controls functional, make them visually quiet.
+   --------------------------------------------------------- */
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+tr:has(input[type="checkbox"])
+> :is(td, th) {
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    color: #7c889a;
+    background: rgba(255, 255, 255, 0.006);
+
+    font-size: 8px;
+}
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+tr:has(input[type="checkbox"])
+:is(.pformleft, .pformleftw) {
+    color: #667387;
+
+    font-family: var(--heat-font-display);
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 0.45px;
+    text-transform: uppercase;
+}
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+    margin: 0 6px 0 0;
+
+    accent-color:
+        var(--heat-active-group-1, var(--heat-blue));
+}
+
+/* ---------------------------------------------------------
+   SUBMIT / PREVIEW ROW
+   --------------------------------------------------------- */
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+tr:has(
+    input[type="submit"],
+    input[type="button"]
+)
+> :is(td, th) {
+    padding: 9px 12px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.010),
+            transparent
+        ),
+        #0f151f;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+/* Autosave stays subordinate. */
+#heat-draft-status {
+    min-height: 14px;
+    margin: 6px 0 0;
+
+    color: var(--heat-muted);
+
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+#heat-draft-status.is-restored {
+    color: var(--heat-yellow);
+}
+
+#heat-draft-status.is-saved {
+    color: var(--heat-green);
+}
+
+/* ---------------------------------------------------------
+   TOPIC REVIEW
+   IMPORTANT: do not narrow it to the posting card and do not
+   rewrite Jcink's native cells. This restores the working
+   contract that existed before the broken pass.
+   --------------------------------------------------------- */
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder
+> table {
+    width: 100%;
+    max-width: 100%;
+
+    table-layout: fixed;
+    box-sizing: border-box;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr
+> :first-child {
+    width: 20%;
+    max-width: 20%;
+
+    box-sizing: border-box;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr
+> :last-child {
+    width: 80%;
+    min-width: 0;
+    max-width: 80%;
+
+    box-sizing: border-box;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+.postcolor {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 700px) {
+    #heat-browser
+    form:has(
+        textarea[name="Post"],
+        textarea[name="post"],
+        textarea#Post
+    )
+    .tableborder:has(#posting-form) {
+        max-width: 100%;
+    }
+
+    #heat-browser
+    form:has(
+        textarea[name="Post"],
+        textarea[name="post"],
+        textarea#Post
+    )
+    #posting-form
+    :is(.pformleft, .pformleftw) {
+        width: 112px;
+        min-width: 112px;
+        max-width: 112px;
+        padding-inline: 6px;
+    }
+}
+
+/* =========================================================
+   HEAT — POST PREVIEW + TOPIC REVIEW POLISH / PASS 1
+
+   IMPORTANT:
+   - native Jcink placement is untouched
+   - Post Preview remains above the posting form when Jcink outputs it
+   - Topic Review / Last Posts remains in its native location
+   - no DOM movement, rebuild, or visual JS
+   - full posting screens are scoped by native #posting-form
+     so Fast Reply on ordinary topic pages cannot activate this owner
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   POST PREVIEW
+   Detect the native preview surface structurally by its
+   rendered .postcolor content. Topic Review receives its
+   own more-specific owner below.
+   --------------------------------------------------------- */
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+.tableborder:has(.postcolor):not(:has(#posting-form)) {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 14px;
+
+    overflow: hidden;
+
+    color: var(--heat-text);
+    background:
+        radial-gradient(
+            circle at 8% 0%,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1, var(--heat-blue)) 3%,
+                transparent
+            ),
+            transparent 32%
+        ),
+        #101621;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 15px;
+
+    box-shadow:
+        0 14px 32px rgba(0, 0, 0, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.018);
+
+    box-sizing: border-box;
+}
+
+/* Native preview heading. */
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+> .maintitle {
+    min-height: 43px;
+    padding: 0 14px 0 42px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    color: #eef2f7;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.014),
+            transparent
+        ),
+        #111722;
+
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+    border-radius: 0;
+
+    font-family: var(--heat-font-display);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.55px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+/* Small preview icon treatment without altering markup. */
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+> .maintitle::before {
+    content: "";
+
+    width: 8px;
+    height: 8px;
+
+    position: absolute;
+    left: 16px;
+    top: 50%;
+
+    background:
+        var(--heat-active-group-1, var(--heat-blue));
+
+    border-radius: 50%;
+
+    box-shadow:
+        12px 0 0
+        var(--heat-active-group-2, var(--heat-teal));
+
+    transform: translateY(-50%);
+}
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+> table {
+    width: 100%;
+    max-width: 100%;
+
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: transparent;
+
+    box-sizing: border-box;
+}
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+> table
+> tbody
+> tr
+> :is(td, th) {
+    padding: 12px 14px;
+
+    color: var(--heat-text-soft);
+    background: transparent;
+
+    border: 0;
+
+    vertical-align: top;
+}
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+.postcolor {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 15px 16px;
+
+    display: block;
+
+    overflow-wrap: anywhere;
+
+    color: #bfc8d5;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.014),
+            transparent
+        ),
+        #0d121b;
+
+    border: 1px solid rgba(255, 255, 255, 0.045);
+    border-radius: 12px;
+
+    box-sizing: border-box;
+
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+/* ---------------------------------------------------------
+   TOPIC REVIEW / LAST POSTS
+   Restore its full native width, then polish each native row
+   as a contained history card. 20/80 ownership is unchanged.
+   --------------------------------------------------------- */
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 14px 0 0;
+
+    box-sizing: border-box;
+}
+
+/* Override the generic preview shell above. */
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+> .tableborder {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+
+    overflow: hidden;
+
+    color: var(--heat-text);
+    background:
+        radial-gradient(
+            circle at 8% 0%,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1, var(--heat-blue)) 2.5%,
+                transparent
+            ),
+            transparent 32%
+        ),
+        #101621;
+
+    border: 1px solid rgba(255, 255, 255, 0.065);
+    border-radius: 15px;
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.015);
+
+    box-sizing: border-box;
+}
+
+/* Topic Review title. */
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+> .tableborder
+> .maintitle {
+    min-height: 43px;
+    padding: 0 14px 0 42px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    color: #eef2f7;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.014),
+            transparent
+        ),
+        #111722;
+
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+    border-radius: 0;
+
+    font-family: var(--heat-font-display);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.55px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+> .tableborder
+> .maintitle::before {
+    content: "";
+
+    width: 8px;
+    height: 8px;
+
+    position: absolute;
+    left: 16px;
+    top: 50%;
+
+    background:
+        var(--heat-active-group-1, var(--heat-blue));
+
+    border-radius: 50%;
+
+    box-shadow:
+        12px 0 0
+        var(--heat-active-group-2, var(--heat-teal));
+
+    transform: translateY(-50%);
+}
+
+/* Native 20/80 table stays native. */
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+> .tableborder
+> table {
+    width: 100%;
+    max-width: 100%;
+
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 10px 8px;
+
+    background: transparent;
+
+    box-sizing: border-box;
+}
+
+/* Every native review row reads like one connected card. */
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr
+> :first-child {
+    width: 20%;
+    max-width: 20%;
+    padding: 11px 12px;
+
+    color: var(--heat-text-soft);
+    background:
+        linear-gradient(
+            145deg,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1, var(--heat-blue)) 3%,
+                transparent
+            ),
+            transparent 60%
+        ),
+        rgba(255, 255, 255, 0.008);
+
+    border: 1px solid rgba(255, 255, 255, 0.045);
+    border-right: 0;
+    border-radius: 12px 0 0 12px;
+
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr
+> :last-child {
+    width: 80%;
+    min-width: 0;
+    max-width: 80%;
+    padding: 12px 14px;
+
+    color: #aeb9c7;
+    background: #0d121b;
+
+    border: 1px solid rgba(255, 255, 255, 0.045);
+    border-left: 0;
+    border-radius: 0 12px 12px 0;
+
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+/* Remove the visible gap between the connected 20/80 cells. */
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr {
+    transform: none;
+}
+
+/* Native member/meta hierarchy. */
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+.normalname,
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+.normalname
+a {
+    color: var(--heat-text);
+    font-family: var(--heat-font-display);
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+.postdetails {
+    margin-top: 5px;
+
+    display: block;
+
+    color: #68758a;
+
+    font-size: 7px;
+    line-height: 1.45;
+}
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+.postcolor {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0;
+
+    display: block;
+
+    overflow-wrap: anywhere;
+
+    color: #aeb9c7;
+    background: transparent;
+
+    border: 0;
+    border-radius: 0;
+
+    box-sizing: border-box;
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+#heat-browser
+#innerwrapper:has(
+    form #posting-form
+)
+#topic-summary
+.postcolor
+a {
+    color:
+        var(--heat-active-group-1, var(--heat-blue));
+
+    text-decoration: none;
+}
+
+@media screen and (max-width: 700px) {
+    #heat-browser:has(
+        textarea[name="Post"],
+        textarea[name="post"],
+        textarea#Post
+    )
+    .tableborder:has(.postcolor):not(:has(#posting-form)) {
+        max-width: 100%;
+    }
+
+    #heat-browser:has(
+        textarea[name="Post"],
+        textarea[name="post"],
+        textarea#Post
+    )
+    #topic-summary
+    > .tableborder
+    > table {
+        border-spacing: 6px;
+    }
+}
+
 
 /* Pagination */
 
@@ -12742,10 +13991,44 @@ button {
 }
 
 /* =========================================================
-   HEAT — RENDERED POST EMOTICONS
-   Posting picker is owned pre-paint by Board Wrapper REV64.
+   HEAT — SMILIES / UNIFIED POSTING SAFE OWNER
+
+   The real Jcink smiley table remains authoritative.
+   It stays on the LEFT. No DOM rewrite and no late route class.
    ========================================================= */
 
+/* Posting picker only. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+:is(
+    a[href^="javascript:emoticon"],
+    a[href*="emoticon("]
+)
+img[alt="smilie" i] {
+    width: auto;
+    height: 22px;
+    max-width: none;
+    max-height: 22px;
+
+    margin: 0;
+    padding: 0;
+
+    display: inline-block;
+
+    object-fit: contain;
+    object-position: center;
+
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    vertical-align: middle;
+}
+
+/* Rendered posts retain the existing native-emoticon sizing. */
 .heat-post-copy img[alt="smilie" i],
 .heat-post-copy img[src*="/html/emoticons/" i],
 .heat-post-copy img[src*="/emoticons/" i] {
@@ -12767,6 +14050,293 @@ button {
     box-shadow: none !important;
 
     vertical-align: -5px !important;
+}
+
+/* LEFT native smiley rail. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+td.pformleft:has(#smilies-table) {
+    width: 154px;
+    min-width: 154px;
+    max-width: 154px;
+    padding: 12px 8px;
+
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+td.pformleft:has(#smilies-table)::before {
+    content: "Smilies";
+
+    margin: 0 0 8px 2px;
+
+    display: block;
+
+    color: #748196;
+
+    font-family: var(--heat-font-display);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    line-height: 1;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+td.pformleft:has(#smilies-table)
+> br,
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+td.pformleft:has(#smilies-table)
+> .desc {
+    display: none;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table {
+    width: 140px;
+    max-width: 100%;
+    max-height: 180px;
+    margin: 0;
+    padding: 7px 6px;
+
+    box-sizing: border-box;
+    display: block;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    color: inherit;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.012),
+            transparent
+        ),
+        rgba(255, 255, 255, 0.012);
+
+    border: 1px solid rgba(255, 255, 255, 0.055);
+    border-radius: 10px;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        var(--heat-active-group-1, var(--heat-blue))
+        rgba(255, 255, 255, 0.025);
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table::-webkit-scrollbar {
+    width: 4px;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.018);
+    border-radius: 999px;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            180deg,
+            var(--heat-active-group-1, var(--heat-blue)),
+            var(--heat-active-group-2, var(--heat-teal))
+        );
+
+    border-radius: 999px;
+}
+
+/* Compact 5-column picker. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table
+> tbody {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(5, 22px);
+    grid-auto-rows: 28px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table
+> tbody
+> tr {
+    display: contents;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table
+> tbody
+> tr:first-child {
+    display: none;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table
+> tbody
+> tr:not(:first-child)
+> td {
+    width: 22px;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: visible;
+
+    color: inherit;
+    background: transparent;
+    border: 0;
+
+    font-size: 0;
+    line-height: 1;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table
+a[href*="emoticon("] {
+    width: 22px;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: 0;
+    border-radius: 7px;
+    box-shadow: none;
+
+    line-height: 1;
+    text-decoration: none;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#smilies-table
+a[href*="emoticon("]:is(:hover, :focus-visible) {
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 12%,
+            transparent
+        );
+
+    outline: none;
+    transform: scale(1.08);
+}
+
+@media screen and (max-width: 700px) {
+    #heat-browser
+    form:has(
+        textarea[name="Post"],
+        textarea[name="post"],
+        textarea#Post
+    )
+    #posting-form
+    td.pformleft:has(#smilies-table) {
+        width: 112px;
+        min-width: 112px;
+        max-width: 112px;
+        padding-inline: 6px;
+    }
+
+    #heat-browser:has(
+        textarea[name="Post"],
+        textarea[name="post"],
+        textarea#Post
+    )
+    #smilies-table {
+        width: 100px;
+    }
+
+    #heat-browser:has(
+        textarea[name="Post"],
+        textarea[name="post"],
+        textarea#Post
+    )
+    #smilies-table
+    > tbody {
+        grid-template-columns: repeat(4, 20px);
+        gap: 3px;
+    }
 }
 
 /* =========================================================
