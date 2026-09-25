@@ -7853,144 +7853,69 @@ body.heat-subforum-page
 }
 
 /* =========================================================
-   PHASE 10 FIX 2 — RESTORE APPROVED CHARACTER SWITCHER CARD
-   Restores the pre-consolidation current-character panel.
+   HEAT ACCOUNT SWITCHER — REFINED DIRECT CHARACTER LIST
    ========================================================= */
 
 .heat-switch-dropdown {
-    width: 275px;
-    padding: 11px;
-}
-
-.heat-switch-current {
-    min-height: 64px;
-    padding: 9px;
-    display: grid;
-    grid-template-columns: 43px minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255,255,255,.035);
-    border: 1px solid var(--heat-border);
-    border-radius: 12px;
-}
-
-.heat-switch-current-avatar {
-    width: 43px;
-    height: 43px;
-    position: relative;
-    display: block;
-    overflow: visible;
-    background: var(--heat-gradient);
-    border: 2px solid rgba(255,255,255,.35);
-    border-radius: 50%;
-}
-
-.heat-switch-current-copy {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.heat-switch-current-copy small {
-    color: var(--heat-muted);
-    font-size: 7px;
-    font-weight: 750;
-    letter-spacing: .8px;
-    line-height: 1.2;
-    text-transform: uppercase;
-}
-
-.heat-switch-current-copy strong {
-    margin-top: 3px;
-    overflow: hidden;
-    color: #fff;
-    font-family: var(--heat-font-display);
-    font-size: 11px;
-    line-height: 1.2;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.heat-switch-current-copy em {
-    margin-top: 2px;
-    overflow: hidden;
-    color: var(--heat-muted);
-    font-size: 8px;
-    font-style: normal;
-    line-height: 1.2;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.heat-switch-current > i {
-    color: var(--heat-green);
-    font-size: 16px;
-}
-
-.heat-account-dropdown .heat-switch-account-button {
-    min-height: 52px;
-    padding: 8px 10px;
-    display: grid;
-    grid-template-columns: 24px minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 8px;
-}
-
-.heat-switch-account-button > i:first-child {
-    color: var(--heat-pink);
-    font-size: 18px;
-}
-
-.heat-switch-account-button > i:last-child {
-    color: var(--heat-muted);
-    font-size: 13px;
-}
-
-.heat-switch-account-button > span {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.heat-switch-account-button strong {
-    color: var(--heat-text);
-    font-size: 10px;
-    line-height: 1.2;
-}
-
-.heat-switch-account-button small {
-    margin-top: 3px;
-    color: var(--heat-muted);
-    font-size: 8px;
-    line-height: 1.2;
+    width: 292px;
+    padding: 10px;
 }
 
 #heat-header .heat-switch-dropdown {
     top: calc(100% + 8px);
     right: 0;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.025),
+            transparent 36%
+        ),
+        #111722;
+
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 16px;
+
+    box-shadow:
+        0 24px 55px rgba(0,0,0,.48);
 }
 
-#heat-header .heat-switch-current-avatar .heat-active-avatar-image {
-    border-radius: 50%;
+.heat-account-dropdown-title {
+    padding: 5px 6px 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    color: #8c97a9;
+
+    font-family: var(--heat-font-display);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 1;
+    text-transform: uppercase;
 }
 
-#heat-header .heat-switch-current-avatar .heat-active-online {
-    right: -1px;
-    bottom: 1px;
+.heat-account-dropdown-count {
+    color: #5f6b7e;
+    font-family: var(--heat-font-body);
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
 }
 
 #heat-header .heat-account-chevron {
-    transition: transform .2s ease;
+    color: #8793a7;
+    font-size: 15px;
+    transition: transform .18s ease;
 }
 
 #heat-header .heat-active-account[aria-expanded="true"]
 .heat-account-chevron {
     transform: rotate(180deg);
 }
-
-/* =========================================================
-   REAL JCINK SUB-ACCOUNT SWITCHER
-   ========================================================= */
 
 .heat-real-subaccounts {
     width: 100%;
@@ -8003,7 +7928,7 @@ body.heat-subforum-page
 
 .heat-real-subaccounts select {
     min-height: 48px;
-    padding: 0 38px 0 40px;
+    padding: 0 38px 0 12px;
     color: var(--heat-text);
     background:
         linear-gradient(
@@ -8022,13 +7947,130 @@ body.heat-subforum-page
 
 .heat-real-subaccounts select:hover,
 .heat-real-subaccounts select:focus {
-    border-color: rgba(255,44,133,.45);
-    background-color: rgba(255,44,133,.06);
+    border-color: rgba(66,198,255,.30);
+    background-color: rgba(66,198,255,.04);
 }
 
 .heat-real-subaccounts option {
     color: var(--heat-text);
     background: var(--heat-panel);
+}
+
+.heat-real-subaccounts.is-enhanced form {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.heat-subaccount-list {
+    display: none;
+}
+
+.heat-real-subaccounts.is-enhanced + .heat-subaccount-list {
+    display: grid;
+    gap: 6px;
+}
+
+.heat-subaccount-option {
+    width: 100%;
+    min-height: 56px;
+    padding: 7px 9px;
+    display: grid;
+    grid-template-columns: 40px minmax(0,1fr) 28px;
+    align-items: center;
+    gap: 9px;
+    color: #fff;
+    background: rgba(255,255,255,.018);
+    border: 1px solid rgba(255,255,255,.055);
+    border-radius: 12px;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        border-color .16s ease,
+        background .16s ease;
+}
+
+.heat-subaccount-option:hover,
+.heat-subaccount-option:focus-visible {
+    background: rgba(66,198,255,.035);
+    border-color: rgba(66,198,255,.18);
+    outline: none;
+}
+
+.heat-subaccount-initial {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    color: #d9e5ef;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(66,198,255,.10),
+            rgba(32,214,199,.035)
+        ),
+        #151b26;
+    border: 1px solid rgba(66,198,255,.14);
+    border-radius: 11px;
+    font-family: var(--heat-font-display);
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.18);
+}
+
+.heat-subaccount-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.heat-subaccount-copy strong {
+    overflow: hidden;
+    color: var(--heat-text);
+    font-family: var(--heat-font-display);
+    font-size: 11px;
+    line-height: 1.05;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.heat-subaccount-copy small {
+    margin-top: 4px;
+    color: #818da0;
+    font-size: 7px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.heat-subaccount-arrow {
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    color: #718095;
+    background: rgba(255,255,255,.015);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+@media screen and (max-width: 1050px) {
+    #heat-header .heat-active-account {
+        min-height: 54px;
+        padding: 6px !important;
+        grid-template-columns: 1fr;
+    }
+
+    #heat-header .heat-active-avatar {
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+    }
 }
 
 /* =========================================================
