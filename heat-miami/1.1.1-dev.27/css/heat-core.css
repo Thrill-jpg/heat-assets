@@ -1254,6 +1254,526 @@ tr:has(
     }
 }
 
+/* =========================================================
+   HEAT — POST PREVIEW + TOPIC REVIEW POLISH / PASS 1
+
+   IMPORTANT:
+   - native Jcink placement is untouched
+   - Post Preview remains above the posting form when Jcink outputs it
+   - Topic Review / Last Posts remains in its native location
+   - no DOM movement, rebuild, or visual JS
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   POST PREVIEW
+   Detect the native preview surface structurally by its
+   rendered .postcolor content. Topic Review receives its
+   own more-specific owner below.
+   --------------------------------------------------------- */
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(.postcolor):not(:has(#posting-form)) {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 14px;
+
+    overflow: hidden;
+
+    color: var(--heat-text);
+    background:
+        radial-gradient(
+            circle at 8% 0%,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1, var(--heat-blue)) 3%,
+                transparent
+            ),
+            transparent 32%
+        ),
+        #101621;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 15px;
+
+    box-shadow:
+        0 14px 32px rgba(0, 0, 0, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.018);
+
+    box-sizing: border-box;
+}
+
+/* Native preview heading. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+> .maintitle {
+    min-height: 43px;
+    padding: 0 14px 0 42px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    color: #eef2f7;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.014),
+            transparent
+        ),
+        #111722;
+
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+    border-radius: 0;
+
+    font-family: var(--heat-font-display);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.55px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+/* Small preview icon treatment without altering markup. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+> .maintitle::before {
+    content: "";
+
+    width: 8px;
+    height: 8px;
+
+    position: absolute;
+    left: 16px;
+    top: 50%;
+
+    background:
+        var(--heat-active-group-1, var(--heat-blue));
+
+    border-radius: 50%;
+
+    box-shadow:
+        12px 0 0
+        var(--heat-active-group-2, var(--heat-teal));
+
+    transform: translateY(-50%);
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+> table {
+    width: 100%;
+    max-width: 100%;
+
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: transparent;
+
+    box-sizing: border-box;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+> table
+> tbody
+> tr
+> :is(td, th) {
+    padding: 12px 14px;
+
+    color: var(--heat-text-soft);
+    background: transparent;
+
+    border: 0;
+
+    vertical-align: top;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(.postcolor):not(:has(#posting-form))
+.postcolor {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 15px 16px;
+
+    display: block;
+
+    overflow-wrap: anywhere;
+
+    color: #bfc8d5;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.014),
+            transparent
+        ),
+        #0d121b;
+
+    border: 1px solid rgba(255, 255, 255, 0.045);
+    border-radius: 12px;
+
+    box-sizing: border-box;
+
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+/* ---------------------------------------------------------
+   TOPIC REVIEW / LAST POSTS
+   Restore its full native width, then polish each native row
+   as a contained history card. 20/80 ownership is unchanged.
+   --------------------------------------------------------- */
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 14px 0 0;
+
+    box-sizing: border-box;
+}
+
+/* Override the generic preview shell above. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+
+    overflow: hidden;
+
+    color: var(--heat-text);
+    background:
+        radial-gradient(
+            circle at 8% 0%,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1, var(--heat-blue)) 2.5%,
+                transparent
+            ),
+            transparent 32%
+        ),
+        #101621;
+
+    border: 1px solid rgba(255, 255, 255, 0.065);
+    border-radius: 15px;
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.015);
+
+    box-sizing: border-box;
+}
+
+/* Topic Review title. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder
+> .maintitle {
+    min-height: 43px;
+    padding: 0 14px 0 42px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    color: #eef2f7;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.014),
+            transparent
+        ),
+        #111722;
+
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+    border-radius: 0;
+
+    font-family: var(--heat-font-display);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.55px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder
+> .maintitle::before {
+    content: "";
+
+    width: 8px;
+    height: 8px;
+
+    position: absolute;
+    left: 16px;
+    top: 50%;
+
+    background:
+        var(--heat-active-group-1, var(--heat-blue));
+
+    border-radius: 50%;
+
+    box-shadow:
+        12px 0 0
+        var(--heat-active-group-2, var(--heat-teal));
+
+    transform: translateY(-50%);
+}
+
+/* Native 20/80 table stays native. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder
+> table {
+    width: 100%;
+    max-width: 100%;
+
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 10px 8px;
+
+    background: transparent;
+
+    box-sizing: border-box;
+}
+
+/* Every native review row reads like one connected card. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr
+> :first-child {
+    width: 20%;
+    max-width: 20%;
+    padding: 11px 12px;
+
+    color: var(--heat-text-soft);
+    background:
+        linear-gradient(
+            145deg,
+            color-mix(
+                in srgb,
+                var(--heat-active-group-1, var(--heat-blue)) 3%,
+                transparent
+            ),
+            transparent 60%
+        ),
+        rgba(255, 255, 255, 0.008);
+
+    border: 1px solid rgba(255, 255, 255, 0.045);
+    border-right: 0;
+    border-radius: 12px 0 0 12px;
+
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr
+> :last-child {
+    width: 80%;
+    min-width: 0;
+    max-width: 80%;
+    padding: 12px 14px;
+
+    color: #aeb9c7;
+    background: #0d121b;
+
+    border: 1px solid rgba(255, 255, 255, 0.045);
+    border-left: 0;
+    border-radius: 0 12px 12px 0;
+
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+/* Remove the visible gap between the connected 20/80 cells. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr {
+    transform: none;
+}
+
+/* Native member/meta hierarchy. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+.normalname,
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+.normalname
+a {
+    color: var(--heat-text);
+    font-family: var(--heat-font-display);
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+.postdetails {
+    margin-top: 5px;
+
+    display: block;
+
+    color: #68758a;
+
+    font-size: 7px;
+    line-height: 1.45;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+.postcolor {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0;
+
+    display: block;
+
+    overflow-wrap: anywhere;
+
+    color: #aeb9c7;
+    background: transparent;
+
+    border: 0;
+    border-radius: 0;
+
+    box-sizing: border-box;
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#topic-summary
+.postcolor
+a {
+    color:
+        var(--heat-active-group-1, var(--heat-blue));
+
+    text-decoration: none;
+}
+
+@media screen and (max-width: 700px) {
+    #heat-browser:has(
+        textarea[name="Post"],
+        textarea[name="post"],
+        textarea#Post
+    )
+    .tableborder:has(.postcolor):not(:has(#posting-form)) {
+        max-width: 100%;
+    }
+
+    #heat-browser:has(
+        textarea[name="Post"],
+        textarea[name="post"],
+        textarea#Post
+    )
+    #topic-summary
+    > .tableborder
+    > table {
+        border-spacing: 6px;
+    }
+}
+
+
 /* Pagination */
 
 #heat-browser .pagination .pagination_current,
