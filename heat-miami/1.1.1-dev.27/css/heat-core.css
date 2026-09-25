@@ -4917,10 +4917,13 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 .heat-topic-status {
     max-width: 100%;
     margin-top: 5px;
+    padding-left: 1px;
+
+    order: 3;
 
     overflow: hidden;
 
-    /* Slightly muted, but still comfortably readable. */
+    /* Secondary thread description now sits beneath the meta tag. */
     color:
         color-mix(
             in srgb,
@@ -4944,6 +4947,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-topic-starter {
     width: max-content;
+    order: 2;
     max-width: 100%;
     min-width: 0;
     min-height: 22px;
