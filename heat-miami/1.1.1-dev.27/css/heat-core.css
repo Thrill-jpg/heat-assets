@@ -507,24 +507,21 @@ html.heat-route-subforum
 }
 
 /* =========================================================
-   HEAT — UNIFIED NATIVE POSTING ROOT / PASS 1
+   HEAT — UNIFIED NATIVE POSTING ROOT / SAFE PASS 2
 
-   Authoritative contract:
-   style the actual Jcink posting form that contains the real
-   Post textarea. Do not depend on act=Post, CODE values, or a
-   route-specific URL.
+   Structural owner:
+   the actual native posting form/table containing Jcink's real
+   Post textarea. No URL, CODE, or late route-class dependency.
 
-   This therefore covers the same root across:
-   - Reply
-   - New Topic
-   - New Poll
-   - Edit Post
-   - Preview / validation returns
-   - native More Options posting variants
+   Native layout ownership is preserved:
+   - #posting-form remains a table
+   - its native rows/cells remain rows/cells
+   - Topic Review keeps Jcink's native geometry
    ========================================================= */
 
 /* ---------------------------------------------------------
-   ROOT SHELL
+   CENTER ONLY THE POSTING SHELL
+   Do NOT narrow the entire form or Topic Review.
    --------------------------------------------------------- */
 
 #heat-browser
@@ -532,26 +529,11 @@ form:has(
     textarea[name="Post"],
     textarea[name="post"],
     textarea#Post
-) {
-    width: min(100%, 880px);
-    max-width: 880px;
-    margin-inline: auto;
-}
-
-#heat-browser
-form:has(
-    textarea[name="Post"],
-    textarea[name="post"],
-    textarea#Post
 )
-#posting-form {
+.tableborder:has(#posting-form) {
     width: 100%;
-    max-width: 100%;
-    margin: 0;
-
-    table-layout: auto;
-    border-collapse: separate;
-    border-spacing: 0;
+    max-width: 900px;
+    margin-inline: auto;
 
     overflow: hidden;
 
@@ -576,27 +558,51 @@ form:has(
         inset 0 1px 0 rgba(255, 255, 255, 0.018);
 }
 
-/* Some posting variants wrap the table in .tableborder. */
 #heat-browser
 form:has(
     textarea[name="Post"],
     textarea[name="post"],
     textarea#Post
 )
-.tableborder:has(#posting-form) {
+#posting-form {
     width: 100%;
     max-width: 100%;
     margin: 0;
-    overflow: visible;
+
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    color: inherit;
     background: transparent;
     border: 0;
-    border-radius: 0;
+}
+
+/* Fallback if a posting variant exposes #posting-form without
+   the usual .tableborder wrapper. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+> #posting-form {
+    max-width: 900px;
+    margin-inline: auto;
+
+    overflow: hidden;
+
+    background: #101621;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 18px;
+
+    box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.18);
 }
 
 /* ---------------------------------------------------------
-   INTEGRATED POSTING HEADER
-   Keeps the familiar HEAT browser-dot language, but the title
-   now belongs to the same shell instead of floating above it.
+   POSTING TITLE
+   The same native title remains authoritative.
    --------------------------------------------------------- */
 
 #heat-browser
@@ -605,6 +611,15 @@ form:has(
     textarea[name="post"],
     textarea#Post
 )
+.tableborder:has(#posting-form)
+:is(td.maintitle, th.maintitle),
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
 :is(td.maintitle, th.maintitle) {
     width: auto;
     max-width: none;
@@ -631,7 +646,6 @@ form:has(
 
     border: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.055);
-
     border-radius: 0;
 
     font-family: var(--heat-font-display);
@@ -643,13 +657,65 @@ form:has(
     white-space: nowrap;
 }
 
+/* DIV-style posting titles used by some native variants. */
 #heat-browser
 form:has(
     textarea[name="Post"],
     textarea[name="post"],
     textarea#Post
 )
-:is(td.maintitle, th.maintitle)::before {
+.tableborder:has(#posting-form)
+> .maintitle {
+    min-height: 58px;
+    padding: 0 18px 0 72px;
+
+    position: relative;
+    isolation: isolate;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    color: #ffffff;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.018),
+            transparent
+        ),
+        #111722;
+
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+    border-radius: 0;
+
+    font-family: var(--heat-font-display);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.1;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* HEAT dots. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+.tableborder:has(#posting-form)
+.maintitle::before,
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.maintitle::before {
     content: "";
 
     width: 8px;
@@ -678,18 +744,30 @@ form:has(
     transform: translateY(-50%);
 }
 
+/* Replace the global address-pill pseudo with the integrated
+   accent line only inside the posting shell. */
 #heat-browser
 form:has(
     textarea[name="Post"],
     textarea[name="post"],
     textarea#Post
 )
-:is(td.maintitle, th.maintitle)::after {
+.tableborder:has(#posting-form)
+.maintitle::after,
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.maintitle::after {
     content: "";
 
     height: 2px;
 
     position: absolute;
+    top: auto;
     right: 16px;
     bottom: 0;
     left: 16px;
@@ -711,8 +789,8 @@ form:has(
 
 /* ---------------------------------------------------------
    INTERNAL SECTION LABELS
-   Retires the chunky/floating strip look without deleting
-   native Jcink section ownership.
+   Keep native pformstrip nodes, but stop them reading like
+   floating full-size bars.
    --------------------------------------------------------- */
 
 #heat-browser
@@ -721,33 +799,8 @@ form:has(
     textarea[name="post"],
     textarea#Post
 )
-.pformstrip {
-    min-height: 34px;
-    padding: 9px 12px;
-
-    color: #7d899c;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.012),
-            transparent
-        ),
-        #0f151f;
-
-    border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.042);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.042);
-    border-radius: 0;
-
-    font-family: var(--heat-font-display);
-    font-size: 7px;
-    font-weight: 800;
-    letter-spacing: 0.65px;
-    line-height: 1.15;
-    text-transform: uppercase;
-}
-
-/* First internal strip sits directly under the integrated title. */
+.tableborder:has(#posting-form)
+.pformstrip,
 #heat-browser
 form:has(
     textarea[name="Post"],
@@ -755,13 +808,35 @@ form:has(
     textarea#Post
 )
 #posting-form
-.pformstrip:first-of-type {
-    border-top: 0;
+.pformstrip {
+    min-height: 32px;
+    padding: 8px 12px;
+
+    color: #788599;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.010),
+            transparent
+        ),
+        #0f151f;
+
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.035);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+    border-radius: 0;
+
+    font-family: var(--heat-font-display);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.55px;
+    line-height: 1.15;
+    text-transform: uppercase;
 }
 
 /* ---------------------------------------------------------
-   NATIVE FORM CELLS
-   Same DOM, calmer surfaces and tighter alignment.
+   NATIVE TWO-COLUMN FORM GEOMETRY
+   Keep the smiley/label rail LEFT. No grid conversion.
    --------------------------------------------------------- */
 
 #heat-browser
@@ -770,13 +845,8 @@ form:has(
     textarea[name="post"],
     textarea#Post
 )
-:is(
-    .pformleft,
-    .pformleftw,
-    .pformright
-) {
-    padding: 10px 12px;
-
+#posting-form
+:is(.pformleft, .pformleftw, .pformright) {
     color: var(--heat-text-soft);
     background: transparent;
 
@@ -792,30 +862,11 @@ form:has(
     textarea#Post
 )
 #posting-form
-> tbody
-> tr:not(:last-child)
-> :is(td, th):not(.maintitle):not(.pformstrip) {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.035);
-}
-
-/* The native left rail stays left. */
-#heat-browser
-form:has(
-    textarea[name="Post"],
-    textarea[name="post"],
-    textarea#Post
-)
-.pformleft,
-#heat-browser
-form:has(
-    textarea[name="Post"],
-    textarea[name="post"],
-    textarea#Post
-)
-.pformleftw {
+:is(.pformleft, .pformleftw) {
     width: 154px;
     min-width: 154px;
     max-width: 154px;
+    padding: 10px 8px;
 
     color: #748196;
 
@@ -823,21 +874,22 @@ form:has(
     line-height: 1.45;
 }
 
-/* Main writing/data column owns the remaining width. */
 #heat-browser
 form:has(
     textarea[name="Post"],
     textarea[name="post"],
     textarea#Post
 )
+#posting-form
 .pformright {
     min-width: 0;
     width: auto;
+    padding: 10px 12px;
 }
 
 /* ---------------------------------------------------------
-   TOPIC / POLL / EDIT FIELDS
-   Keep native controls, align them with the writing column.
+   TOPIC / POLL / EDIT CONTROLS
+   Same right-column alignment on every posting variant.
    --------------------------------------------------------- */
 
 #heat-browser
@@ -846,6 +898,7 @@ form:has(
     textarea[name="post"],
     textarea#Post
 )
+#posting-form
 .pformright
 :is(
     input[type="text"],
@@ -866,16 +919,47 @@ form:has(
     border-radius: 10px;
 
     box-shadow: none;
+    outline: none;
 }
 
-/* Native writing area: the Main Stylesheet owns text rendering.
-   The root owns only how it fits the unified shell. */
 #heat-browser
 form:has(
     textarea[name="Post"],
     textarea[name="post"],
     textarea#Post
 )
+#posting-form
+.pformright
+:is(
+    input[type="text"],
+    input[type="url"],
+    input[type="number"],
+    select
+):focus {
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 40%,
+            rgba(255, 255, 255, 0.10)
+        );
+
+    box-shadow:
+        0 0 0 3px
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-blue)) 8%,
+            transparent
+        );
+}
+
+/* The textarea itself is sized by heat-main.css. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
 textarea[name="Post"],
 #heat-browser
 form:has(
@@ -883,6 +967,7 @@ form:has(
     textarea[name="post"],
     textarea#Post
 )
+#posting-form
 textarea[name="post"],
 #heat-browser
 form:has(
@@ -890,13 +975,14 @@ form:has(
     textarea[name="post"],
     textarea#Post
 )
+#posting-form
 textarea#Post {
     margin: 0;
 }
 
 /* ---------------------------------------------------------
-   LOW-PRIORITY POST OPTIONS
-   These rows remain available, but visually get out of the way.
+   COMPACT LOW-PRIORITY UTILITIES
+   Keep native controls functional, make them visually quiet.
    --------------------------------------------------------- */
 
 #heat-browser
@@ -907,7 +993,7 @@ form:has(
 )
 #posting-form
 tr:has(input[type="checkbox"])
-> td {
+> :is(td, th) {
     padding-top: 5px;
     padding-bottom: 5px;
 
@@ -925,16 +1011,7 @@ form:has(
 )
 #posting-form
 tr:has(input[type="checkbox"])
-.pformleft,
-#heat-browser
-form:has(
-    textarea[name="Post"],
-    textarea[name="post"],
-    textarea#Post
-)
-#posting-form
-tr:has(input[type="checkbox"])
-.pformleftw {
+:is(.pformleft, .pformleftw) {
     color: #667387;
 
     font-family: var(--heat-font-display);
@@ -961,8 +1038,7 @@ input[type="checkbox"] {
 }
 
 /* ---------------------------------------------------------
-   SUBMIT / PREVIEW ACTION ROW
-   Integrated into the shell instead of floating below it.
+   SUBMIT / PREVIEW ROW
    --------------------------------------------------------- */
 
 #heat-browser
@@ -976,21 +1052,21 @@ tr:has(
     input[type="submit"],
     input[type="button"]
 )
-> td {
-    padding: 10px 12px;
+> :is(td, th) {
+    padding: 9px 12px;
 
     background:
         linear-gradient(
             180deg,
-            rgba(255, 255, 255, 0.012),
+            rgba(255, 255, 255, 0.010),
             transparent
         ),
         #0f151f;
 
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.045);
 }
 
-/* Autosave status remains tiny and subordinate. */
+/* Autosave stays subordinate. */
 #heat-draft-status {
     min-height: 14px;
     margin: 6px 0 0;
@@ -1011,9 +1087,10 @@ tr:has(
 }
 
 /* ---------------------------------------------------------
-   TOPIC REVIEW / LAST POSTS
-   Keep native Jcink 20/80 ownership and existing behavior.
-   Only make its outer width follow the centered posting root.
+   TOPIC REVIEW
+   IMPORTANT: do not narrow it to the posting card and do not
+   rewrite Jcink's native cells. This restores the working
+   contract that existed before the broken pass.
    --------------------------------------------------------- */
 
 #heat-browser:has(
@@ -1022,10 +1099,9 @@ tr:has(
     textarea#Post
 )
 #topic-summary {
-    width: min(100%, 880px);
-    max-width: 880px;
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
-    margin-inline: auto;
 
     box-sizing: border-box;
 }
@@ -1108,20 +1184,14 @@ tr:has(
     box-sizing: border-box;
 }
 
-/* ---------------------------------------------------------
-   RESPONSIVE
-   Desktop keeps the smiley rail left. Only truly narrow
-   screens collapse naturally.
-   --------------------------------------------------------- */
-
 @media screen and (max-width: 700px) {
     #heat-browser
     form:has(
         textarea[name="Post"],
         textarea[name="post"],
         textarea#Post
-    ) {
-        width: 100%;
+    )
+    .tableborder:has(#posting-form) {
         max-width: 100%;
     }
 
@@ -1131,17 +1201,12 @@ tr:has(
         textarea[name="post"],
         textarea#Post
     )
-    .pformleft,
-    #heat-browser
-    form:has(
-        textarea[name="Post"],
-        textarea[name="post"],
-        textarea#Post
-    )
-    .pformleftw {
-        width: 118px;
-        min-width: 118px;
-        max-width: 118px;
+    #posting-form
+    :is(.pformleft, .pformleftw) {
+        width: 112px;
+        min-width: 112px;
+        max-width: 112px;
+        padding-inline: 6px;
     }
 }
 
@@ -13379,23 +13444,18 @@ button {
 }
 
 /* =========================================================
-   HEAT LIVE TRANSFER — SMILEY SIZE + TEMPLATE SUPPORT FIX 1
+   HEAT — SMILIES / UNIFIED POSTING SAFE OWNER
 
-   Jcink outputs clickable and rendered smilies as small images.
-   Enlarge only true Jcink emoticons without affecting photos,
-   GIF slots, profile media, attachments, or template artwork.
+   The real Jcink smiley table remains authoritative.
+   It stays on the LEFT. No DOM rewrite and no late route class.
    ========================================================= */
 
-/* Posting/reply screen: clickable smiley picker. */
-html.heat-route-posting
-#heat-browser
-:is(
-    a[href^="javascript:emoticon"],
-    a[href*="emoticon("]
+/* Posting picker only. */
+#heat-browser:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
 )
-img[alt="smilie" i],
-#heat-browser
-form[name="REPLIER"]
 :is(
     a[href^="javascript:emoticon"],
     a[href*="emoticon("]
@@ -13406,7 +13466,7 @@ img[alt="smilie" i] {
     max-width: none;
     max-height: 22px;
 
-    margin: 3px 2px;
+    margin: 0;
     padding: 0;
 
     display: inline-block;
@@ -13421,11 +13481,7 @@ img[alt="smilie" i] {
     vertical-align: middle;
 }
 
-/*
- * Rendered posts and all HEAT thread-template writing areas.
- * The attribute and URL checks isolate native Jcink emoticons,
- * so ordinary images and dedicated GIF/media slots stay unchanged.
- */
+/* Rendered posts retain the existing native-emoticon sizing. */
 .heat-post-copy img[alt="smilie" i],
 .heat-post-copy img[src*="/html/emoticons/" i],
 .heat-post-copy img[src*="/emoticons/" i] {
@@ -13449,80 +13505,14 @@ img[alt="smilie" i] {
     vertical-align: -5px !important;
 }
 
-/* Slightly tighter fit on narrow screens. */
-@media screen and (max-width: 600px) {
-    html.heat-route-posting
-    #heat-browser
-    :is(
-        a[href^="javascript:emoticon"],
-        a[href*="emoticon("]
-    )
-    img[alt="smilie" i],
-    #heat-browser
-    form[name="REPLIER"]
-    :is(
-        a[href^="javascript:emoticon"],
-        a[href*="emoticon("]
-    )
-    img[alt="smilie" i] {
-        height: 20px;
-        max-height: 20px;
-    }
-
-    .heat-post-copy img[alt="smilie" i],
-    .heat-post-copy img[src*="/html/emoticons/" i],
-    .heat-post-copy img[src*="/emoticons/" i] {
-        height: 20px !important;
-        max-height: 20px !important;
-    }
-}
-
-/* =========================================================
-   HEAT FOUNDATION — NATIVE SMILEY PANEL / UNIFIED POSTING PASS 1
-
-   Keep Jcink's real clickable-smiley DOM authoritative.
-   The panel stays on the LEFT. This pass only makes it slimmer,
-   quieter, and root-owned by the actual posting form.
-   ========================================================= */
-
-/* Clickable rendered smileys on the posting screen. */
-#heat-browser:has(
-    textarea[name="Post"],
-    textarea[name="post"],
-    textarea#Post
-)
-:is(
-    a[href^="javascript:emoticon"],
-    a[href*="emoticon("]
-)
-img[alt="smilie" i] {
-    width: auto;
-    height: 22px;
-    max-width: none;
-    max-height: 22px;
-
-    margin: 3px 2px;
-    padding: 0;
-
-    display: inline-block;
-
-    object-fit: contain;
-    object-position: center;
-
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-
-    vertical-align: middle;
-}
-
-/* Native left rail. */
+/* LEFT native smiley rail. */
 #heat-browser
 form:has(
     textarea[name="Post"],
     textarea[name="post"],
     textarea#Post
 )
+#posting-form
 td.pformleft:has(#smilies-table) {
     width: 154px;
     min-width: 154px;
@@ -13539,6 +13529,7 @@ form:has(
     textarea[name="post"],
     textarea#Post
 )
+#posting-form
 td.pformleft:has(#smilies-table)::before {
     content: "Smilies";
 
@@ -13563,6 +13554,7 @@ form:has(
     textarea[name="post"],
     textarea#Post
 )
+#posting-form
 td.pformleft:has(#smilies-table)
 > br,
 #heat-browser
@@ -13571,23 +13563,23 @@ form:has(
     textarea[name="post"],
     textarea#Post
 )
+#posting-form
 td.pformleft:has(#smilies-table)
 > .desc {
     display: none;
 }
 
-/* Scroll viewport. */
 #heat-browser:has(
     textarea[name="Post"],
     textarea[name="post"],
     textarea#Post
 )
 #smilies-table {
-    width: 144px;
+    width: 140px;
     max-width: 100%;
     max-height: 180px;
     margin: 0;
-    padding: 7px;
+    padding: 7px 6px;
 
     box-sizing: border-box;
     display: block;
@@ -13649,7 +13641,7 @@ td.pformleft:has(#smilies-table)
     border-radius: 999px;
 }
 
-/* Five-column compact grid fits the narrower left rail. */
+/* Compact 5-column picker. */
 #heat-browser:has(
     textarea[name="Post"],
     textarea[name="post"],
@@ -13678,7 +13670,6 @@ td.pformleft:has(#smilies-table)
     display: contents;
 }
 
-/* Native heading is replaced visually by the parent pseudo-label. */
 #heat-browser:has(
     textarea[name="Post"],
     textarea[name="post"],
@@ -13765,16 +13756,6 @@ a[href*="emoticon("]:is(:hover, :focus-visible) {
     transform: scale(1.08);
 }
 
-#heat-browser:has(
-    textarea[name="Post"],
-    textarea[name="post"],
-    textarea#Post
-)
-#smilies-table
-img[alt="smilie" i] {
-    margin: 0;
-}
-
 @media screen and (max-width: 700px) {
     #heat-browser
     form:has(
@@ -13782,10 +13763,11 @@ img[alt="smilie" i] {
         textarea[name="post"],
         textarea#Post
     )
+    #posting-form
     td.pformleft:has(#smilies-table) {
-        width: 118px;
-        min-width: 118px;
-        max-width: 118px;
+        width: 112px;
+        min-width: 112px;
+        max-width: 112px;
         padding-inline: 6px;
     }
 
@@ -13795,7 +13777,7 @@ img[alt="smilie" i] {
         textarea#Post
     )
     #smilies-table {
-        width: 108px;
+        width: 100px;
     }
 
     #heat-browser:has(
@@ -13805,7 +13787,8 @@ img[alt="smilie" i] {
     )
     #smilies-table
     > tbody {
-        grid-template-columns: repeat(4, 22px);
+        grid-template-columns: repeat(4, 20px);
+        gap: 3px;
     }
 }
 
