@@ -4946,14 +4946,14 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     width: max-content;
     max-width: 100%;
     min-width: 0;
-    min-height: 25px;
+    min-height: 22px;
     margin-top: 7px;
-    padding: 3px 7px;
+    padding: 2px 6px;
 
     display: inline-flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 4px;
 
     color: #8390a4;
 
@@ -4962,33 +4962,33 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
             135deg,
             color-mix(
                 in srgb,
-                var(--heat-topic-accent) 6%,
+                var(--heat-topic-accent) 4%,
                 transparent
             ),
             color-mix(
                 in srgb,
-                var(--heat-topic-accent-2) 3%,
+                var(--heat-topic-accent-2) 2%,
                 transparent
             )
         ),
-        rgba(255, 255, 255, 0.018);
+        rgba(255, 255, 255, 0.012);
 
     border:
         1px solid
         color-mix(
             in srgb,
-            var(--heat-topic-accent) 18%,
-            rgba(255, 255, 255, 0.07)
+            var(--heat-topic-accent) 12%,
+            rgba(255, 255, 255, 0.05)
         );
-    border-radius: 8px;
+    border-radius: 7px;
 
-    font-size: 9px;
+    font-size: 8.5px;
     font-weight: 500;
     line-height: 1;
 }
 
 .heat-topic-starter-label {
-    min-height: 17px;
+    min-height: 16px;
 
     display: inline-flex;
     align-items: center;
@@ -4996,9 +4996,9 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     color: #778397;
 
     font-family: var(--heat-font-display);
-    font-size: 6.5px;
+    font-size: 6px;
     font-weight: 700;
-    letter-spacing: 0.38px;
+    letter-spacing: 0.34px;
     line-height: 1;
     text-transform: uppercase;
     white-space: nowrap;
@@ -5006,20 +5006,20 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-topic-starter strong {
     min-width: 0;
-    min-height: 17px;
+    min-height: 16px;
 
     display: inline-flex;
     align-items: center;
 
     color: var(--heat-topic-accent);
 
-    font-size: 9.5px;
+    font-size: 8.75px;
     font-weight: 700;
     line-height: 1;
 }
 
 #heat-browser #heat-main .heat-topic-row .heat-topic-starter strong > a[href] {
-    min-height: 17px;
+    min-height: 16px;
 
     display: inline-flex;
     align-items: center;
