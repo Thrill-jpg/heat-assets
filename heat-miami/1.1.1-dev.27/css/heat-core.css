@@ -5035,6 +5035,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-topic-pages {
     min-width: 0;
+    min-height: 16px;
     margin-left: 1px;
 
     display: inline-flex;
@@ -5043,10 +5044,16 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     flex-wrap: wrap;
     gap: 3px;
 
-    color: var(--heat-muted);
+    /* Match the SENT FROM label treatment.
+       Number circles keep their own typography below. */
+    color: #778397;
 
-    font-size: 8px;
-    font-weight: 750;
+    font-family: var(--heat-font-subtext);
+    font-size: 6px;
+    font-weight: 400;
+    letter-spacing: 0.34px;
+    line-height: 1;
+    text-transform: uppercase;
 }
 
 .heat-topic-pages:empty {
