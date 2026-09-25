@@ -8114,6 +8114,7 @@ body.heat-subforum-page
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .heat-subaccount-copy strong {
@@ -8125,22 +8126,6 @@ body.heat-subforum-page
     font-size: 11px;
     font-weight: 700;
     line-height: 1.05;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.heat-subaccount-copy small {
-    margin-top: 4px;
-
-    overflow: hidden;
-
-    color: #818da0;
-
-    font-family: var(--heat-font-body);
-    font-size: 7px;
-    font-weight: 600;
-    line-height: 1;
 
     text-overflow: ellipsis;
     white-space: nowrap;
