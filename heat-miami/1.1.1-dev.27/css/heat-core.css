@@ -903,8 +903,7 @@ form:has(
 :is(
     input[type="text"],
     input[type="url"],
-    input[type="number"],
-    select
+    input[type="number"]
 ) {
     width: 100%;
     max-width: 100%;
@@ -920,6 +919,51 @@ form:has(
 
     box-shadow: none;
     outline: none;
+}
+
+/* Native posting dropdowns are compact controls.
+   Do not stretch them to the full writing-column width. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.pformright
+select {
+    width: auto;
+    max-width: 100%;
+    min-width: 112px;
+    min-height: 34px;
+    margin: 2px 6px 2px 0;
+    padding: 0 30px 0 10px;
+
+    display: inline-block;
+
+    color: var(--heat-text);
+    background: #0d121c;
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 9px;
+
+    box-shadow: none;
+    outline: none;
+
+    vertical-align: middle;
+}
+
+/* Jcink often outputs several posting selects in the same cell.
+   Preserve that native side-by-side behavior. */
+#heat-browser
+form:has(
+    textarea[name="Post"],
+    textarea[name="post"],
+    textarea#Post
+)
+#posting-form
+.pformright:has(select) {
+    white-space: normal;
 }
 
 #heat-browser
