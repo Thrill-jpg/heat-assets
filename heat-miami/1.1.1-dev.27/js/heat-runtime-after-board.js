@@ -4934,10 +4934,6 @@ function renderLocationAddonBody(body, fields, timeText) {
 }
 
 function renderPayAddonBody(body, fields, timeText) {
-  var card = createAddonNode(
-    "div",
-    "heat-comm-addon-pay-card"
-  );
   var head = createAddonNode(
     "div",
     "heat-comm-addon-pay-head"
@@ -4956,14 +4952,30 @@ function renderPayAddonBody(body, fields, timeText) {
       ? "paid"
       : "request";
   var amountValue = cleanText(fields.amount);
+  var card = createAddonNode(
+    "div",
+    "heat-comm-addon-pay-card is-pay-" + typeLabel
+  );
 
-  head.appendChild(
+  var brand = createAddonNode(
+    "div",
+    "heat-comm-addon-pay-brand"
+  );
+  brand.appendChild(
     createAddonNode(
-      "div",
+      "i",
+      "ph ph-wallet",
+      ""
+    )
+  );
+  brand.appendChild(
+    createAddonNode(
+      "span",
       "heat-comm-addon-pay-logo",
       "Apple Pay"
     )
   );
+  head.appendChild(brand);
 
   amountWrap.appendChild(
     createAddonNode(
@@ -4996,21 +5008,24 @@ function renderPayAddonBody(body, fields, timeText) {
 
   var actions = createAddonNode(
     "div",
-    "heat-comm-addon-btn-row"
+    "heat-comm-addon-btn-row heat-comm-addon-pay-actions"
   );
+
+  if (typeLabel === "request") {
+    actions.appendChild(
+      createAddonNode(
+        "span",
+        "heat-comm-addon-btn is-primary",
+        "Pay"
+      )
+    );
+  }
 
   actions.appendChild(
     createAddonNode(
       "span",
-      "heat-comm-addon-btn is-primary",
-      typeLabel === "request" ? "Pay" : "View"
-    )
-  );
-  actions.appendChild(
-    createAddonNode(
-      "span",
       "heat-comm-addon-btn",
-      "Message"
+      typeLabel === "request" ? "Details" : "View details"
     )
   );
 
@@ -5090,15 +5105,32 @@ function renderCallAddonBody(body, fields, timeText) {
     "div",
     "heat-comm-addon-call-grid"
   );
+  var rawStatus = cleanText(fields.status).toLowerCase() || "ended";
+  var rawType = cleanText(fields.type).toLowerCase();
+  var isFaceTime = rawType === "facetime";
+  var niceType = isFaceTime ? "FaceTime" : "Call";
   var card = createAddonNode(
     "div",
-    "heat-comm-addon-call-mini"
+    "heat-comm-addon-call-mini is-call-" + (isFaceTime ? "facetime" : "phone") + " is-status-" + rawStatus
   );
-  var rawStatus = cleanText(fields.status).toLowerCase();
-  var rawType = cleanText(fields.type).toLowerCase();
-  var niceType = rawType === "facetime" ? "FaceTime" : rawType ? rawType : "Call";
+  var icon = createAddonNode(
+    "div",
+    "heat-comm-addon-call-icon"
+  );
+  icon.appendChild(
+    createAddonNode(
+      "i",
+      isFaceTime ? "ph ph-video-camera" : "ph ph-phone",
+      ""
+    )
+  );
+
+  var copy = createAddonNode(
+    "div",
+    "heat-comm-addon-call-copy"
+  );
   var headline = niceType;
-  var detail = fields.duration ? "Duration · " + fields.duration : "";
+  var detail = fields.duration ? fields.duration : "";
 
   if (rawStatus === "ended") {
     headline = niceType + " ended";
@@ -5112,7 +5144,7 @@ function renderCallAddonBody(body, fields, timeText) {
     headline = niceType + " active";
   }
 
-  card.appendChild(
+  copy.appendChild(
     createAddonNode(
       "strong",
       "",
@@ -5121,15 +5153,24 @@ function renderCallAddonBody(body, fields, timeText) {
   );
 
   if (detail) {
-    card.appendChild(
+    copy.appendChild(
       createAddonNode(
         "small",
         "",
-        detail
+        "Duration · " + detail
       )
     );
   }
 
+  var state = createAddonNode(
+    "span",
+    "heat-comm-addon-call-state",
+    ""
+  );
+
+  card.appendChild(icon);
+  card.appendChild(copy);
+  card.appendChild(state);
   grid.appendChild(card);
   body.appendChild(grid);
   appendAddonFooter(body, "", timeText);
