@@ -5903,7 +5903,7 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         return;
     }
 
-    const CACHE_PREFIX = "heatCompactMedia:v3:profile:";
+    const CACHE_PREFIX = "heatCompactMedia:v4:profile:";
     const CACHE_MAX_AGE = 30 * 60 * 1000;
     const MAX_CONCURRENT_REQUESTS = 4;
 
@@ -6213,114 +6213,6 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         return true;
     }
 
-    function loadableAvatarUrl(media) {
-        const url = normalizeUrl(media && media.avatar);
-
-        if (!url) {
-            return Promise.resolve("");
-        }
-
-        return new Promise(function (resolve) {
-            const image = new Image();
-            image.decoding = "async";
-            image.fetchPriority = "low";
-
-            image.onload = function () {
-                resolve(url);
-            };
-
-            image.onerror = function () {
-                resolve("");
-            };
-
-            image.src = url;
-        });
-    }
-
-    function applyTopicField2(target, url) {
-        if (!target || !url) return false;
-
-        let image = target.querySelector(
-            ":scope > .heat-topic-last-avatar-native"
-        );
-
-        if (!image) {
-            image = document.createElement("img");
-            image.className = "heat-topic-last-avatar-native";
-            image.loading = "lazy";
-            image.decoding = "async";
-            image.fetchPriority = "low";
-            target.appendChild(image);
-        }
-
-        image.hidden = false;
-        image.src = url;
-
-        target.classList.add("has-field2-media");
-        target.classList.remove("is-field2-pending");
-        target.setAttribute("data-heat-topic-field2", "ready");
-
-        return true;
-    }
-
-    function decorateTopicField2(target, href, memberId) {
-        if (
-            !target ||
-            target.dataset.heatTopicField2 === "ready"
-        ) {
-            return Promise.resolve(false);
-        }
-
-        const id = memberId || profileIdFromHref(href);
-        const requestKey = id || String(href || "");
-
-        if (
-            target.dataset.heatTopicField2Request === requestKey &&
-            target.classList.contains("is-field2-pending")
-        ) {
-            return Promise.resolve(false);
-        }
-
-        const cached = readCached(id);
-
-        /*
-         * Topic Row is Field 2 only.
-         * Keep the portrait slot blank on first paint, but do not wait
-         * for the full window load event. Topic Row Field 2 work may
-         * begin once the DOM is interactive/ready.
-         */
-        if (
-            !cached &&
-            document.readyState === "loading"
-        ) {
-            return Promise.resolve(false);
-        }
-
-        target.dataset.heatTopicField2Request = requestKey;
-        target.classList.add("is-field2-pending");
-
-        const mediaPromise =
-            cached
-                ? Promise.resolve(cached)
-                : requestProfileMedia(href, id);
-
-        return mediaPromise
-            .then(loadableAvatarUrl)
-            .then(function (url) {
-                if (url) {
-                    return applyTopicField2(target, url);
-                }
-
-                target.classList.remove("is-field2-pending");
-                target.setAttribute(
-                    "data-heat-topic-field2",
-                    "empty"
-                );
-
-                return false;
-            });
-    }
-
     function decorate(target, href, memberId) {
         if (!target || target.dataset.heatCompactMedia === "ready") {
             return Promise.resolve(false);
@@ -6372,7 +6264,13 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         return scope.querySelector(selector);
     }
 
-    function scanTopicField2() {
+    function scan() {
+        /*
+         * Pass 8 FIX 1: Forum Row avatar ownership is native.
+         * Forum Row renders |last_poster_avatar_url| directly,
+         * so compact-media JS must never scan or overwrite it.
+         */
+
         document
             .querySelectorAll(".heat-topic-row")
             .forEach(function (row) {
@@ -6382,32 +6280,14 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
                     '.heat-topic-last-poster a[href*="MID="], ' +
                     '.heat-topic-last-poster a[href*="mid="]'
                 );
-
                 const target = row.querySelector(
-                    "[data-heat-topic-field2-target]"
+                    ".heat-topic-last-avatar-image"
                 );
 
                 if (link && target) {
-                    decorateTopicField2(
-                        target,
-                        link.href,
-                        profileIdFromHref(link.href)
-                    );
+                    decorate(target, link.href);
                 }
             });
-    }
-
-    function scan() {
-        /*
-         * Forum Row stays native.
-         *
-         * Topic Row is intentionally different: its latest image
-         * uses profile Field 2. Topic Row Field 2 starts at DOM-ready,
-         * while the rest of compact-media decoration still waits
-         * until full page load.
-         */
-
-        scanTopicField2();
 
         document
             .querySelectorAll(".heat-online-avatar[href]")
@@ -6466,26 +6346,6 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         try { sessionStorage.removeItem(key); } catch (error) {}
         try { localStorage.removeItem(key); } catch (error) {}
     };
-
-    function releaseTopicField2AtDomReady() {
-        /*
-         * Topic Row Field 2 is the actual visible avatar source on
-         * subforum pages, so start it as soon as DOM parsing is done.
-         * requestProfileMedia() still deduplicates/caches requests and
-         * the shared queue still limits concurrency.
-         */
-        scanTopicField2();
-    }
-
-    if (document.readyState === "loading") {
-        document.addEventListener(
-            "DOMContentLoaded",
-            releaseTopicField2AtDomReady,
-            { once: true }
-        );
-    } else {
-        releaseTopicField2AtDomReady();
-    }
 
     function releaseCompactMediaAfterLoad() {
         pageLoadComplete = true;
