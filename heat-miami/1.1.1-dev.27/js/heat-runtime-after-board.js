@@ -4676,30 +4676,48 @@ function parseCollectorAddon(source) {
   var lines = rawBody ? rawBody.split(/\n+/) : [];
   var messageLines = [];
 
+  /*
+     Jcink/DOHTML can preserve member-entered line breaks or collapse
+     them into ordinary spaces depending on where the tag is used.
+     Parse each logical line for one OR several key=value fields so
+     the same add-on syntax works in both collector bubbles and
+     Traditional Comm <p> bubbles.
+  */
   lines.forEach(function (line) {
     var cleaned = String(line || "").trim();
-    var separatorIndex = cleaned.indexOf("=");
+    var fieldPattern = /(^|\s)([a-z0-9_-]+)=/gi;
+    var matches = [];
+    var fieldMatch;
 
     if (!cleaned) return;
 
-    if (separatorIndex === -1) {
+    while ((fieldMatch = fieldPattern.exec(cleaned))) {
+      matches.push({
+        key: cleanText(fieldMatch[2]).toLowerCase(),
+        markerStart:
+          fieldMatch.index +
+          (fieldMatch[1] ? fieldMatch[1].length : 0),
+        valueStart: fieldPattern.lastIndex
+      });
+    }
+
+    if (!matches.length || matches[0].markerStart !== 0) {
       messageLines.push(cleaned);
       return;
     }
 
-    var key = cleanText(
-      cleaned.slice(0, separatorIndex)
-    ).toLowerCase();
-    var value = cleanText(
-      cleaned.slice(separatorIndex + 1)
-    );
+    matches.forEach(function (entry, index) {
+      var next = matches[index + 1];
+      var valueEnd = next
+        ? next.markerStart
+        : cleaned.length;
+      var value = cleanText(
+        cleaned.slice(entry.valueStart, valueEnd)
+      );
 
-    if (!key) {
-      messageLines.push(cleaned);
-      return;
-    }
-
-    fields[key] = value;
+      if (!entry.key) return;
+      fields[entry.key] = value;
+    });
   });
 
   if (messageLines.length && !fields.message) {
@@ -5418,16 +5436,33 @@ function buildCollectorAddonMessage(
   row,
   identityMode,
   addon,
-  isStarter
+  isStarter,
+  options
 ) {
+  options = options || {};
+
   var message = document.createElement("div");
   var bubble = document.createElement("div");
   var member = rowMemberData(row);
-  var actorName = member.displayName || member.nickname || "HEAT member";
-  var timeText = readableTime(row);
+  var actorName =
+    cleanText(options.actorName) ||
+    member.displayName ||
+    member.nickname ||
+    "HEAT member";
+  var timeText =
+    Object.prototype.hasOwnProperty.call(
+      options,
+      "timeText"
+    )
+      ? cleanText(options.timeText)
+      : readableTime(row);
 
   message.className = "heat-comm-message is-addon-" + addon.type;
-  message.dataset.sourcePostId = row.dataset.postId || "";
+
+  if (row) {
+    message.dataset.sourcePostId =
+      row.dataset.postId || "";
+  }
 
   if (isStarter) {
     message.classList.add("is-starter");
@@ -5521,13 +5556,114 @@ function buildCollectorAddonMessage(
   bubble.appendChild(article);
   message.appendChild(bubble);
 
-  decorateMessageAuthor(
-    message,
-    row,
-    identityMode
-  );
+  if (!options.skipAuthor) {
+    decorateMessageAuthor(
+      message,
+      row,
+      identityMode
+    );
+  }
 
   return message;
+}
+
+/* =======================================================
+   TRADITIONAL COMM ADD-ON EXTENSION V1 — REV82
+
+   Traditional Comms remain static DOHTML templates. This pass
+   only upgrades a direct message <p> when that whole bubble is
+   one supported add-on tag. Normal Traditional Comm messages
+   are left untouched. The same collector renderer is reused so
+   there is one visual/add-on system to maintain.
+   ======================================================= */
+
+function traditionalAddonActorName(messageNode, comm, row) {
+  if (
+    messageNode &&
+    messageNode.classList.contains("is-them")
+  ) {
+    var contactName = comm && comm.querySelector(
+      ".heat-traditional-name"
+    );
+    var contactText = cleanText(
+      contactName && contactName.textContent
+    );
+
+    if (contactText) return contactText;
+  }
+
+  var member = rowMemberData(row);
+
+  return (
+    member.displayName ||
+    member.nickname ||
+    "HEAT member"
+  );
+}
+
+function convertTraditionalCommAddons() {
+  Array.from(
+    document.querySelectorAll(
+      ".heat-traditional-messages"
+    )
+  ).forEach(function (messageList) {
+    var comm = messageList.closest(
+      ".heat-traditional-comm"
+    );
+    var row = messageList.closest(POST_ROW_SELECTOR);
+
+    if (!comm || !row) return;
+
+    Array.from(messageList.children).forEach(
+      function (messageNode) {
+        if (
+          !messageNode.matches(
+            "p.is-you, p.is-them"
+          )
+        ) {
+          return;
+        }
+
+        var addon = parseCollectorAddon(messageNode);
+
+        /*
+           Collector reactions target separate collected posts and
+           are intentionally not converted inside a Traditional Comm.
+        */
+        if (!addon || addon.type === "react") {
+          return;
+        }
+
+        var isYou = messageNode.classList.contains(
+          "is-you"
+        );
+        var rebuilt = buildCollectorAddonMessage(
+          row,
+          "",
+          addon,
+          isYou,
+          {
+            actorName: traditionalAddonActorName(
+              messageNode,
+              comm,
+              row
+            ),
+            timeText: readableTime(row),
+            skipAuthor: true
+          }
+        );
+
+        rebuilt.classList.add(
+          "heat-traditional-addon",
+          isYou ? "is-you" : "is-them"
+        );
+        rebuilt.dataset.heatTraditionalAddon =
+          "ready";
+
+        messageNode.replaceWith(rebuilt);
+      }
+    );
+  });
 }
 
   /* =======================================================
@@ -6320,6 +6456,7 @@ function buildCollectorAddonMessage(
      RUN IMMEDIATELY AFTER THE BOARD MARKUP
      ======================================================= */
 
+  convertTraditionalCommAddons();
   activateComm();
 })();
 }
