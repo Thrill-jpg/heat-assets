@@ -25774,3 +25774,194 @@ img[src*="/emoticons/" i] {
 @media (min-width: 681px) {
   .heat-comm-bubble.is-addon-card { width:min(100%,336px); max-width:min(100%,336px); }
 }
+
+/* =========================================================
+   COLLECTOR ADD-ON PACK V1 — REV75 COMPACT INLINE PASS
+   Final owner for collector add-on sizing / density.
+   ========================================================= */
+
+.heat-comm-bubble.is-addon-card {
+  width: min(100%, 292px);
+  max-width: min(100%, 292px);
+  border-radius: 15px;
+}
+
+.heat-comm-addon-event {
+  border-radius: 15px;
+  background: rgba(12, 18, 29, .92);
+  border-color: rgba(255,255,255,.055);
+  box-shadow: 0 7px 16px rgba(0,0,0,.14), 0 0 10px color-mix(in srgb, var(--addon-glow) 45%, transparent);
+}
+
+.heat-comm-addon-head {
+  gap: 7px;
+  padding: 8px 9px 7px;
+  border-bottom-color: rgba(255,255,255,.035);
+  background: rgba(255,255,255,.018);
+}
+
+.heat-comm-addon-icon {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  font-size: 12px;
+  border-radius: 9px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055);
+}
+
+.heat-comm-addon-title strong,
+.heat-comm-addon-call-mini strong,
+.heat-comm-addon-location-name,
+.heat-comm-addon-pay-amount-value,
+.heat-comm-addon-transcript strong {
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+
+.heat-comm-addon-title small,
+.heat-comm-addon-call-mini small,
+.heat-comm-addon-location-address,
+.heat-comm-addon-pay-amount-label,
+.heat-comm-addon-foot,
+.heat-comm-addon-reply-label,
+.heat-comm-addon-location-meta small {
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.heat-comm-addon-title small { margin-top: 0; }
+
+.heat-comm-addon-body {
+  padding: 8px 9px 9px;
+}
+
+.heat-comm-addon-note,
+.heat-comm-addon-reply-quote,
+.heat-comm-addon-location-box,
+.heat-comm-addon-pay-card,
+.heat-comm-addon-transcript,
+.heat-comm-addon-call-mini {
+  border-radius: 11px;
+  background: rgba(255,255,255,.022);
+  border-color: rgba(255,255,255,.045);
+}
+
+.heat-comm-addon-reply-quote {
+  margin-bottom: 6px;
+  padding: 7px 8px;
+}
+
+.heat-comm-addon-reply-label {
+  margin-bottom: 3px;
+  font-size: 8.5px;
+  letter-spacing: .07em;
+}
+
+.heat-comm-addon-reply-text,
+.heat-comm-addon-note,
+.heat-comm-addon-pay-note,
+.heat-comm-addon-transcript p {
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.heat-comm-addon-note {
+  padding: 7px 8px;
+}
+
+.heat-comm-addon-foot {
+  margin-top: 5px;
+  font-size: 8.5px;
+}
+
+.heat-comm-addon-location-box {
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px;
+}
+
+.heat-comm-addon-map-thumb {
+  min-height: 54px;
+  border-radius: 10px;
+}
+
+.heat-comm-addon-btn-row {
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.heat-comm-addon-btn {
+  padding: 6px 8px;
+  font-size: 8px;
+  letter-spacing: .045em;
+}
+
+.heat-comm-addon-pay-card {
+  padding: 8px;
+}
+
+.heat-comm-addon-pay-head {
+  gap: 8px;
+}
+
+.heat-comm-addon-pay-logo {
+  font-size: 9px;
+}
+
+.heat-comm-addon-pay-amount-value {
+  font-size: 14px;
+}
+
+.heat-comm-addon-pay-note {
+  margin-top: 7px;
+}
+
+.heat-comm-addon-wave {
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  gap: 7px;
+}
+
+.heat-comm-addon-wave-play {
+  width: 26px;
+  height: 26px;
+  font-size: 10px;
+}
+
+.heat-comm-addon-wave-bars {
+  min-height: 18px;
+  gap: 3px;
+}
+
+.heat-comm-addon-wave-bars span:nth-child(1),
+.heat-comm-addon-wave-bars span:nth-child(7) { height: 7px; }
+.heat-comm-addon-wave-bars span:nth-child(2),
+.heat-comm-addon-wave-bars span:nth-child(10) { height: 12px; }
+.heat-comm-addon-wave-bars span:nth-child(3),
+.heat-comm-addon-wave-bars span:nth-child(11) { height: 17px; }
+.heat-comm-addon-wave-bars span:nth-child(4),
+.heat-comm-addon-wave-bars span:nth-child(8) { height: 10px; }
+.heat-comm-addon-wave-bars span:nth-child(5),
+.heat-comm-addon-wave-bars span:nth-child(12) { height: 15px; }
+.heat-comm-addon-wave-bars span:nth-child(6),
+.heat-comm-addon-wave-bars span:nth-child(9) { height: 11px; }
+
+.heat-comm-addon-transcript {
+  margin-top: 6px;
+  padding: 7px 8px;
+}
+
+.heat-comm-addon-transcript strong {
+  margin-bottom: 3px;
+  font-size: 8.5px;
+}
+
+.heat-comm-addon-call-grid { gap: 6px; }
+.heat-comm-addon-call-mini { padding: 7px 8px; }
+
+@media (max-width: 680px) {
+  .heat-comm-bubble.is-addon-card {
+    width: min(100%, 280px);
+    max-width: min(100%, 280px);
+  }
+}
+
