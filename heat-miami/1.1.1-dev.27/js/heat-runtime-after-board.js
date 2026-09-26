@@ -3858,7 +3858,23 @@ var COLLECTOR_ADDON_TYPES = {
   }
 
   function topicId(url) {
-    return parameterValue(url, "showtopic");
+    var directTopicId = parameterValue(
+      url,
+      "showtopic"
+    );
+
+    if (directTopicId) {
+      return directTopicId;
+    }
+
+    var action = parameterValue(url, "act")
+      .toLowerCase();
+
+    if (action === "st") {
+      return parameterValue(url, "t");
+    }
+
+    return "";
   }
 
   function pageOffset(url) {
@@ -3916,7 +3932,10 @@ var COLLECTOR_ADDON_TYPES = {
     var found = Object.create(null);
 
     Array.from(
-      sourceDocument.querySelectorAll('a[href*="showtopic"]')
+      sourceDocument.querySelectorAll(
+        'a[href*="showtopic" i], ' +
+        'a[href*="act=ST" i][href*="t=" i]'
+      )
     ).forEach(function (link) {
       var href = link.getAttribute("href");
 
