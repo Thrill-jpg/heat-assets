@@ -26261,7 +26261,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =====================================================================
-   HEAT QUICK PROFILE INSERTS PACK — REV88B
+   HEAT QUICK PROFILE INSERTS PACK — REV88C
    New lightweight About Me/Profile Insert options:
    01 Snapshot Trio
    02 Mini Mood Tiles
@@ -26289,7 +26289,7 @@ img[src*="/emoticons/" i] {
     min-height: 27px;
     padding: 5px 8px 5px 9px;
     gap: 6px;
-    font-size: 6px;
+    font-size: 7px;
     letter-spacing: 0.52px;
 }
 
@@ -26308,7 +26308,7 @@ img[src*="/emoticons/" i] {
 
 .heat-profile-quick .heat-profile-insert__eyebrow {
     margin-bottom: 2px;
-    font-size: 5.8px;
+    font-size: 7px;
     letter-spacing: 0.78px;
 }
 
@@ -26320,7 +26320,7 @@ img[src*="/emoticons/" i] {
 .heat-profile-quick__subcopy {
     margin-top: 5px;
     color: var(--hpi-muted);
-    font-size: 8px;
+    font-size: 9px;
     line-height: 1.5;
 }
 
@@ -26349,7 +26349,7 @@ img[src*="/emoticons/" i] {
     color: rgba(255, 255, 255, 0.72);
 
     font-family: "Viga", sans-serif;
-    font-size: 5px;
+    font-size: 6.5px;
     letter-spacing: 0.55px;
     line-height: 1;
     text-transform: uppercase;
@@ -26388,7 +26388,7 @@ img[src*="/emoticons/" i] {
     border: 1px solid var(--hpi-border);
     border-radius: 8px;
 
-    font-size: 7px;
+    font-size: 8.5px;
     line-height: 1.4;
 }
 
@@ -26414,7 +26414,7 @@ img[src*="/emoticons/" i] {
     border-radius: 999px;
 
     font-family: "Viga", sans-serif;
-    font-size: 5px;
+    font-size: 6px;
     letter-spacing: 0.45px;
     line-height: 1;
     text-transform: uppercase;
@@ -26462,7 +26462,7 @@ img[src*="/emoticons/" i] {
     border: 1px solid var(--hpi-border);
     border-radius: 8px;
 
-    font-size: 7px;
+    font-size: 8.5px;
     line-height: 1.4;
 }
 
@@ -26585,7 +26585,7 @@ img[src*="/emoticons/" i] {
 
 .heat-profile-quick-links__copy strong {
     color: var(--hpi-text);
-    font-size: 7px;
+    font-size: 8.5px;
     line-height: 1.2;
 }
 
@@ -26593,7 +26593,7 @@ img[src*="/emoticons/" i] {
     margin-top: 3px;
 
     color: var(--hpi-muted);
-    font-size: 5px;
+    font-size: 6.5px;
     line-height: 1.2;
 }
 
@@ -26663,7 +26663,7 @@ img[src*="/emoticons/" i] {
     color: var(--hpi-muted);
 
     font-family: "Viga", sans-serif;
-    font-size: 5.5px;
+    font-size: 6.5px;
     letter-spacing: 0.85px;
     line-height: 1.2;
     text-transform: uppercase;
@@ -26687,7 +26687,7 @@ img[src*="/emoticons/" i] {
     border: 1px solid var(--hpi-border);
     border-radius: 7px;
 
-    font-size: 6px;
+    font-size: 7px;
     line-height: 1;
     text-decoration: none;
 }
@@ -26789,7 +26789,7 @@ img[src*="/emoticons/" i] {
     border: 1px solid var(--hpi-border);
     border-radius: 8px;
 
-    font-size: 6px;
+    font-size: 7px;
     line-height: 1;
     text-decoration: none;
 }
@@ -26871,7 +26871,7 @@ img[src*="/emoticons/" i] {
     color: var(--hpi-muted);
 
     font-family: "Viga", sans-serif;
-    font-size: 5px;
+    font-size: 6.5px;
     letter-spacing: 0.55px;
     line-height: 1;
     text-transform: uppercase;
@@ -26882,7 +26882,7 @@ img[src*="/emoticons/" i] {
 
     color: var(--hpi-text);
 
-    font-size: 7px;
+    font-size: 8.5px;
     line-height: 1.15;
 }
 
@@ -26951,7 +26951,7 @@ img[src*="/emoticons/" i] {
 .heat-profile-quick-music__meta strong {
     color: var(--hpi-text);
 
-    font-size: 9px;
+    font-size: 10px;
     line-height: 1.2;
 }
 
@@ -26961,7 +26961,7 @@ img[src*="/emoticons/" i] {
     color: var(--hpi-muted);
 
     font-family: "Viga", sans-serif;
-    font-size: 5.5px;
+    font-size: 6.5px;
     letter-spacing: 0.5px;
     line-height: 1.2;
     text-transform: uppercase;
@@ -27032,7 +27032,7 @@ img[src*="/emoticons/" i] {
 
     color: var(--hpi-muted);
 
-    font-size: 5px;
+    font-size: 6.5px;
     line-height: 1;
     text-align: right;
 
@@ -27049,7 +27049,7 @@ img[src*="/emoticons/" i] {
 
     color: var(--hpi-muted);
 
-    font-size: 5px;
+    font-size: 6.5px;
     line-height: 1.25;
 }
 
@@ -27057,7 +27057,7 @@ img[src*="/emoticons/" i] {
     color: var(--hpi-color-1);
 
     font-family: "Viga", sans-serif;
-    font-size: 5px;
+    font-size: 6.5px;
     letter-spacing: 0.5px;
     line-height: 1;
     text-transform: uppercase;
