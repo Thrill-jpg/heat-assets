@@ -26261,908 +26261,441 @@ img[src*="/emoticons/" i] {
 }
 
 /* =====================================================================
-   HEAT QUICK PROFILE INSERTS PACK — REV88C
-   New lightweight About Me/Profile Insert options:
-   01 Snapshot Trio
-   02 Mini Mood Tiles
-   03 Link Locker
-   04 Quote Drop
-   05 Pocket Board
-   06 Four Favorites
-   07 Now Playing
-
-   Uses the existing .heat-profile-insert visual system and HPI variables.
-   No !important overrides. No changes to existing insert families.
+   HEAT DEV GALLERY PACK — REV89
+   Selected concepts:
+   1) Glass Strip Gallery
+   2) Slide Deck Gallery
+   3) Dual Moodboard
+   4) Carousel Gallery
+   5) Single Focus
+   Notes:
+   - Built as image-first development templates
+   - Dark glass / tech styling
+   - Media slots accept either <img> or <video src="" controls playsinline>
    ===================================================================== */
 
-.heat-profile-quick {
-    width: 100%;
+.heat-dev-gallery{
+    --hdg-a: var(--heat-accent-1, #ff1685);
+    --hdg-b: var(--heat-accent-2, #ff4568);
+    --hdg-c: var(--heat-accent-3, #ff9a1f);
+    --hdg-bg: rgba(10, 14, 21, 0.96);
+    --hdg-panel: rgba(17, 24, 35, 0.74);
+    --hdg-line: rgba(255,255,255,0.08);
+    --hdg-line-strong: rgba(255,255,255,0.12);
+    --hdg-text: #eef2f8;
+    --hdg-soft: #bcc4d0;
+    --hdg-muted: #7e8898;
+    --hdg-good: #72d696;
+    --hdg-radius: 22px;
+    --hdg-radius-sm: 14px;
+    --hdg-grad: linear-gradient(90deg, var(--hdg-a), var(--hdg-b) 48%, var(--hdg-c));
+    position: relative;
+    width: min(100%, 620px);
+    margin: 25px auto;
+    overflow: hidden;
+    border: 1px solid var(--hdg-line);
+    border-radius: var(--hdg-radius);
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.03), transparent 42%),
+      var(--hdg-bg);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.03),
+      0 18px 40px rgba(0,0,0,0.30);
+    color: var(--hdg-text);
+    font-family: var(--font-body, "Quicksand", "Trebuchet MS", Arial, sans-serif);
+}
+
+.heat-dev-gallery *,
+.heat-dev-gallery *:before,
+.heat-dev-gallery *:after{
+    box-sizing: border-box;
+}
+
+.heat-dev-gallery a{
+    color: inherit;
+    text-decoration: none;
+}
+
+.heat-dev-gallery__topbar{
+    min-height: 42px;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--hdg-line);
+    background: rgba(255,255,255,0.018);
+}
+
+.heat-dev-gallery__dots{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.heat-dev-gallery__dots i{
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+}
+
+.heat-dev-gallery__dots i:nth-child(1){ background: var(--hdg-a); }
+.heat-dev-gallery__dots i:nth-child(2){ background: var(--hdg-b); }
+.heat-dev-gallery__dots i:nth-child(3){ background: var(--hdg-c); }
+
+.heat-dev-gallery__filename{
     min-width: 0;
-    margin: 0 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    color: #d7dbe4;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
 }
 
-.heat-profile-quick .heat-profile-insert__shell {
-    border-radius: 12px;
+.heat-dev-gallery__status{
+    color: var(--hdg-muted);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: right;
 }
 
-.heat-profile-quick .heat-profile-insert__windowbar {
-    min-height: 27px;
-    padding: 5px 8px 5px 9px;
+.heat-dev-gallery__body{
+    padding: 16px;
+}
+
+.heat-dev-gallery__meta{
+    display: flex;
+    flex-wrap: wrap;
     gap: 6px;
+    margin-bottom: 10px;
+}
+
+.heat-dev-gallery__meta span{
+    display: inline-flex;
+    align-items: center;
+    min-height: 18px;
+    padding: 4px 7px;
+    border: 1px solid var(--hdg-line);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.02);
+    color: var(--hdg-muted);
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.heat-dev-gallery__meta .hot{
+    color: var(--hdg-a);
+    border-color: color-mix(in srgb, var(--hdg-a) 28%, var(--hdg-line));
+}
+
+.heat-dev-gallery__caption{
+    margin-top: 10px;
+    color: var(--hdg-soft);
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+.heat-dev-gallery__foot{
+    min-height: 36px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid var(--hdg-line);
+    color: var(--hdg-muted);
     font-size: 7px;
-    letter-spacing: 0.52px;
+    line-height: 1.4;
 }
 
-.heat-profile-quick .heat-profile-insert__dots {
-    gap: 3px;
+.heat-dev-gallery__foot b{
+    color: var(--hdg-good);
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
-.heat-profile-quick .heat-profile-insert__dots span {
-    width: 5px;
-    height: 5px;
+.heat-dev-gallery__media,
+.heat-dev-gallery__media img,
+.heat-dev-gallery__media video{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
 }
 
-.heat-profile-quick .heat-profile-insert__body {
+.heat-dev-gallery__media{
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--hdg-radius-sm);
+    background:
+      radial-gradient(circle at 24% 25%, color-mix(in srgb, var(--hdg-a) 32%, #232a39), transparent 28%),
+      radial-gradient(circle at 76% 70%, color-mix(in srgb, var(--hdg-c) 20%, #1b2230), transparent 34%),
+      linear-gradient(145deg, #202838, #101621);
+}
+
+.heat-dev-gallery__media img,
+.heat-dev-gallery__media video{
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+    background: transparent;
+}
+
+.heat-dev-gallery__media video{
+    background: #0d121b;
+}
+
+.heat-dev-gallery__media.is-wide{ aspect-ratio: 16 / 9; }
+.heat-dev-gallery__media.is-square{ aspect-ratio: 1 / 1; }
+.heat-dev-gallery__media.is-portrait{ aspect-ratio: 4 / 5; }
+.heat-dev-gallery__media.is-single{ aspect-ratio: 16 / 10; }
+
+.heat-dev-gallery__media[data-label]:after{
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    bottom: 9px;
+    color: rgba(255,255,255,0.72);
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+    pointer-events: none;
+}
+
+.heat-dev-gallery__media[data-type]:before{
+    content: attr(data-type);
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    padding: 4px 6px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(7,10,17,0.72);
+    color: #fff;
+    font-size: 5.6px;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
+.heat-dev-gallery__play{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(8,12,18,0.82);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 10px;
+    line-height: 1;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.22);
+    pointer-events: none;
+}
+
+.heat-dev-gallery__strip-row{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.heat-dev-gallery__deck-shell,
+.heat-dev-gallery__single-shell{
     padding: 10px;
+    border: 1px solid var(--hdg-line);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.016);
 }
 
-.heat-profile-quick .heat-profile-insert__eyebrow {
-    margin-bottom: 2px;
-    font-size: 7px;
-    letter-spacing: 0.78px;
+.heat-dev-gallery__deck-layout{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 104px;
+    gap: 10px;
 }
 
-.heat-profile-quick .heat-profile-insert__title {
-    font-size: 15px;
-    line-height: 1.08;
+.heat-dev-gallery__deck-side{
+    display: grid;
+    gap: 8px;
 }
 
-.heat-profile-quick__subcopy {
-    margin-top: 5px;
-    color: var(--hpi-muted);
+.heat-dev-gallery__deck-bottom{
+    margin-top: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--hdg-line);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.018);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.heat-dev-gallery__deck-text{
+    color: var(--hdg-soft);
     font-size: 9px;
     line-height: 1.5;
 }
 
-.heat-profile-quick__photo {
-    min-width: 0;
-    min-height: 0;
-    position: relative;
-    overflow: hidden;
-
-    background-color: #171d2a;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    border: 1px solid var(--hpi-border);
-    border-radius: 9px;
-}
-
-.heat-profile-quick__photo::after {
-    content: attr(data-label);
-
-    position: absolute;
-    left: 7px;
-    bottom: 6px;
-
-    color: rgba(255, 255, 255, 0.72);
-
-    font-family: "Viga", sans-serif;
-    font-size: 6.5px;
-    letter-spacing: 0.55px;
-    line-height: 1;
-    text-transform: uppercase;
-
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.72);
-}
-
-/* ---------------------------------------------------------
-   01 — SNAPSHOT TRIO
-   --------------------------------------------------------- */
-
-.heat-profile-quick-trio__grid {
-    margin-top: 8px;
-
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-}
-
-.heat-profile-quick-trio__grid .heat-profile-quick__photo {
-    aspect-ratio: 4 / 5;
-}
-
-.heat-profile-quick-trio__footer {
-    margin-top: 7px;
-    padding: 7px 8px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-
-    color: var(--hpi-text-soft);
-    background: var(--hpi-panel-soft);
-
-    border: 1px solid var(--hpi-border);
-    border-radius: 8px;
-
-    font-size: 8.5px;
-    line-height: 1.4;
-}
-
-.heat-profile-quick-trio__pill {
-    flex: 0 0 auto;
-    padding: 4px 6px;
-
-    color: var(--hpi-color-1);
-    background:
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 9%,
-            rgba(255, 255, 255, 0.02)
-        );
-
-    border:
-        1px solid
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 26%,
-            var(--hpi-border)
-        );
-    border-radius: 999px;
-
-    font-family: "Viga", sans-serif;
-    font-size: 6px;
-    letter-spacing: 0.45px;
-    line-height: 1;
-    text-transform: uppercase;
-}
-
-/* ---------------------------------------------------------
-   02 — MINI MOOD TILES
-   --------------------------------------------------------- */
-
-.heat-profile-quick-mood__grid {
-    margin-top: 8px;
-
-    display: grid;
-    grid-template-columns: 1.25fr 0.8fr 0.8fr;
-    grid-template-rows: repeat(2, 66px);
-    gap: 6px;
-}
-
-.heat-profile-quick-mood__grid
-.heat-profile-quick__photo:nth-child(1) {
-    grid-row: 1 / span 2;
-}
-
-.heat-profile-quick-mood__grid
-.heat-profile-quick__photo:nth-child(2) {
-    grid-column: 2 / span 2;
-}
-
-.heat-profile-quick-mood__footer {
-    margin-top: 7px;
-
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 6px;
-    align-items: center;
-}
-
-.heat-profile-quick-mood__caption {
-    min-width: 0;
-    padding: 7px 8px;
-
-    color: var(--hpi-text-soft);
-    background: var(--hpi-panel-soft);
-
-    border: 1px solid var(--hpi-border);
-    border-radius: 8px;
-
-    font-size: 8.5px;
-    line-height: 1.4;
-}
-
-.heat-profile-quick-mood__swatches {
-    padding: 0 6px;
-
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.heat-profile-quick-mood__swatches span {
-    width: 14px;
-    height: 14px;
-
-    display: block;
-
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 5px;
-}
-
-.heat-profile-quick-mood__swatches span:nth-child(1) {
-    background: var(--hpi-color-1);
-}
-
-.heat-profile-quick-mood__swatches span:nth-child(2) {
-    background: var(--hpi-color-2);
-}
-
-.heat-profile-quick-mood__swatches span:nth-child(3) {
-    background: var(--hpi-color-3);
-}
-
-/* ---------------------------------------------------------
-   03 — LINK LOCKER
-   --------------------------------------------------------- */
-
-.heat-profile-quick-links__grid {
-    margin-top: 8px;
-
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
-}
-
-#heat-browser .heat-profile-quick-links__card,
-.heat-profile-quick-links__card {
-    min-width: 0;
-    padding: 8px;
-
-    display: grid;
-    grid-template-columns: 25px minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 7px;
-
-    color: var(--hpi-text-soft);
-    background: rgba(255, 255, 255, 0.025);
-
-    border: 1px solid var(--hpi-border);
-    border-radius: 9px;
-
-    text-decoration: none;
-
-    transition:
-        background 0.18s ease,
-        border-color 0.18s ease,
-        transform 0.18s ease;
-}
-
-#heat-browser .heat-profile-quick-links__card:hover,
-.heat-profile-quick-links__card:hover {
-    color: #ffffff;
-
-    background:
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 7%,
-            rgba(255, 255, 255, 0.025)
-        );
-
-    border-color:
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 28%,
-            var(--hpi-border)
-        );
-
-    transform: translateY(-1px);
-}
-
-.heat-profile-quick-links__icon {
-    width: 25px;
-    height: 25px;
-
-    display: grid;
-    place-items: center;
-
-    color: #ffffff;
-    background: var(--hpi-gradient);
-
-    border-radius: 7px;
-
-    font-family: "Viga", sans-serif;
-    font-size: 9px;
-    line-height: 1;
-}
-
-.heat-profile-quick-links__copy {
-    min-width: 0;
-}
-
-.heat-profile-quick-links__copy strong,
-.heat-profile-quick-links__copy span {
-    display: block;
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.heat-profile-quick-links__copy strong {
-    color: var(--hpi-text);
-    font-size: 8.5px;
-    line-height: 1.2;
-}
-
-.heat-profile-quick-links__copy span {
-    margin-top: 3px;
-
-    color: var(--hpi-muted);
-    font-size: 6.5px;
-    line-height: 1.2;
-}
-
-.heat-profile-quick-links__arrow {
-    color: var(--hpi-color-1);
-    font-size: 10px;
-    line-height: 1;
-}
-
-/* ---------------------------------------------------------
-   04 — QUOTE DROP
-   Uses a div instead of blockquote so the component remains
-   independent of native Jcink/post quote styling.
-   --------------------------------------------------------- */
-
-.heat-profile-quick-quote__body {
-    min-height: 185px;
-    padding: 17px 18px;
-
-    position: relative;
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.heat-profile-quick-quote__body::before {
-    content: "“";
-
-    position: absolute;
-    top: 3px;
-    right: 15px;
-
-    color: var(--hpi-color-1);
-
-    font-family: Georgia, serif;
-    font-size: 64px;
-    line-height: 1;
-
-    opacity: 0.25;
-}
-
-.heat-profile-quick-quote__line {
-    width: 48px;
-    height: 2px;
-    margin-bottom: 12px;
-
-    background: var(--hpi-gradient);
-    border-radius: 999px;
-}
-
-.heat-profile-quick-quote__text {
-    max-width: 96%;
-
-    color: #f7f8fb;
-
-    font-family: "Limelight", Georgia, serif;
-    font-size: clamp(17px, 3vw, 25px);
-    font-weight: 400;
-    line-height: 1.18;
-}
-
-.heat-profile-quick-quote__source {
-    margin-top: 10px;
-
-    color: var(--hpi-muted);
-
-    font-family: "Viga", sans-serif;
-    font-size: 6.5px;
-    letter-spacing: 0.85px;
-    line-height: 1.2;
-    text-transform: uppercase;
-}
-
-.heat-profile-quick-quote__links {
-    margin-top: 12px;
-
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-#heat-browser .heat-profile-quick-quote__links a,
-.heat-profile-quick-quote__links a {
-    padding: 5px 7px;
-
-    color: var(--hpi-text-soft);
-    background: var(--hpi-panel-soft);
-
-    border: 1px solid var(--hpi-border);
-    border-radius: 7px;
-
+.heat-dev-gallery__deck-stats{
+    color: var(--hdg-muted);
     font-size: 7px;
-    line-height: 1;
-    text-decoration: none;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    text-align: right;
 }
 
-#heat-browser .heat-profile-quick-quote__links a:hover,
-.heat-profile-quick-quote__links a:hover {
-    color: var(--hpi-color-1);
-
-    border-color:
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 30%,
-            var(--hpi-border)
-        );
-}
-
-/* ---------------------------------------------------------
-   05 — POCKET BOARD
-   --------------------------------------------------------- */
-
-.heat-profile-quick-pocket__grid {
+.heat-dev-gallery__dual{
     display: grid;
     grid-template-columns: 1.08fr 0.92fr;
-    gap: 7px;
+    gap: 10px;
 }
 
-.heat-profile-quick-pocket__photo {
-    min-height: 170px;
-}
-
-.heat-profile-quick-pocket__side {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.heat-profile-quick-pocket__quote {
-    flex: 1 1 auto;
-    min-height: 0;
-    padding: 10px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    color: var(--hpi-text);
-
-    background:
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 6%,
-            var(--hpi-panel-soft)
-        );
-
-    border:
-        1px solid
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 25%,
-            var(--hpi-border)
-        );
-    border-radius: 9px;
-
-    font-size: 8px;
-    font-style: italic;
-    line-height: 1.45;
-}
-
-.heat-profile-quick-pocket__quote::before {
-    content: "“";
-
-    color: var(--hpi-color-1);
-
-    font-family: Georgia, serif;
-    font-size: 23px;
-    font-style: normal;
-    line-height: 0.7;
-}
-
-.heat-profile-quick-pocket__links {
+.heat-dev-gallery__dual-right{
     display: grid;
-    gap: 5px;
-}
-
-#heat-browser .heat-profile-quick-pocket__links a,
-.heat-profile-quick-pocket__links a {
-    padding: 7px 8px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     gap: 8px;
-
-    color: var(--hpi-text-soft);
-    background: rgba(255, 255, 255, 0.025);
-
-    border: 1px solid var(--hpi-border);
-    border-radius: 8px;
-
-    font-size: 7px;
-    line-height: 1;
-    text-decoration: none;
 }
 
-.heat-profile-quick-pocket__links b {
-    color: var(--hpi-color-1);
-}
-
-/* ---------------------------------------------------------
-   06 — FOUR FAVORITES
-   --------------------------------------------------------- */
-
-.heat-profile-quick-faves__grid {
-    margin-top: 8px;
-
+.heat-dev-gallery__dual-top{
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    gap: 8px;
 }
 
-.heat-profile-quick-faves__item {
-    min-width: 0;
-    min-height: 58px;
-    padding: 8px;
-
-    display: grid;
-    grid-template-columns: 30px minmax(0, 1fr);
-    align-items: center;
-    gap: 7px;
-
-    background: var(--hpi-panel-soft);
-
-    border: 1px solid var(--hpi-border);
-    border-radius: 9px;
+.heat-dev-gallery__palette{
+    padding: 10px 11px;
+    border: 1px solid var(--hdg-line);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.018);
 }
 
-.heat-profile-quick-faves__icon {
-    width: 30px;
-    height: 30px;
-
-    display: grid;
-    place-items: center;
-
-    color: #ffffff;
-    background:
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 9%,
-            #141925
-        );
-
-    border:
-        1px solid
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 22%,
-            var(--hpi-border)
-        );
-    border-radius: 8px;
-
-    font-size: 12px;
-    line-height: 1;
-}
-
-.heat-profile-quick-faves__copy {
-    min-width: 0;
-}
-
-.heat-profile-quick-faves__copy span,
-.heat-profile-quick-faves__copy strong {
+.heat-dev-gallery__palette b{
     display: block;
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.heat-profile-quick-faves__copy span {
-    color: var(--hpi-muted);
-
-    font-family: "Viga", sans-serif;
-    font-size: 6.5px;
-    letter-spacing: 0.55px;
-    line-height: 1;
+    color: #fff;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
 }
 
-.heat-profile-quick-faves__copy strong {
-    margin-top: 4px;
-
-    color: var(--hpi-text);
-
-    font-size: 8.5px;
-    line-height: 1.15;
-}
-
-/* ---------------------------------------------------------
-   07 — NOW PLAYING
-   Progressive enhancement:
-   Native audio controls remain usable if JS is unavailable.
-   The custom HEAT controls take over only after JS binds.
-   --------------------------------------------------------- */
-
-.heat-profile-quick-music__card {
-    min-width: 0;
-
-    display: grid;
-    grid-template-columns: 72px minmax(0, 1fr);
-    gap: 10px;
-    align-items: center;
-}
-
-.heat-profile-quick-music__art {
-    width: 72px;
-    aspect-ratio: 1;
-
-    position: relative;
-    overflow: hidden;
-
-    background-color: #171d2a;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    border: 1px solid var(--hpi-border);
-    border-radius: 11px;
-
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
-}
-
-.heat-profile-quick-music__art::after {
-    content: "♫";
-
-    position: absolute;
-    right: 8px;
-    bottom: 6px;
-
-    color: rgba(255, 255, 255, 0.75);
-
-    font-size: 16px;
-    line-height: 1;
-
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.72);
-}
-
-.heat-profile-quick-music__main {
-    min-width: 0;
-}
-
-.heat-profile-quick-music__meta strong,
-.heat-profile-quick-music__meta span {
-    display: block;
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.heat-profile-quick-music__meta strong {
-    color: var(--hpi-text);
-
-    font-size: 10px;
-    line-height: 1.2;
-}
-
-.heat-profile-quick-music__meta span {
-    margin-top: 3px;
-
-    color: var(--hpi-muted);
-
-    font-family: "Viga", sans-serif;
-    font-size: 6.5px;
-    letter-spacing: 0.5px;
-    line-height: 1.2;
-    text-transform: uppercase;
-}
-
-.heat-profile-quick-music__controls {
-    margin-top: 8px;
-
-    display: none;
-    grid-template-columns: 29px minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 7px;
-}
-
-.heat-profile-quick--music.is-enhanced
-.heat-profile-quick-music__controls {
-    display: grid;
-}
-
-#heat-browser .heat-profile-quick-music__play,
-.heat-profile-quick-music__play {
-    width: 29px;
-    min-width: 29px;
-    height: 29px;
-    min-height: 29px;
-    padding: 0;
-
-    display: grid;
-    place-items: center;
-
-    color: #ffffff;
-    background:
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 9%,
-            #151a27
-        );
-
-    border:
-        1px solid
-        color-mix(
-            in srgb,
-            var(--hpi-color-1) 32%,
-            var(--hpi-border)
-        );
-    border-radius: 50%;
-
-    box-shadow: none;
-
-    font-family: Arial, sans-serif;
-    font-size: 9px;
-    line-height: 1;
-
-    cursor: pointer;
-}
-
-.heat-profile-quick-music__range {
-    width: 100%;
-    min-width: 0;
-
-    accent-color: var(--hpi-color-1);
-
-    cursor: pointer;
-}
-
-.heat-profile-quick-music__time {
-    min-width: 32px;
-
-    color: var(--hpi-muted);
-
-    font-size: 6.5px;
-    line-height: 1;
-    text-align: right;
-
-    font-variant-numeric: tabular-nums;
-}
-
-.heat-profile-quick-music__footer {
-    margin-top: 6px;
-
+.heat-dev-gallery__swatches{
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 7px;
-
-    color: var(--hpi-muted);
-
-    font-size: 6.5px;
-    line-height: 1.25;
+    gap: 6px;
+    margin-top: 10px;
 }
 
-.heat-profile-quick-music__footer b {
-    color: var(--hpi-color-1);
+.heat-dev-gallery__swatches i{
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
 
-    font-family: "Viga", sans-serif;
-    font-size: 6.5px;
-    letter-spacing: 0.5px;
-    line-height: 1;
+.heat-dev-gallery__swatches i:nth-child(1){ background: var(--hdg-a); }
+.heat-dev-gallery__swatches i:nth-child(2){ background: var(--hdg-b); }
+.heat-dev-gallery__swatches i:nth-child(3){ background: var(--hdg-c); }
+.heat-dev-gallery__swatches i:nth-child(4){ background: #6f86ff; }
+
+.heat-dev-gallery__palette p{
+    margin: 9px 0 0;
+    color: var(--hdg-muted);
+    font-size: 7px;
+    line-height: 1.55;
+}
+
+.heat-dev-gallery__carousel{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.heat-dev-gallery__carousel-col{
+    display: grid;
+    gap: 10px;
+}
+
+.heat-dev-gallery__single-bottom{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: start;
+}
+
+.heat-dev-gallery__single-copy,
+.heat-dev-gallery__single-stats{
+    padding: 10px 12px;
+    border: 1px solid var(--hdg-line);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.018);
+}
+
+.heat-dev-gallery__single-copy{
+    color: var(--hdg-soft);
+    font-size: 9px;
+    line-height: 1.55;
+}
+
+.heat-dev-gallery__single-copy b{
+    display: block;
+    margin-bottom: 4px;
+    color: #fff;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
-.heat-profile-quick-music__audio {
-    width: 100%;
-    height: 32px;
-    margin-top: 8px;
-
-    display: block;
-
-    color-scheme: dark;
+.heat-dev-gallery__single-stats{
+    color: var(--hdg-muted);
+    font-size: 6.5px;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    line-height: 1.55;
+    text-transform: uppercase;
+    text-align: right;
 }
 
-.heat-profile-quick--music.is-enhanced
-.heat-profile-quick-music__audio {
-    display: none;
-}
+.heat-dev-gallery--strip{ max-width: 620px; }
+.heat-dev-gallery--deck{ max-width: 620px; }
+.heat-dev-gallery--dual{ max-width: 620px; }
+.heat-dev-gallery--carousel{ max-width: 620px; }
+.heat-dev-gallery--single{ max-width: 620px; }
 
-/* ---------------------------------------------------------
-   PROFILE-FIELD FIT
-   These are deliberately compact inside the real About Me field.
-   --------------------------------------------------------- */
-
-.heat-profile-biography-text .heat-profile-quick {
-    margin-bottom: 8px;
-}
-
-.heat-profile-biography-text
-.heat-profile-quick .heat-profile-insert__body {
-    padding: 9px;
-}
-
-.heat-profile-biography-text
-.heat-profile-quick-quote__body {
-    min-height: 165px;
-    padding: 15px 16px;
-}
-
-.heat-profile-biography-text
-.heat-profile-quick-pocket__photo {
-    min-height: 155px;
-}
-
-/* ---------------------------------------------------------
-   RESPONSIVE
-   --------------------------------------------------------- */
-
-@media screen and (max-width: 560px) {
-    .heat-profile-quick-links__grid,
-    .heat-profile-quick-faves__grid {
-        grid-template-columns: 1fr;
+@media (max-width: 560px){
+    .heat-dev-gallery{
+        width: min(100%, 100%);
+        border-radius: 16px;
     }
-
-    .heat-profile-quick-pocket__grid {
-        grid-template-columns: 1fr;
-    }
-
-    .heat-profile-quick-pocket__photo {
-        min-height: 145px;
-    }
-
-    .heat-profile-quick-music__card {
-        grid-template-columns: 60px minmax(0, 1fr);
-    }
-
-    .heat-profile-quick-music__art {
-        width: 60px;
-    }
-}
-
-@media screen and (max-width: 420px) {
-    .heat-profile-quick-trio__grid {
-        gap: 4px;
-    }
-
-    .heat-profile-quick-mood__grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: 96px 68px;
-    }
-
-    .heat-profile-quick-mood__grid
-    .heat-profile-quick__photo:nth-child(1),
-    .heat-profile-quick-mood__grid
-    .heat-profile-quick__photo:nth-child(2) {
-        grid-column: auto;
-        grid-row: auto;
-    }
-
-    .heat-profile-quick-mood__grid
-    .heat-profile-quick__photo:nth-child(1) {
-        grid-row: 1;
-    }
-
-    .heat-profile-quick-mood__grid
-    .heat-profile-quick__photo:nth-child(2) {
-        grid-row: 1;
-    }
-
-    .heat-profile-quick-mood__footer {
-        grid-template-columns: 1fr;
-    }
-
-    .heat-profile-quick-mood__swatches {
-        padding: 0;
-    }
+    .heat-dev-gallery__body{ padding: 12px; }
+    .heat-dev-gallery__strip-row{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .heat-dev-gallery__deck-layout{ grid-template-columns: 1fr; }
+    .heat-dev-gallery__deck-side{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .heat-dev-gallery__dual{ grid-template-columns: 1fr; }
+    .heat-dev-gallery__carousel{ grid-template-columns: 1fr; }
+    .heat-dev-gallery__single-bottom{ grid-template-columns: 1fr; }
 }
