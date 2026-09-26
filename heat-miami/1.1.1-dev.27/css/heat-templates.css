@@ -25353,3 +25353,375 @@ img[src*="/emoticons/" i] {
     --heat-focus-template-cap: 740px;
   }
 }
+
+/* =========================================================
+   COLLECTOR ADD-ON PACK V1
+   ========================================================= */
+
+.heat-comm-bubble.is-addon-card {
+  width: min(100%, 370px);
+  max-width: min(100%, 370px);
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 22px;
+  box-shadow: none;
+}
+
+.heat-comm-message.is-starter
+.heat-comm-bubble.is-addon-card {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.heat-comm-message.is-addon-system {
+  align-items: center !important;
+  margin: 14px 0 10px;
+}
+
+.heat-comm-bubble.is-addon-system-wrap {
+  width: auto;
+  max-width: 100%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.heat-comm-addon-systemline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 12px;
+  color: #aab5c8;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.055);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: .04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.heat-comm-addon-event {
+  --addon-accent: rgba(95, 209, 255, .95);
+  --addon-accent-two: rgba(47, 134, 255, .92);
+  --addon-glow: rgba(76, 155, 255, .22);
+  --addon-border: rgba(120, 182, 255, .12);
+  overflow: hidden;
+  color: #eef4ff;
+  background: linear-gradient(180deg, rgba(16, 24, 38, .96), rgba(10, 16, 28, .98));
+  border: 1px solid var(--addon-border);
+  border-radius: 22px;
+  box-shadow: 0 14px 32px rgba(0,0,0,.20), 0 0 0 1px rgba(255,255,255,.018) inset, 0 0 22px var(--addon-glow);
+}
+
+.heat-comm-addon-event.theme-pink {
+  --addon-accent: rgba(255, 111, 216, .95);
+  --addon-accent-two: rgba(255, 75, 127, .92);
+  --addon-glow: rgba(255, 110, 185, .16);
+  --addon-border: rgba(255, 133, 205, .12);
+}
+
+.heat-comm-addon-event.theme-green {
+  --addon-accent: rgba(69, 231, 162, .95);
+  --addon-accent-two: rgba(92, 240, 200, .92);
+  --addon-glow: rgba(80, 225, 175, .15);
+  --addon-border: rgba(112, 234, 186, .12);
+}
+
+.heat-comm-addon-event.theme-orange {
+  --addon-accent: rgba(255, 177, 74, .95);
+  --addon-accent-two: rgba(255, 127, 80, .92);
+  --addon-glow: rgba(255, 170, 82, .16);
+  --addon-border: rgba(255, 174, 96, .12);
+}
+
+.heat-comm-addon-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 14px 11px;
+  border-bottom: 1px solid rgba(255,255,255,.045);
+  background: linear-gradient(120deg, rgba(255,255,255,.038), rgba(255,255,255,0) 48%), radial-gradient(circle at 100% 0%, rgba(255,255,255,.04), transparent 34%);
+}
+
+.heat-comm-addon-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 36px;
+  font-size: 17px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--addon-accent) 24%, rgba(255,255,255,.06)), color-mix(in srgb, var(--addon-accent-two) 15%, rgba(8,12,20,.95)));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 13px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 10px 22px rgba(0,0,0,.24);
+}
+
+.heat-comm-addon-title { min-width: 0; }
+
+.heat-comm-addon-title strong,
+.heat-comm-addon-call-mini strong,
+.heat-comm-addon-location-name,
+.heat-comm-addon-pay-amount-value,
+.heat-comm-addon-transcript strong {
+  display: block;
+  margin: 0;
+  font: 600 12.5px/1.3 Inter, Arial, sans-serif;
+  letter-spacing: -.01em;
+}
+
+.heat-comm-addon-title small,
+.heat-comm-addon-call-mini small,
+.heat-comm-addon-location-address,
+.heat-comm-addon-pay-amount-label,
+.heat-comm-addon-foot,
+.heat-comm-addon-reply-label,
+.heat-comm-addon-location-meta small {
+  color: #93a1b8;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.heat-comm-addon-title small { display: block; margin-top: 2px; }
+.heat-comm-addon-accent { color: var(--addon-accent); font-weight: 600; }
+.heat-comm-addon-body { padding: 13px 14px 14px; }
+
+.heat-comm-addon-note,
+.heat-comm-addon-reply-quote,
+.heat-comm-addon-location-box,
+.heat-comm-addon-pay-card,
+.heat-comm-addon-transcript,
+.heat-comm-addon-call-mini {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.055);
+  border-radius: 16px;
+}
+
+.heat-comm-addon-note {
+  padding: 11px 12px;
+  color: #dde6f5;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.heat-comm-addon-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.heat-comm-addon-reply-quote { margin-bottom: 10px; padding: 11px 12px; }
+
+.heat-comm-addon-reply-label {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: var(--addon-accent);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.heat-comm-addon-reply-text {
+  margin: 0;
+  color: #ecf3ff;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.heat-comm-addon-location-box {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px;
+}
+
+.heat-comm-addon-map-thumb {
+  position: relative;
+  min-height: 80px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)), linear-gradient(135deg, rgba(71, 185, 221, .32), rgba(90, 240, 195, .18));
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px;
+}
+
+.heat-comm-addon-map-thumb::before,
+.heat-comm-addon-map-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.heat-comm-addon-map-thumb::before {
+  background: linear-gradient(90deg, transparent 21%, rgba(255,255,255,.07) 22%, rgba(255,255,255,.07) 23%, transparent 24%, transparent 49%, rgba(255,255,255,.07) 50%, rgba(255,255,255,.07) 51%, transparent 52%), linear-gradient(transparent 20%, rgba(255,255,255,.06) 21%, rgba(255,255,255,.06) 22%, transparent 23%, transparent 46%, rgba(255,255,255,.06) 47%, rgba(255,255,255,.06) 48%, transparent 49%);
+  opacity: .38;
+}
+
+.heat-comm-addon-map-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(180deg, #ff8aa8, #ff5f74);
+  border: 3px solid rgba(7,12,20,.72);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px rgba(255,95,116,.16);
+}
+
+.heat-comm-addon-location-meta { min-width: 0; }
+.heat-comm-addon-location-name { margin-bottom: 4px; }
+.heat-comm-addon-location-address { display: block; }
+
+.heat-comm-addon-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  grid-column: 1 / -1;
+}
+
+.heat-comm-addon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  color: #d8e5f7;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.heat-comm-addon-btn.is-primary {
+  color: #fff;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--addon-accent) 34%, rgba(255,255,255,.08)), color-mix(in srgb, var(--addon-accent-two) 24%, rgba(18,22,34,.94)));
+  border-color: color-mix(in srgb, var(--addon-accent) 28%, rgba(255,255,255,.08));
+}
+
+.heat-comm-addon-pay-card { padding: 12px; }
+
+.heat-comm-addon-pay-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.heat-comm-addon-pay-logo {
+  color: #eef3ff;
+  font: 700 11px/1 Inter, Arial, sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.heat-comm-addon-pay-amount { text-align: right; }
+.heat-comm-addon-pay-amount-value { font-size: 18px; }
+
+.heat-comm-addon-pay-note {
+  margin: 12px 0 0;
+  color: #dde6f5;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.heat-comm-addon-wave {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.heat-comm-addon-wave-play {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--addon-accent) 38%, rgba(255,255,255,.08)), color-mix(in srgb, var(--addon-accent-two) 26%, rgba(18,22,34,.94)));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 50%;
+}
+
+.heat-comm-addon-wave-bars {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: end;
+  gap: 4px;
+  min-height: 26px;
+}
+
+.heat-comm-addon-wave-bars span {
+  display: block;
+  min-height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--addon-accent) 92%, #fff), color-mix(in srgb, var(--addon-accent-two) 65%, rgba(22, 40, 82, .88)));
+}
+
+.heat-comm-addon-wave-bars span:nth-child(1),
+.heat-comm-addon-wave-bars span:nth-child(7) { height: 10px; }
+.heat-comm-addon-wave-bars span:nth-child(2),
+.heat-comm-addon-wave-bars span:nth-child(10) { height: 18px; }
+.heat-comm-addon-wave-bars span:nth-child(3),
+.heat-comm-addon-wave-bars span:nth-child(11) { height: 24px; }
+.heat-comm-addon-wave-bars span:nth-child(4),
+.heat-comm-addon-wave-bars span:nth-child(8) { height: 14px; }
+.heat-comm-addon-wave-bars span:nth-child(5),
+.heat-comm-addon-wave-bars span:nth-child(12) { height: 21px; }
+.heat-comm-addon-wave-bars span:nth-child(6),
+.heat-comm-addon-wave-bars span:nth-child(9) { height: 16px; }
+
+.heat-comm-addon-audio {
+  width: 100%;
+  margin-top: 10px;
+  opacity: .9;
+  filter: saturate(.9) brightness(.95);
+}
+
+.heat-comm-addon-transcript {
+  margin-top: 10px;
+  padding: 11px 12px;
+}
+
+.heat-comm-addon-transcript strong {
+  margin-bottom: 5px;
+  color: var(--addon-accent);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.heat-comm-addon-transcript p {
+  margin: 0;
+  color: #dce6f2;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.heat-comm-addon-call-grid { display: grid; gap: 10px; }
+.heat-comm-addon-call-mini { padding: 11px 12px; }
+
+@media (max-width: 680px) {
+  .heat-comm-bubble.is-addon-card {
+    width: min(100%, 320px);
+    max-width: min(100%, 320px);
+  }
+
+  .heat-comm-addon-location-box {
+    grid-template-columns: 1fr;
+  }
+}
