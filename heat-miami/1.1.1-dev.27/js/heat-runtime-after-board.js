@@ -4930,7 +4930,6 @@ function renderLocationAddonBody(body, fields, timeText) {
   box.appendChild(meta);
   box.appendChild(actions);
   body.appendChild(box);
-  appendAddonFooter(body, "", timeText);
 }
 
 function renderPayAddonBody(body, fields, timeText) {
@@ -5031,7 +5030,6 @@ function renderPayAddonBody(body, fields, timeText) {
 
   card.appendChild(actions);
   body.appendChild(card);
-  appendAddonFooter(body, "", timeText);
 }
 
 function renderVoiceAddonBody(body, fields, timeText) {
@@ -5205,6 +5203,7 @@ function buildCollectorAddonMessage(
     addon.type === "unsent" ||
     addon.type === "silenced"
   ) {
+    message.classList.remove("is-starter");
     message.classList.add("is-addon-system");
     bubble.className = "heat-comm-bubble is-addon-system-wrap";
     bubble.appendChild(
