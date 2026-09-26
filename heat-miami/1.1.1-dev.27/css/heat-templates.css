@@ -26126,6 +26126,76 @@ img[src*="/emoticons/" i] {
   }
 }
 
+
+/* =========================================================
+   COLLECTOR REACTIONS V1 — attached message tapbacks
+   ========================================================= */
+
+.heat-comm-message.has-heat-comm-reactions {
+  margin-bottom: 24px;
+}
+
+.heat-comm-reactions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  min-height: 0;
+  margin-top: -5px;
+  padding: 0 8px;
+  position: relative;
+  z-index: 3;
+}
+
+.heat-comm-message.is-starter
+.heat-comm-reactions {
+  justify-content: flex-end;
+}
+
+.heat-comm-reaction {
+  min-width: 25px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 0 7px;
+  color: #dce7f6;
+  background: rgba(15, 23, 35, .98);
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 999px;
+  box-shadow:
+    0 5px 12px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.025);
+  font-family: "Abel", Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0;
+  cursor: default;
+}
+
+.heat-comm-message.is-starter
+.heat-comm-reaction {
+  border-color:
+    color-mix(
+      in srgb,
+      var(--comm-message-accent) 18%,
+      rgba(255,255,255,.07)
+    );
+  background:
+    color-mix(
+      in srgb,
+      var(--comm-message-accent) 6%,
+      rgba(15,23,35,.98)
+    );
+}
+
+.heat-comm-message.is-addon-system
+.heat-comm-reactions {
+  justify-content: center;
+  margin-top: 3px;
+}
+
 /* =========================================================
    REV79 — system-event neutrality + utility timestamp cleanup
    ========================================================= */
