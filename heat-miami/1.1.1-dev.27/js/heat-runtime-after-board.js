@@ -5929,24 +5929,63 @@ function buildCollectorAddonMessage(
       );
     }
 
-    /*
-       Always establish the opening post's own group ownership.
-    */
-    decorateOpeningMessage(
-      opening,
-      identityMode
+    var openingMessage = opening.comm.querySelector(
+      ".heat-comm-messages " +
+      ".heat-comm-message.is-starter"
     );
+
+    /*
+       The original comm template already supplies the first
+       message bubble. If that bubble contains one whole collector
+       add-on tag, rebuild only that first message with the same
+       add-on renderer used by collected replies.
+
+       Reactions are excluded here because an opening message has
+       no earlier message in the conversation to react to.
+    */
+    if (openingMessage) {
+      var openingBubble = openingMessage.querySelector(
+        ".heat-comm-bubble"
+      );
+
+      var openingAddon = parseCollectorAddon(
+        openingBubble
+      );
+
+      if (
+        openingAddon &&
+        openingAddon.type !== "react"
+      ) {
+        var rebuiltOpening =
+          buildCollectorAddonMessage(
+            opening.row,
+            identityMode,
+            openingAddon,
+            true
+          );
+
+        openingMessage.replaceWith(
+          rebuiltOpening
+        );
+
+        openingMessage = rebuiltOpening;
+      } else {
+        /*
+           Normal opening messages keep their existing template
+           markup and only receive the usual group/identity pass.
+        */
+        decorateOpeningMessage(
+          opening,
+          identityMode
+        );
+      }
+    }
 
     var seenPosts = Object.create(null);
     var blockedPages = Object.create(null);
     var messageByPost = Object.create(null);
     var pendingReactions = [];
     var lastReactableMessage = null;
-
-    var openingMessage = opening.comm.querySelector(
-      ".heat-comm-messages " +
-      ".heat-comm-message.is-starter"
-    );
 
     if (openingMessage) {
       registerCollectorMessageTarget(
