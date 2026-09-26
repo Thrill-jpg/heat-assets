@@ -5035,6 +5035,10 @@ function renderPayAddonBody(body, fields, timeText) {
 }
 
 function renderVoiceAddonBody(body, fields, timeText) {
+  if (fields.transcript) {
+    body.classList.add("has-voice-transcript");
+  }
+
   var wave = createAddonNode(
     "div",
     "heat-comm-addon-wave"
@@ -5065,6 +5069,8 @@ function renderVoiceAddonBody(body, fields, timeText) {
   body.appendChild(wave);
 
   if (audioSrc) {
+    body.classList.add("has-voice-audio");
+
     var audio = createAddonNode(
       "audio",
       "heat-comm-addon-audio"
@@ -5212,7 +5218,7 @@ function buildCollectorAddonMessage(
     return message;
   }
 
-  bubble.className = "heat-comm-bubble is-addon-card";
+  bubble.className = "heat-comm-bubble is-addon-card is-addon-" + addon.type;
 
   var article = createAddonNode(
     "article",
