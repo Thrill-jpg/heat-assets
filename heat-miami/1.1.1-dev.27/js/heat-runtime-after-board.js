@@ -5903,7 +5903,7 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         return;
     }
 
-    const CACHE_PREFIX = "heatCompactMedia:v4:profile:";
+    const CACHE_PREFIX = "heatCompactMedia:v5:profile:";
     const CACHE_MAX_AGE = 30 * 60 * 1000;
     const MAX_CONCURRENT_REQUESTS = 4;
 
@@ -6149,17 +6149,31 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         return promise;
     }
 
-    function loadableUrl(media) {
-        const candidates = [
-            normalizeUrl(media && media.gif),
-            normalizeUrl(media && media.avatar)
-        ].filter(function (value, index, list) {
-            return value && list.indexOf(value) === index;
-        });
+    function loadableUrl(media, preference) {
+        const gifUrl =
+            normalizeUrl(media && media.gif);
+
+        const avatarUrl =
+            normalizeUrl(media && media.avatar);
+
+        /*
+         * Online Now uses the canonical profile PFP.
+         * Other compact-media consumers keep their existing
+         * Compact GIF -> avatar fallback contract.
+         */
+        const candidates =
+            preference === "avatar"
+                ? [avatarUrl, gifUrl]
+                : [gifUrl, avatarUrl];
+
+        const uniqueCandidates =
+            candidates.filter(function (value, index, list) {
+                return value && list.indexOf(value) === index;
+            });
 
         return new Promise(function (resolve) {
             function tryNext(index) {
-                if (index >= candidates.length) {
+                if (index >= uniqueCandidates.length) {
                     resolve("");
                     return;
                 }
@@ -6168,12 +6182,12 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
                 image.decoding = "async";
                 image.fetchPriority = "low";
                 image.onload = function () {
-                    resolve(candidates[index]);
+                    resolve(uniqueCandidates[index]);
                 };
                 image.onerror = function () {
                     tryNext(index + 1);
                 };
-                image.src = candidates[index];
+                image.src = uniqueCandidates[index];
             }
 
             tryNext(0);
@@ -6213,7 +6227,7 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
         return true;
     }
 
-    function decorate(target, href, memberId) {
+    function decorate(target, href, memberId, preference) {
         if (!target || target.dataset.heatCompactMedia === "ready") {
             return Promise.resolve(false);
         }
@@ -6247,7 +6261,12 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
                 : requestProfileMedia(href, id);
 
         return mediaPromise
-            .then(loadableUrl)
+            .then(function (media) {
+                return loadableUrl(
+                    media,
+                    preference
+                );
+            })
             .then(function (url) {
                 if (url) {
                     return applyUrl(target, url);
@@ -6295,7 +6314,8 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
                 decorate(
                     link,
                     link.href,
-                    link.getAttribute("data-online-member-id") || ""
+                    link.getAttribute("data-online-member-id") || "",
+                    "avatar"
                 );
             });
 
@@ -7374,7 +7394,8 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
                 HEAT.compactMedia.decorate(
                     avatarLink,
                     member.href,
-                    member.id
+                    member.id,
+                    "avatar"
                 );
             }
 
