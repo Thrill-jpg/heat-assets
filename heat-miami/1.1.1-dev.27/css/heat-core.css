@@ -5354,7 +5354,7 @@ a[href] {
     min-width: 0;
 
     display: block;
-    overflow: hidden;
+    overflow: visible;
 
     color: var(--heat-text);
 
@@ -5363,9 +5363,10 @@ a[href] {
     font-weight: 800;
     line-height: 1.1;
 
+    overflow-wrap: anywhere;
     text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    text-overflow: clip;
+    white-space: normal;
 }
 
 /* =========================================================
@@ -6470,11 +6471,12 @@ text-transform:uppercase;
 .heat-newest-member-copy strong {
     display: block;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
     font-size: 11px;
     line-height: 1.25;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    white-space: normal;
 }
 
 #heat-browser .heat-newest-member strong,
