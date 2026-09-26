@@ -5828,16 +5828,34 @@ function installTraditionalAddonMutationRefresh() {
 }
 
 window.HEAT_TRADITIONAL_ADDONS = {
-  revision: "REV83",
+  revision: "REV84",
   run: function () {
     return convertTraditionalCommAddons();
   },
   observer: null
 };
 
+function releaseTraditionalAddonPrepaint() {
+  var html = document.documentElement;
+  var guard = window.HEAT_TRADITIONAL_ADDONS_PREPAINT;
+
+  if (guard && typeof guard.release === "function") {
+    guard.release();
+    return;
+  }
+
+  html.classList.remove(
+    "heat-traditional-addons-prepaint"
+  );
+  html.classList.add(
+    "heat-traditional-addons-ready"
+  );
+}
+
 function startTraditionalCommAddons() {
   convertTraditionalCommAddons();
   installTraditionalAddonMutationRefresh();
+  releaseTraditionalAddonPrepaint();
 }
 
   /* =======================================================
