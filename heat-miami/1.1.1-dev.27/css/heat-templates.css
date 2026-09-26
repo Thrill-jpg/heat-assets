@@ -25355,30 +25355,32 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   COLLECTOR ADD-ON PACK V1
+   COLLECTOR ADD-ON PACK V1 — REV76 MATURE COMPACT REDESIGN
+   Flat, subtle, phone-native presentation. No oversized
+   feature cards, neon glows, or stacked "popup" framing.
    ========================================================= */
 
 .heat-comm-bubble.is-addon-card {
-  width: min(100%, 336px);
-  max-width: min(100%, 336px);
+  width: min(82%, 300px);
+  max-width: 300px;
   padding: 0;
   overflow: visible;
   background: transparent;
   border: 0;
-  border-radius: 18px;
+  border-radius: 0;
   box-shadow: none;
 }
 
-.heat-comm-message.is-starter
-.heat-comm-bubble.is-addon-card {
+.heat-comm-message.is-starter .heat-comm-bubble.is-addon-card {
   background: transparent;
   border: 0;
   box-shadow: none;
 }
 
+/* System events: silenced / unsent */
 .heat-comm-message.is-addon-system {
-  align-items: center !important;
-  margin: 14px 0 10px;
+  align-items: center;
+  margin: 9px 0 7px;
 }
 
 .heat-comm-bubble.is-addon-system-wrap {
@@ -25394,74 +25396,58 @@ img[src*="/emoticons/" i] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 7px 12px;
-  color: #aab5c8;
-  background: rgba(255,255,255,.035);
-  border: 1px solid rgba(255,255,255,.055);
+  gap: 6px;
+  padding: 5px 9px;
+  color: #93a0b3;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.05);
   border-radius: 999px;
+  font-family: Abel, sans-serif;
   font-size: 9px;
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: .04em;
+  line-height: 1.15;
+  letter-spacing: .035em;
   text-align: center;
   text-transform: uppercase;
 }
 
+/* Shared card shell. Intentionally quiet. */
 .heat-comm-addon-event {
-  --addon-accent: rgba(95, 209, 255, .95);
-  --addon-accent-two: rgba(47, 134, 255, .92);
-  --addon-glow: rgba(76, 155, 255, .22);
-  --addon-border: rgba(120, 182, 255, .12);
-  overflow: hidden;
-  color: #eef4ff;
-  background: linear-gradient(180deg, rgba(16, 24, 38, .96), rgba(10, 16, 28, .98));
+  --addon-accent: #78bfff;
+  --addon-border: rgba(255,255,255,.055);
+  color: #edf2f8;
+  background: rgba(17, 23, 33, .82);
   border: 1px solid var(--addon-border);
-  border-radius: 18px;
-  box-shadow: 0 14px 32px rgba(0,0,0,.20), 0 0 0 1px rgba(255,255,255,.018) inset, 0 0 22px var(--addon-glow);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.14);
+  overflow: hidden;
 }
 
-.heat-comm-addon-event.theme-pink {
-  --addon-accent: rgba(255, 111, 216, .95);
-  --addon-accent-two: rgba(255, 75, 127, .92);
-  --addon-glow: rgba(255, 110, 185, .16);
-  --addon-border: rgba(255, 133, 205, .12);
-}
-
-.heat-comm-addon-event.theme-green {
-  --addon-accent: rgba(69, 231, 162, .95);
-  --addon-accent-two: rgba(92, 240, 200, .92);
-  --addon-glow: rgba(80, 225, 175, .15);
-  --addon-border: rgba(112, 234, 186, .12);
-}
-
-.heat-comm-addon-event.theme-orange {
-  --addon-accent: rgba(255, 177, 74, .95);
-  --addon-accent-two: rgba(255, 127, 80, .92);
-  --addon-glow: rgba(255, 170, 82, .16);
-  --addon-border: rgba(255, 174, 96, .12);
-}
+.heat-comm-addon-event.theme-pink { --addon-accent: #ff72bb; }
+.heat-comm-addon-event.theme-green { --addon-accent: #61d3ad; }
+.heat-comm-addon-event.theme-orange { --addon-accent: #e8a45c; }
 
 .heat-comm-addon-head {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 10px 11px 9px;
-  border-bottom: 1px solid rgba(255,255,255,.045);
-  background: linear-gradient(120deg, rgba(255,255,255,.038), rgba(255,255,255,0) 48%), radial-gradient(circle at 100% 0%, rgba(255,255,255,.04), transparent 34%);
+  gap: 7px;
+  padding: 8px 9px 7px;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  background: rgba(255,255,255,.012);
 }
 
 .heat-comm-addon-icon {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   display: grid;
   place-items: center;
-  flex: 0 0 30px;
-  font-size: 14px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--addon-accent) 24%, rgba(255,255,255,.06)), color-mix(in srgb, var(--addon-accent-two) 15%, rgba(8,12,20,.95)));
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 11px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 10px 22px rgba(0,0,0,.24);
+  flex: 0 0 24px;
+  color: #dce7f4;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 8px;
+  font-size: 11px;
+  box-shadow: none;
 }
 
 .heat-comm-addon-title { min-width: 0; }
@@ -25473,8 +25459,12 @@ img[src*="/emoticons/" i] {
 .heat-comm-addon-transcript strong {
   display: block;
   margin: 0;
-  font: 600 11.5px/1.28 Inter, Arial, sans-serif;
-  letter-spacing: -.01em;
+  color: #edf2f8;
+  font-family: Viga, sans-serif;
+  font-size: 10.5px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0;
 }
 
 .heat-comm-addon-title small,
@@ -25484,484 +25474,376 @@ img[src*="/emoticons/" i] {
 .heat-comm-addon-foot,
 .heat-comm-addon-reply-label,
 .heat-comm-addon-location-meta small {
-  color: #93a1b8;
+  color: #77869b;
+  font-family: Abel, sans-serif;
   font-size: 9px;
-  line-height: 1.5;
+  line-height: 1.35;
 }
 
-.heat-comm-addon-title small { display: block; margin-top: 1px; }
-.heat-comm-addon-accent { color: var(--addon-accent); font-weight: 600; }
-.heat-comm-addon-body { padding: 10px 11px 11px; }
-
-.heat-comm-addon-note,
-.heat-comm-addon-reply-quote,
-.heat-comm-addon-location-box,
-.heat-comm-addon-pay-card,
-.heat-comm-addon-transcript,
-.heat-comm-addon-call-mini {
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.055);
-  border-radius: 14px;
+.heat-comm-addon-title small {
+  display: block;
+  margin-top: 1px;
 }
 
-.heat-comm-addon-note {
-  padding: 9px 10px;
-  color: #dde6f5;
-  font-size: 11.5px;
-  line-height: 1.6;
+.heat-comm-addon-accent {
+  color: var(--addon-accent);
+  font-weight: 600;
 }
+
+.heat-comm-addon-body { padding: 8px 9px 9px; }
 
 .heat-comm-addon-foot {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 8px;
+  justify-content: flex-end;
+  margin-top: 5px;
 }
 
-.heat-comm-addon-reply-quote { margin-bottom: 10px; padding: 9px 10px; }
+.heat-comm-addon-foot-label { display: none; }
+.heat-comm-addon-foot-time { margin-left: auto; }
+
+/* ---------------------------------------------------------
+   REPLY
+   Behaves like an inline quoted reply, not a feature card.
+   --------------------------------------------------------- */
+.heat-comm-addon-event.is-addon-reply {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.heat-comm-addon-event.is-addon-reply .heat-comm-addon-head { display: none; }
+.heat-comm-addon-event.is-addon-reply .heat-comm-addon-body { padding: 0; }
+
+.heat-comm-addon-reply-quote {
+  position: relative;
+  margin: 0 0 5px;
+  padding: 7px 9px 7px 11px;
+  background: rgba(255,255,255,.028);
+  border: 1px solid rgba(255,255,255,.045);
+  border-radius: 11px;
+}
+
+.heat-comm-addon-reply-quote::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 5px;
+  width: 2px;
+  background: var(--addon-accent);
+  border-radius: 999px;
+  opacity: .75;
+}
 
 .heat-comm-addon-reply-label {
-  display: inline-block;
-  margin-bottom: 4px;
+  display: block;
+  margin: 0 0 2px;
   color: var(--addon-accent);
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 
 .heat-comm-addon-reply-text {
   margin: 0;
-  color: #ecf3ff;
-  font-size: 11.5px;
-  line-height: 1.55;
+  color: #cbd5e2;
+  font-family: Quicksand, sans-serif;
+  font-size: 10.5px;
+  line-height: 1.4;
 }
+
+.heat-comm-addon-event.is-addon-reply .heat-comm-addon-note {
+  padding: 8px 10px;
+  color: #eef3f8;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.045);
+  border-radius: 13px;
+  font-family: Quicksand, sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* ---------------------------------------------------------
+   LOCATION
+   One compact location tile. Header removed; location name
+   is already inside the tile and does the work.
+   --------------------------------------------------------- */
+.heat-comm-addon-event.is-addon-location .heat-comm-addon-head { display: none; }
+.heat-comm-addon-event.is-addon-location .heat-comm-addon-body { padding: 0; }
 
 .heat-comm-addon-location-box {
   display: grid;
-  grid-template-columns: 70px minmax(0, 1fr);
-  gap: 8px;
-  padding: 10px;
+  grid-template-columns: 50px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 8px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 }
 
 .heat-comm-addon-map-thumb {
   position: relative;
-  min-height: 66px;
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)), linear-gradient(135deg, rgba(71, 185, 221, .32), rgba(90, 240, 195, .18));
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 14px;
+  width: 50px;
+  height: 50px;
+  min-height: 0;
+  background:
+    linear-gradient(90deg, transparent 47%, rgba(255,255,255,.05) 48%, rgba(255,255,255,.05) 52%, transparent 53%),
+    linear-gradient(transparent 47%, rgba(255,255,255,.05) 48%, rgba(255,255,255,.05) 52%, transparent 53%),
+    linear-gradient(135deg, rgba(55,132,153,.35), rgba(52,95,108,.18));
+  border: 1px solid rgba(255,255,255,.055);
+  border-radius: 12px;
 }
 
 .heat-comm-addon-map-thumb::before,
-.heat-comm-addon-map-thumb::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.heat-comm-addon-map-thumb::before {
-  background: linear-gradient(90deg, transparent 21%, rgba(255,255,255,.07) 22%, rgba(255,255,255,.07) 23%, transparent 24%, transparent 49%, rgba(255,255,255,.07) 50%, rgba(255,255,255,.07) 51%, transparent 52%), linear-gradient(transparent 20%, rgba(255,255,255,.06) 21%, rgba(255,255,255,.06) 22%, transparent 23%, transparent 46%, rgba(255,255,255,.06) 47%, rgba(255,255,255,.06) 48%, transparent 49%);
-  opacity: .38;
-}
+.heat-comm-addon-map-thumb::after { display: none; }
 
 .heat-comm-addon-map-pin {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 8px;
+  height: 8px;
   transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  background: linear-gradient(180deg, #ff8aa8, #ff5f74);
-  border: 3px solid rgba(7,12,20,.72);
+  background: #ff6688;
+  border: 2px solid #1a2430;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(255,95,116,.14);
+  box-shadow: 0 0 0 3px rgba(255,102,136,.12);
 }
 
 .heat-comm-addon-location-meta { min-width: 0; }
-.heat-comm-addon-location-name { margin-bottom: 4px; }
-.heat-comm-addon-location-address { display: block; }
+.heat-comm-addon-location-name { margin-bottom: 2px; font-size: 10.5px; }
+.heat-comm-addon-location-address { display: block; font-size: 8.75px; }
 
 .heat-comm-addon-btn-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
-  grid-column: 1 / -1;
+  gap: 10px;
+  grid-column: 2;
+  margin-top: 2px;
 }
 
 .heat-comm-addon-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 7px 10px;
-  color: #d8e5f7;
-  background: rgba(255,255,255,.045);
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 999px;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .06em;
-  line-height: 1;
+  padding: 0;
+  color: #8190a5;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font-family: Abel, sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  line-height: 1.2;
   text-transform: uppercase;
 }
 
 .heat-comm-addon-btn.is-primary {
-  color: #fff;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--addon-accent) 34%, rgba(255,255,255,.08)), color-mix(in srgb, var(--addon-accent-two) 24%, rgba(18,22,34,.94)));
-  border-color: color-mix(in srgb, var(--addon-accent) 28%, rgba(255,255,255,.08));
+  color: var(--addon-accent);
+  background: transparent;
+  border: 0;
 }
 
-.heat-comm-addon-pay-card { padding: 10px; }
+/* ---------------------------------------------------------
+   APPLE PAY
+   Compact wallet-style row instead of a nested payment panel.
+   --------------------------------------------------------- */
+.heat-comm-addon-event.is-addon-pay .heat-comm-addon-head { display: none; }
+.heat-comm-addon-event.is-addon-pay .heat-comm-addon-body { padding: 0; }
+
+.heat-comm-addon-pay-card {
+  padding: 9px 10px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
 
 .heat-comm-addon-pay-head {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 10px;
 }
 
 .heat-comm-addon-pay-logo {
-  color: #eef3ff;
-  font: 700 10px/1 Inter, Arial, sans-serif;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  color: #cfd8e5;
+  font-family: Viga, sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: .02em;
+  text-transform: none;
 }
 
 .heat-comm-addon-pay-amount { text-align: right; }
-.heat-comm-addon-pay-amount-value { font-size: 15px; }
+.heat-comm-addon-pay-amount-value { font-size: 14px; }
+.heat-comm-addon-pay-amount-label { margin-top: 1px; font-size: 8px; text-transform: lowercase; }
 
 .heat-comm-addon-pay-note {
-  margin: 10px 0 0;
-  color: #dde6f5;
-  font-size: 11.5px;
-  line-height: 1.6;
+  margin: 6px 0 0;
+  color: #aeb9c8;
+  font-family: Quicksand, sans-serif;
+  font-size: 10px;
+  line-height: 1.35;
 }
+
+.heat-comm-addon-event.is-addon-pay .heat-comm-addon-btn-row {
+  grid-column: auto;
+  margin-top: 7px;
+}
+
+/* ---------------------------------------------------------
+   VOICE NOTE
+   Reads like a voice bubble with optional transcript.
+   --------------------------------------------------------- */
+.heat-comm-addon-event.is-addon-voice {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.heat-comm-addon-event.is-addon-voice .heat-comm-addon-head { display: none; }
+.heat-comm-addon-event.is-addon-voice .heat-comm-addon-body { padding: 0; }
 
 .heat-comm-addon-wave {
   display: grid;
-  grid-template-columns: 30px minmax(0, 1fr) auto;
+  grid-template-columns: 26px minmax(0,1fr) auto;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
+  padding: 8px 9px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.045);
+  border-radius: 14px;
 }
 
 .heat-comm-addon-wave-play {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   display: grid;
   place-items: center;
-  color: #fff;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--addon-accent) 38%, rgba(255,255,255,.08)), color-mix(in srgb, var(--addon-accent-two) 26%, rgba(18,22,34,.94)));
-  border: 1px solid rgba(255,255,255,.08);
+  color: #d9e7f5;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.05);
   border-radius: 50%;
+  font-size: 9px;
 }
 
 .heat-comm-addon-wave-bars {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  align-items: end;
-  gap: 4px;
-  min-height: 22px;
+  grid-template-columns: repeat(12, minmax(0,1fr));
+  align-items: center;
+  gap: 2px;
+  min-height: 16px;
 }
 
 .heat-comm-addon-wave-bars span {
   display: block;
-  min-height: 6px;
+  min-height: 3px;
+  background: color-mix(in srgb, var(--addon-accent) 68%, #607086);
   border-radius: 999px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--addon-accent) 92%, #fff), color-mix(in srgb, var(--addon-accent-two) 65%, rgba(22, 40, 82, .88)));
+  opacity: .8;
 }
 
 .heat-comm-addon-wave-bars span:nth-child(1),
-.heat-comm-addon-wave-bars span:nth-child(7) { height: 10px; }
+.heat-comm-addon-wave-bars span:nth-child(7) { height: 5px; }
 .heat-comm-addon-wave-bars span:nth-child(2),
-.heat-comm-addon-wave-bars span:nth-child(10) { height: 18px; }
+.heat-comm-addon-wave-bars span:nth-child(10) { height: 9px; }
 .heat-comm-addon-wave-bars span:nth-child(3),
-.heat-comm-addon-wave-bars span:nth-child(11) { height: 24px; }
+.heat-comm-addon-wave-bars span:nth-child(11) { height: 13px; }
 .heat-comm-addon-wave-bars span:nth-child(4),
-.heat-comm-addon-wave-bars span:nth-child(8) { height: 14px; }
+.heat-comm-addon-wave-bars span:nth-child(8) { height: 7px; }
 .heat-comm-addon-wave-bars span:nth-child(5),
-.heat-comm-addon-wave-bars span:nth-child(12) { height: 21px; }
+.heat-comm-addon-wave-bars span:nth-child(12) { height: 11px; }
 .heat-comm-addon-wave-bars span:nth-child(6),
-.heat-comm-addon-wave-bars span:nth-child(9) { height: 16px; }
+.heat-comm-addon-wave-bars span:nth-child(9) { height: 8px; }
+
+.heat-comm-addon-wave-duration {
+  color: #7f8da0;
+  font-family: Abel, sans-serif;
+  font-size: 8.5px;
+}
 
 .heat-comm-addon-audio {
   width: 100%;
-  margin-top: 8px;
-  opacity: .9;
-  filter: saturate(.9) brightness(.95);
+  height: 28px;
+  margin-top: 5px;
+  opacity: .82;
 }
 
 .heat-comm-addon-transcript {
-  margin-top: 8px;
-  padding: 9px 10px;
+  margin-top: 5px;
+  padding: 7px 9px;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.04);
+  border-radius: 11px;
 }
 
 .heat-comm-addon-transcript strong {
-  margin-bottom: 5px;
-  color: var(--addon-accent);
-  font-size: 9px;
-  letter-spacing: .12em;
+  margin-bottom: 2px;
+  color: #7f8da0;
+  font-family: Abel, sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: .05em;
   text-transform: uppercase;
 }
 
 .heat-comm-addon-transcript p {
   margin: 0;
-  color: #dce6f2;
-  font-size: 11.5px;
-  line-height: 1.6;
-}
-
-.heat-comm-addon-call-grid { display: grid; gap: 8px; }
-.heat-comm-addon-call-mini { padding: 9px 10px; }
-
-@media (max-width: 680px) {
-  .heat-comm-bubble.is-addon-card {
-    width: min(100%, 296px);
-    max-width: min(100%, 296px);
-  }
-
-  .heat-comm-addon-location-box {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* REV74 compact collector add-on refinement */
-.heat-comm-addon-event {
-  border-radius: 18px;
-  box-shadow: 0 12px 26px rgba(0,0,0,.17), 0 0 0 1px rgba(255,255,255,.018) inset, 0 0 16px var(--addon-glow);
-}
-.heat-comm-addon-title strong {
-  font-weight: 700;
-}
-.heat-comm-addon-note,
-.heat-comm-addon-reply-text,
-.heat-comm-addon-pay-note,
-.heat-comm-addon-transcript p {
-  line-height: 1.5;
-}
-.heat-comm-addon-foot {
-  gap: 6px;
-  margin-top: 7px;
-}
-.heat-comm-addon-foot-label:empty { display:none; }
-.heat-comm-addon-foot:has(.heat-comm-addon-foot-label:empty) {
-  justify-content: flex-end;
-}
-.heat-comm-addon-foot:has(.heat-comm-addon-foot-label:empty) .heat-comm-addon-foot-time {
-  margin-left:auto;
-}
-.heat-comm-addon-reply-quote,
-.heat-comm-addon-note,
-.heat-comm-addon-transcript,
-.heat-comm-addon-call-mini,
-.heat-comm-addon-pay-card,
-.heat-comm-addon-location-box {
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.02);
-}
-.heat-comm-addon-btn-row {
-  justify-content:flex-start;
-}
-.heat-comm-addon-location-name,
-.heat-comm-addon-title strong {
-  text-transform:none;
-}
-.heat-comm-addon-systemline {
-  padding: 6px 11px;
-  font-size: 9.5px;
-}
-@media (min-width: 681px) {
-  .heat-comm-bubble.is-addon-card { width:min(100%,336px); max-width:min(100%,336px); }
-}
-
-/* =========================================================
-   COLLECTOR ADD-ON PACK V1 — REV75 COMPACT INLINE PASS
-   Final owner for collector add-on sizing / density.
-   ========================================================= */
-
-.heat-comm-bubble.is-addon-card {
-  width: min(100%, 292px);
-  max-width: min(100%, 292px);
-  border-radius: 15px;
-}
-
-.heat-comm-addon-event {
-  border-radius: 15px;
-  background: rgba(12, 18, 29, .92);
-  border-color: rgba(255,255,255,.055);
-  box-shadow: 0 7px 16px rgba(0,0,0,.14), 0 0 10px color-mix(in srgb, var(--addon-glow) 45%, transparent);
-}
-
-.heat-comm-addon-head {
-  gap: 7px;
-  padding: 8px 9px 7px;
-  border-bottom-color: rgba(255,255,255,.035);
-  background: rgba(255,255,255,.018);
-}
-
-.heat-comm-addon-icon {
-  width: 26px;
-  height: 26px;
-  flex: 0 0 26px;
-  font-size: 12px;
-  border-radius: 9px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.055);
-}
-
-.heat-comm-addon-title strong,
-.heat-comm-addon-call-mini strong,
-.heat-comm-addon-location-name,
-.heat-comm-addon-pay-amount-value,
-.heat-comm-addon-transcript strong {
-  font-size: 10.5px;
-  line-height: 1.25;
-}
-
-.heat-comm-addon-title small,
-.heat-comm-addon-call-mini small,
-.heat-comm-addon-location-address,
-.heat-comm-addon-pay-amount-label,
-.heat-comm-addon-foot,
-.heat-comm-addon-reply-label,
-.heat-comm-addon-location-meta small {
-  font-size: 9px;
-  line-height: 1.35;
-}
-
-.heat-comm-addon-title small { margin-top: 0; }
-
-.heat-comm-addon-body {
-  padding: 8px 9px 9px;
-}
-
-.heat-comm-addon-note,
-.heat-comm-addon-reply-quote,
-.heat-comm-addon-location-box,
-.heat-comm-addon-pay-card,
-.heat-comm-addon-transcript,
-.heat-comm-addon-call-mini {
-  border-radius: 11px;
-  background: rgba(255,255,255,.022);
-  border-color: rgba(255,255,255,.045);
-}
-
-.heat-comm-addon-reply-quote {
-  margin-bottom: 6px;
-  padding: 7px 8px;
-}
-
-.heat-comm-addon-reply-label {
-  margin-bottom: 3px;
-  font-size: 8.5px;
-  letter-spacing: .07em;
-}
-
-.heat-comm-addon-reply-text,
-.heat-comm-addon-note,
-.heat-comm-addon-pay-note,
-.heat-comm-addon-transcript p {
-  font-size: 10.5px;
+  color: #cbd5e1;
+  font-family: Quicksand, sans-serif;
+  font-size: 10px;
   line-height: 1.4;
 }
 
-.heat-comm-addon-note {
-  padding: 7px 8px;
+/* ---------------------------------------------------------
+   CALL / FACETIME
+   Small status strip, not a full feature card.
+   --------------------------------------------------------- */
+.heat-comm-addon-event.is-addon-call {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
 }
 
-.heat-comm-addon-foot {
-  margin-top: 5px;
-  font-size: 8.5px;
+.heat-comm-addon-event.is-addon-call .heat-comm-addon-head { display: none; }
+.heat-comm-addon-event.is-addon-call .heat-comm-addon-body { padding: 0; }
+.heat-comm-addon-call-grid { display: grid; gap: 0; }
+
+.heat-comm-addon-call-mini {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.045);
+  border-radius: 12px;
 }
 
-.heat-comm-addon-location-box {
-  grid-template-columns: 58px minmax(0, 1fr);
-  gap: 8px;
-  padding: 8px;
-}
-
-.heat-comm-addon-map-thumb {
-  min-height: 54px;
-  border-radius: 10px;
-}
-
-.heat-comm-addon-btn-row {
-  gap: 5px;
-  margin-top: 7px;
-}
-
-.heat-comm-addon-btn {
-  padding: 6px 8px;
-  font-size: 8px;
-  letter-spacing: .045em;
-}
-
-.heat-comm-addon-pay-card {
-  padding: 8px;
-}
-
-.heat-comm-addon-pay-head {
-  gap: 8px;
-}
-
-.heat-comm-addon-pay-logo {
-  font-size: 9px;
-}
-
-.heat-comm-addon-pay-amount-value {
-  font-size: 14px;
-}
-
-.heat-comm-addon-pay-note {
-  margin-top: 7px;
-}
-
-.heat-comm-addon-wave {
-  grid-template-columns: 26px minmax(0, 1fr) auto;
-  gap: 7px;
-}
-
-.heat-comm-addon-wave-play {
-  width: 26px;
-  height: 26px;
+.heat-comm-addon-call-mini strong {
+  color: #dce4ed;
+  font-family: Viga, sans-serif;
   font-size: 10px;
+  font-weight: 400;
 }
 
-.heat-comm-addon-wave-bars {
-  min-height: 18px;
-  gap: 3px;
-}
-
-.heat-comm-addon-wave-bars span:nth-child(1),
-.heat-comm-addon-wave-bars span:nth-child(7) { height: 7px; }
-.heat-comm-addon-wave-bars span:nth-child(2),
-.heat-comm-addon-wave-bars span:nth-child(10) { height: 12px; }
-.heat-comm-addon-wave-bars span:nth-child(3),
-.heat-comm-addon-wave-bars span:nth-child(11) { height: 17px; }
-.heat-comm-addon-wave-bars span:nth-child(4),
-.heat-comm-addon-wave-bars span:nth-child(8) { height: 10px; }
-.heat-comm-addon-wave-bars span:nth-child(5),
-.heat-comm-addon-wave-bars span:nth-child(12) { height: 15px; }
-.heat-comm-addon-wave-bars span:nth-child(6),
-.heat-comm-addon-wave-bars span:nth-child(9) { height: 11px; }
-
-.heat-comm-addon-transcript {
-  margin-top: 6px;
-  padding: 7px 8px;
-}
-
-.heat-comm-addon-transcript strong {
-  margin-bottom: 3px;
+.heat-comm-addon-call-mini small {
+  color: #7e8b9c;
   font-size: 8.5px;
+  white-space: nowrap;
 }
-
-.heat-comm-addon-call-grid { gap: 6px; }
-.heat-comm-addon-call-mini { padding: 7px 8px; }
 
 @media (max-width: 680px) {
   .heat-comm-bubble.is-addon-card {
-    width: min(100%, 280px);
-    max-width: min(100%, 280px);
+    width: min(80%, 286px);
+    max-width: 286px;
   }
 }
-
