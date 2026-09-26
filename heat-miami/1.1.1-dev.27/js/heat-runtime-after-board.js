@@ -4765,11 +4765,18 @@ function addonTitle(type, fields) {
 
   if (type === "call") {
     var callType = cleanText(fields.type).toLowerCase();
-    if (callType === "facetime") return "FaceTime Call";
-    return "Call Event";
+    var callStatus = cleanText(fields.status).toLowerCase();
+    var callName = callType === "facetime" ? "FaceTime" : "Call";
+
+    if (callStatus === "missed") return "Missed " + callName;
+    if (callStatus === "ended") return callName + " ended";
+    if (callStatus === "incoming") return "Incoming " + callName;
+    if (callStatus === "declined") return callName + " declined";
+
+    return callName;
   }
 
-  return "Collector Event";
+  return "Update";
 }
 
 function addonSubtitle(type, actorName, fields) {
@@ -4798,26 +4805,28 @@ function addonSubtitle(type, actorName, fields) {
   if (type === "call") {
     var callType = cleanText(fields.type).toLowerCase();
     var status = cleanText(fields.status).toLowerCase();
-    if (status === "missed") return actorName + " missed a " + (callType || "call");
-    if (status === "incoming") return actorName + " started an incoming " + (callType || "call");
-    return actorName + " started a " + (callType === "facetime" ? "FaceTime call" : "call");
+    var callLabel = callType === "facetime" ? "FaceTime call" : "call";
+
+    if (status === "missed") return actorName + " missed a " + callLabel;
+    if (status === "ended") return actorName + " ended a " + callLabel;
+    if (status === "incoming") return actorName + " received a " + callLabel;
+    if (status === "declined") return actorName + " declined a " + callLabel;
+    if (status === "ongoing" || status === "active") return actorName + " is on a " + callLabel;
+
+    return actorName + " started a " + callLabel;
   }
 
   return actorName;
 }
 
 function appendAddonFooter(container, label, timeText) {
+  if (!timeText) return;
+
   var foot = createAddonNode(
     "div",
-    "heat-comm-addon-foot"
+    "heat-comm-addon-foot heat-comm-addon-foot--time-only"
   );
-  foot.appendChild(
-    createAddonNode(
-      "span",
-      "heat-comm-addon-foot-label",
-      label
-    )
-  );
+
   foot.appendChild(
     createAddonNode(
       "span",
@@ -4825,6 +4834,7 @@ function appendAddonFooter(container, label, timeText) {
       timeText
     )
   );
+
   container.appendChild(foot);
 }
 
@@ -4860,7 +4870,7 @@ function renderReplyAddonBody(body, fields, timeText) {
     );
   }
 
-  appendAddonFooter(body, "Self-contained reply snippet", timeText);
+  appendAddonFooter(body, "", timeText);
 }
 
 function renderLocationAddonBody(body, fields, timeText) {
@@ -4920,7 +4930,7 @@ function renderLocationAddonBody(body, fields, timeText) {
   box.appendChild(meta);
   box.appendChild(actions);
   body.appendChild(box);
-  appendAddonFooter(body, "Map card add-on", timeText);
+  appendAddonFooter(body, "", timeText);
 }
 
 function renderPayAddonBody(body, fields, timeText) {
@@ -5006,7 +5016,7 @@ function renderPayAddonBody(body, fields, timeText) {
 
   card.appendChild(actions);
   body.appendChild(card);
-  appendAddonFooter(body, "Visual-only or functional payment event", timeText);
+  appendAddonFooter(body, "", timeText);
 }
 
 function renderVoiceAddonBody(body, fields, timeText) {
@@ -5075,8 +5085,8 @@ function renderVoiceAddonBody(body, fields, timeText) {
   appendAddonFooter(
     body,
     audioSrc
-      ? "Real audio or RP-only · transcript optional"
-      : "RP-only voice note · transcript optional",
+      ? ""
+      : "",
     timeText
   );
 }
@@ -5093,8 +5103,8 @@ function renderCallAddonBody(body, fields, timeText) {
   var rawStatus = cleanText(fields.status).toLowerCase();
   var rawType = cleanText(fields.type).toLowerCase();
   var niceType = rawType === "facetime" ? "FaceTime" : rawType ? rawType : "Call";
-  var headline = "Call updated";
-  var detail = fields.duration ? "Duration · " + fields.duration : "Tap-in collector event";
+  var headline = niceType;
+  var detail = fields.duration ? "Duration · " + fields.duration : "";
 
   if (rawStatus === "ended") {
     headline = niceType + " ended";
@@ -5115,17 +5125,20 @@ function renderCallAddonBody(body, fields, timeText) {
       headline
     )
   );
-  card.appendChild(
-    createAddonNode(
-      "small",
-      "",
-      detail
-    )
-  );
+
+  if (detail) {
+    card.appendChild(
+      createAddonNode(
+        "small",
+        "",
+        detail
+      )
+    );
+  }
 
   grid.appendChild(card);
   body.appendChild(grid);
-  appendAddonFooter(body, "One tag, multiple call states", timeText);
+  appendAddonFooter(body, "", timeText);
 }
 
 function buildCollectorAddonMessage(
@@ -5147,7 +5160,10 @@ function buildCollectorAddonMessage(
     message.classList.add("is-starter");
   }
 
-  if (addon.type === "unsent") {
+  if (
+    addon.type === "unsent" ||
+    addon.type === "silenced"
+  ) {
     message.classList.add("is-addon-system");
     bubble.className = "heat-comm-bubble is-addon-system-wrap";
     bubble.appendChild(
@@ -5215,16 +5231,7 @@ function buildCollectorAddonMessage(
   head.appendChild(titleWrap);
   article.appendChild(head);
 
-  if (addon.type === "silenced") {
-    body.appendChild(
-      createAddonNode(
-        "div",
-        "heat-comm-addon-note",
-        "Perfect for RPing a temporary mute without needing fake text content."
-      )
-    );
-    appendAddonFooter(body, "Collector event", timeText);
-  } else if (addon.type === "reply") {
+  if (addon.type === "reply") {
     renderReplyAddonBody(body, addon.fields, timeText);
   } else if (addon.type === "location") {
     renderLocationAddonBody(body, addon.fields, timeText);
