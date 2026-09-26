@@ -4680,20 +4680,20 @@ img[src*="/emoticons/" i] {
 /* Shared Collector Add-On renderer inside Traditional Comms.
    The runtime swaps only a direct <p> whose complete contents are
    one supported add-on bracket. Normal text bubbles stay static. */
-.heat-traditional-messages > .heat-comm-message.heat-traditional-addon {
+.heat-traditional-messages .heat-comm-message.heat-traditional-addon {
   width: 100%;
   margin: 0;
 }
 
-.heat-traditional-messages > .heat-comm-message.heat-traditional-addon.is-addon-system {
+.heat-traditional-messages .heat-comm-message.heat-traditional-addon.is-addon-system {
   margin: 9px 0 7px;
 }
 
-.heat-traditional-messages > .heat-comm-message.heat-traditional-addon.is-you {
+.heat-traditional-messages .heat-comm-message.heat-traditional-addon.is-you {
   align-items: flex-end;
 }
 
-.heat-traditional-messages > .heat-comm-message.heat-traditional-addon.is-them {
+.heat-traditional-messages .heat-comm-message.heat-traditional-addon.is-them {
   align-items: flex-start;
 }
 
