@@ -2,7 +2,7 @@
    HEAT CORE COMPONENT CSS
    Regenerated from September 4, 2026 HEAT MiamiOS v12 live backup.
    Source: Miami WEBPAGE CSS.html
-   Hosted development build: 1.1.1-dev.26
+   Hosted development build: 1.1.0-dev.2
    ===================================================================== */
 /* =========================================================
    HEAT STABLE V1 — PHASE 9 OWNERSHIP NOTE
@@ -506,72 +506,247 @@ html.heat-route-subforum
     display: none;
 }
 
-/* Posting UI is owned pre-paint by Board Wrapper REV64. */
+/* =========================================================
+   HEAT — NATIVE POSTING / TOPIC REVIEW CONTRACT
+
+   Live Jcink markup confirms:
+   - #posting-form is the real posting table
+   - its .maintitle already has colspan="2"
+   - #topic-summary already supplies native 20% / 80% cells
+
+   HEAT therefore styles these native structures without
+   rebuilding or reassigning their column ownership.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   POSTING FORM
+
+   Global HEAT .maintitle uses display:flex for normal title
+   bars. Native Jcink posting titles are TD/TH table cells.
+
+   Posting variants do not all place that title inside the same
+   table. The element's native table-cell role is therefore the
+   authoritative contract, not a specific #posting-form location.
+   --------------------------------------------------------- */
+
+html.heat-route-posting
+#heat-browser
+#posting-form {
+    width: 100%;
+    max-width: 100%;
+
+    table-layout: auto;
+}
+
+/*
+ * Posting variants do not all place the title cell inside
+ * #posting-form. Fast Reply -> More Options is one example.
+ *
+ * The reliable native contract is the element type itself.
+ *
+ * Normal posting routes also receive heat-route-posting from the
+ * early URL preflight. Fast Reply -> More Options can arrive via
+ * Jcink's native REPLIER form without a usable posting query string,
+ * so that route class is not guaranteed.
+ *
+ * The native form[name="REPLIER"] fallback therefore preserves
+ * table-cell geometry without relying on URL-derived route state.
+ */
+html.heat-route-posting
+#heat-browser
+#innerwrapper
+td.maintitle,
+html.heat-route-posting
+#heat-browser
+#innerwrapper
+th.maintitle,
+#heat-browser
+form[name="REPLIER"]
+td.maintitle,
+#heat-browser
+form[name="REPLIER"]
+th.maintitle {
+    width: auto;
+    max-width: none;
+    height: 54px;
+    min-height: 0;
+
+    box-sizing: border-box;
+
+    display: table-cell;
+    vertical-align: middle;
+
+    overflow: visible;
+
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   TOPIC REVIEW / LAST 10 POSTS
+
+   Jcink already outputs:
+   - first cell width="20%"
+   - second cell width="80%"
+
+   Do not replace those widths. Do not stack the rows. Do not
+   resize post1/post2. The native table is the authoritative
+   layout and HEAT only keeps the shell contained.
+   --------------------------------------------------------- */
+
+html.heat-route-posting
+#heat-browser
+#topic-summary {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+html.heat-route-posting
+#heat-browser
+#topic-summary
+> .tableborder {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+html.heat-route-posting
+#heat-browser
+#topic-summary
+> .tableborder
+> table {
+    width: 100%;
+    max-width: 100%;
+
+    /*
+     * Jcink's image resizer inserts fixed-width wrappers after
+     * first paint. With table-layout:auto, those late media
+     * dimensions can make the legacy review table recalculate
+     * wider than its container.
+     *
+     * Fixed layout keeps the native 20% / 80% column contract
+     * stable before and after media resizing.
+     */
+    table-layout: fixed;
+    box-sizing: border-box;
+}
+
+html.heat-route-posting
+#heat-browser
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr
+> :first-child {
+    width: 20%;
+    max-width: 20%;
+
+    box-sizing: border-box;
+}
+
+html.heat-route-posting
+#heat-browser
+#topic-summary
+> .tableborder
+> table
+> tbody
+> tr
+> :last-child {
+    width: 80%;
+    min-width: 0;
+    max-width: 80%;
+
+    box-sizing: border-box;
+}
+
+html.heat-route-posting
+#heat-browser
+#topic-summary
+.postcolor {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   POSTING PAGE SECTION BARS
+   ========================================================= */
+
+/* Code Buttons follows the preserved native posting title. */
+
+html.heat-route-posting
+#heat-browser
+#posting-form
+.pformstrip:first-of-type {
+    border-radius: 0;
+}
+
+
+/* The critical post-writing field is owned by Main Stylesheet. */
+
+
+/* Autosave message */
+
+#heat-draft-status {
+    min-height: 16px;
+    margin: 7px 0 0;
+
+    color: var(--heat-muted);
+
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+}
+
+#heat-draft-status.is-restored {
+    color: var(--heat-yellow);
+}
+
+#heat-draft-status.is-saved {
+    color: var(--heat-green);
+}
 
 /* Pagination */
 
 #heat-browser .pagination .pagination_current,
 #heat-browser .pagination a {
-    width: 30px;
-    min-width: 30px;
-    height: 30px;
-    min-height: 30px;
-    margin: 3px;
-    padding: 0;
-
+    min-width: 31px;
+    height: 31px;
+    margin: 2px;
+    padding: 0 8px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    border-radius: 999px;
+}
 
+#heat-browser .pagination a {
     color: var(--heat-text-soft);
-    background: rgba(255, 255, 255, 0.04);
-
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 50%;
-
-    box-shadow: none;
-
-    font-family: var(--heat-font-display);
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 1;
-    text-decoration: none;
-
-    transition:
-        color .2s ease,
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease;
+    background: var(--heat-panel-light);
+    border: 1px solid var(--heat-border);
 }
 
-#heat-browser .pagination a:is(:hover, :focus-visible) {
-    color: #ffffff;
-    background: var(--heat-ui-hover-surface);
-
-    border-color:
-        color-mix(
-            in srgb,
-            var(--heat-ui-accent-1) 40%,
-            rgba(255, 255, 255, 0.09)
-        );
-
-    outline: none;
-    transform: translateY(-1px);
-}
-
+#heat-browser .pagination a:is(:hover, :focus-visible),
 #heat-browser .pagination .pagination_current {
     color: #ffffff;
     background: var(--heat-ui-selected-surface);
-
     border-color:
         color-mix(
             in srgb,
             var(--heat-ui-accent-1) 42%,
             transparent
         );
-
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.04);
+        0 0 0 3px var(--heat-ui-focus-ring);
+    outline: none;
 }
 
 #heat-browser .pagination_pagetxt { display: none; }
@@ -812,45 +987,37 @@ html.heat-route-subforum
 }
 
 .heat-profile-name-row {
-    min-width: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .heat-profile-name {
     margin: 0;
-    max-width: 100%;
 
-    color: #ffffff;
-
-    font-family: var(--heat-font-display);
-    font-size: clamp(27px, 3.5vw, 40px);
+    color: #ffffff;font-family: var(--heat-font-display);
+    font-size: clamp(30px, 4vw, 46px);
     font-weight: 800;
-    letter-spacing: -1.1px;
-    line-height: 1.03;
-    overflow-wrap: normal;
-    word-break: normal;
-}
-
-.heat-profile-verified-lock {
-    white-space: nowrap;
+    letter-spacing: -1.4px;
+    line-height: 1;
 }
 
 .heat-profile-verified {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    vertical-align: middle;
 
     color: #ffffff;
     background: var(--heat-blue);
 
     border-radius: 50%;
 
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 1;
+    font-size: 12px;
+    font-weight: 800;
 }
 
 #heat-browser .heat-profile .heat-group-emoji,
@@ -892,52 +1059,32 @@ html.heat-route-subforum
 }
 
 .heat-profile-summary {
-    margin-top: 10px;
+    margin-top: 11px;
 
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
+
+    color: rgba(255, 255, 255, 0.78);
+
+    font-size: 12px;
+    line-height: 1.45;
 }
 
-#heat-browser .heat-profile .heat-profile-summary-chip {
-    min-height: 27px;
-    max-width: 100%;
-    padding: 0 9px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    color: rgba(255, 255, 255, 0.82);
-    background:
-        color-mix(
-            in srgb,
-            var(--heat-profile-accent) 10%,
-            rgba(9, 12, 20, 0.7)
-        );
-
-    border:
-        1px solid
-        color-mix(
-            in srgb,
-            var(--heat-profile-accent) 24%,
-            rgba(255, 255, 255, 0.12)
-        );
-    border-radius: 9px;
-
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.heat-profile-summary-dot {
+    opacity: 0.45;
 }
 
-.heat-profile-summary-chip:empty {
-    display: none;
+.heat-profile-status-line {
+    margin-top: 11px;
+
+    max-width: 680px;
+
+    color: rgba(255, 255, 255, 0.64);
+
+    font-size: 12px;
+    line-height: 1.45;
 }
 
 .heat-profile-actions {
@@ -1091,32 +1238,17 @@ html.heat-route-subforum
 .heat-profile-info-list {
     display: flex;
     flex-direction: column;
-
-    max-height: 320px;
-    min-height: 0;
-    padding: 2px 8px 2px 0;
-
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
-    scrollbar-color:
-        var(--heat-profile-accent)
-        rgba(255, 255, 255, 0.04);
 }
 
 .heat-profile-info-row {
-    flex: 0 0 44px;
     min-width: 0;
-    min-height: 44px;
-    padding: 7px 2px;
+    padding: 10px 0;
 
     display: grid;
-    grid-template-columns: 30px minmax(0, 1fr);
-    gap: 8px;
+    grid-template-columns: 25px minmax(0, 1fr);
+    gap: 10px;
     align-items: center;
-    box-sizing: border-box;
+    min-height: 34px;
 }
 
 .heat-profile-info-row + .heat-profile-info-row {
@@ -1141,11 +1273,6 @@ html.heat-route-subforum
     border-radius: 8px;
 
     font-size: 12px;
-    line-height: 1;
-}
-
-.heat-profile-info-row > div {
-    min-width: 0;
 }
 
 .heat-profile-info-row small,
@@ -1272,7 +1399,7 @@ html.heat-route-subforum
 .heat-mini-partner {
     width: 100%;
     min-width: 0;
-    padding: 9px;
+    padding: 10px;
 
     display: block;
 
@@ -1330,7 +1457,7 @@ html.heat-route-subforum
 /* Heading */
 
 .heat-mini-partner-heading {
-    margin-bottom: 7px;
+    margin-bottom: 9px;
 
     display: flex;
     align-items: center;
@@ -1338,9 +1465,9 @@ html.heat-route-subforum
 
     color: var(--heat-muted);
 
-    font-size: 7px;
+    font-size: 8px;
     font-weight: 800;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.9px;
     line-height: 1.15;
     text-transform: uppercase;
 }
@@ -1368,14 +1495,14 @@ html.heat-route-subforum
     min-width: 0;
 
     display: grid;
-    grid-template-columns: 42px minmax(0, 1fr);
+    grid-template-columns: 48px minmax(0, 1fr);
     align-items: center;
-    gap: 8px;
+    gap: 9px;
 }
 
 .heat-mini-partner-photo {
-    width: 42px;
-    height: 42px;
+    width: 48px;
+    height: 48px;
 
     display: block;
 
@@ -1413,7 +1540,7 @@ html.heat-route-subforum
 
     color: var(--heat-post-accent);
 
-    font-size: 7px;
+    font-size: 8px;
     font-weight: 800;
     letter-spacing: 0.7px;
     line-height: 1.15;
@@ -1429,7 +1556,7 @@ html.heat-route-subforum
     overflow: hidden;
 
     font-family: var(--heat-font-display);
-    font-size: 12px;
+    font-size: 13.5px;
     font-weight: 800;
     letter-spacing: -0.2px;
     line-height: 1.15;
@@ -1679,12 +1806,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
         gap: 0 12px;
-
-        max-height: none;
-        padding: 0;
-
-        overflow: visible;
-        scrollbar-gutter: auto;
     }
 
     .heat-profile-workspace > .heat-profile-apps {
@@ -1773,7 +1894,9 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-profile-about-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns:
+        minmax(0, 1.35fr)
+        minmax(220px, 0.95fr);
     gap: 14px;
 }
 
@@ -1828,13 +1951,11 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 
-.heat-profile-info-list::-webkit-scrollbar,
 .heat-profile-biography-text::-webkit-scrollbar,
 .heat-profile-badges-grid::-webkit-scrollbar {
     width: 6px;
 }
 
-.heat-profile-info-list::-webkit-scrollbar-track,
 .heat-profile-biography-text::-webkit-scrollbar-track,
 .heat-profile-badges-grid::-webkit-scrollbar-track,
 .heat-mini-awards-row::-webkit-scrollbar-track {
@@ -1842,7 +1963,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     border-radius: 999px;
 }
 
-.heat-profile-info-list::-webkit-scrollbar-thumb,
 .heat-profile-biography-text::-webkit-scrollbar-thumb,
 .heat-profile-badges-grid::-webkit-scrollbar-thumb {
     background: var(--heat-profile-accent);
@@ -1875,8 +1995,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-profile-fact span {
     color: var(--heat-muted);
-    font-size: 9.5px;
-    line-height: 1.25;
+    font-size: 9.5px;line-height: 1.25;
 }
 
 .heat-profile-fact strong {
@@ -2096,7 +2215,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     color: var(--heat-text);
 
     font-family: var(--heat-font-display);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 800;
 }
 
@@ -2232,8 +2351,8 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 .heat-tracker-empty-icon {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     margin: 0 auto 10px;
 
     display: flex;
@@ -2420,7 +2539,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     }
 
     .heat-profile-name {
-        font-size: 23px;
+        font-size: 25px;
     }
 
     .heat-profile-navigation {
@@ -2648,15 +2767,8 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     flex-direction: column;
     gap: 14px;
 
-    position: static;
-    top: auto;
-}
-
-@media screen and (min-width: 1101px) {
-    .heat-profile-left-column {
-        position: sticky;
-        top: 18px;
-    }
+    position: sticky;
+    top: 18px;
 }
 
 .heat-profile-info-card {
@@ -2787,7 +2899,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     display: grid;
     grid-template-columns:
-        132px
+        195px
         minmax(0, 1fr);
 
     align-items: stretch;
@@ -2844,12 +2956,21 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     .heat-post-main {
         grid-template-columns:
-            132px
+            180px
             minmax(0, 1fr);
     }
 
     .heat-post-profile-column {
         width: auto;
+    }
+
+    .heat-mini-profile {
+        padding: 10px;
+    }
+
+    .heat-mini-avatar {
+        width: 66px;
+        height: 66px;
     }
 
 }
@@ -2873,50 +2994,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     }
 
     .heat-mini-profile {
-        min-height: auto;
-    }
-
-    .heat-mini-rail {
-        position: relative;
-        top: auto;
-
-        min-height: 0;
-
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 10px;
-
-        padding: 11px 13px;
-    }
-
-    .heat-mini-rail-portrait {
-        width: 72px;
-        flex: 0 0 72px;
-    }
-
-    .heat-mini-rail-group {
-        width: auto;
-        max-width: 118px;
-    }
-
-    .heat-mini-rail-awards {
-        flex-direction: row;
-    }
-
-    .heat-mini-popout {
-        top: 84px;
-        left: 12px;
-        right: 12px;
-
-        width: auto;
-
-        border-radius: 18px;
-    }
-
-    .heat-mini-popout-scroll {
-        max-height: 520px;
-    }
+        min-height: auto;}
 
     .heat-mini-cover {
         height: 135px;
@@ -2929,10 +3007,22 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         min-height: 190px;
     }
 
+    .heat-mini-details {
+        display: grid;
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 0 12px;
+    }
+
     #heat-browser #heat-main .heat-post-row .heat-mini-action {
         min-height: 40px;
         white-space: normal;
         text-align: center;
+    }
+
+    .heat-mini-player {
+        margin-top: 12px;
     }
 
     .heat-post-header {
@@ -2975,6 +3065,14 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         min-height: 170px;
     }
 
+    .heat-mini-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .heat-mini-details {
+        grid-template-columns: 1fr;
+    }
+
     .heat-post-body {
         min-height: 260px;
         padding: 18px 16px;
@@ -2997,16 +3095,11 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 /* =========================================================
-   POST MINI-PROFILE COLUMN — PORTRAIT RAIL
+   POST MINI-PROFILE COLUMN
    ========================================================= */
 
 .heat-post-profile-column {
     min-width: 0;
-
-    position: relative;
-    z-index: 20;
-
-    overflow: visible;
 
     background:
         linear-gradient(
@@ -3024,369 +3117,20 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 /* =========================================================
-   MINI PROFILE — COLLAPSED PORTRAIT RAIL + HOVER CARD
+   MINI PROFILE
    ========================================================= */
 
 .heat-mini-profile {
     width: 100%;
     min-height: 100%;
+    padding: 13px;
+
+    display: flex;
+    flex-direction: column;
 
     position: relative;
 
     color: var(--heat-text);
-}
-
-.heat-mini-rail {
-    width: 100%;
-    min-height: 0;
-    height: auto;
-
-    position: relative;
-    top: auto;
-    align-self: auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-
-    padding: 14px 10px 18px;
-}
-
-/* Main visible PFP: true portrait artwork, built for 250x450. */
-.heat-mini-rail-portrait {
-    width: 110px;
-    aspect-ratio: 250 / 450;
-
-    flex: 0 0 auto;
-    position: relative;
-
-    display: block;
-    overflow: hidden;
-
-    background-color: #0d1118;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    border: 0;
-    border-radius: 12px;
-
-    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
-
-    outline: none;
-}
-
-.heat-mini-rail-portrait:focus-visible {
-    outline: 2px solid var(--heat-post-accent);
-    outline-offset: 3px;
-}
-
-/* Only persistent online indicator in the post row. */
-.heat-mini-rail-portrait .heat-mini-online {
-    width: 12px;
-    height: 12px;
-
-    position: absolute;
-    right: 7px;
-    bottom: 7px;
-    z-index: 3;
-
-    background: var(--heat-green);
-
-    border: 3px solid #0d1118;
-    border-radius: 50%;
-
-    box-shadow: 0 0 10px rgba(82, 214, 129, 0.70);
-}
-
-.heat-mini-rail-group {
-    width: min(110px, 100%);
-    max-width: 110px;
-    padding: 6px 9px;
-
-    overflow: visible;
-
-    color: var(--heat-text-soft);
-    background:
-        linear-gradient(
-            135deg,
-            color-mix(in srgb, var(--heat-group-color-1) 10%, transparent),
-            color-mix(in srgb, var(--heat-group-color-2) 6%, transparent)
-        );
-
-    border: 1px solid var(--heat-border);
-    border-radius: 10px;
-
-    font-family: var(--heat-font-display);
-    font-size: 7px;
-    font-weight: 800;
-    letter-spacing: 0.55px;
-    line-height: 1.25;
-    text-align: center;
-    text-overflow: clip;
-    text-transform: uppercase;
-    white-space: normal;
-    overflow-wrap: anywhere;
-}
-
-.heat-mini-rail-awards {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.heat-mini-rail-awards > br {
-    display: none;
-}
-
-#heat-browser .heat-post-row .heat-mini-rail-awards > span,
-#heat-browser .heat-post-row .heat-mini-rail-awards > img,
-#heat-browser .heat-post-row .heat-mini-rail-awards > a {
-    width: 33px;
-    height: 33px;
-    flex: 0 0 33px;
-    max-width: none;
-    max-height: none;
-    margin: 0;
-    padding: 6px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    object-fit: contain;
-
-    background: #161b28;
-
-    border: 1px solid var(--heat-border);
-    border-radius: 10px;
-
-    font-size: 13px;
-}
-
-#heat-browser .heat-post-row .heat-mini-rail-awards > :nth-child(n + 4) {
-    display: none;
-}
-
-#heat-browser .heat-post-row .heat-mini-rail-awards > a > img {
-    width: 100%;
-    height: 100%;
-    max-width: 23px;
-    max-height: 23px;
-    margin: 0;
-    padding: 0;
-
-    display: block;
-    object-fit: contain;
-
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-}
-
-.heat-mini-rail-more {
-    color: var(--heat-muted);
-
-    font-family: var(--heat-font-display);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    line-height: 1;
-}
-
-/* ---------------------------------------------------------
-   Hover/focus reveal — approved Pass 8/9 popout language.
-   --------------------------------------------------------- */
-
-.heat-mini-popout {
-    width: 278px;
-    padding: 0;
-
-    position: absolute;
-    top: 14px;
-    left: 124px;
-    z-index: 60;
-
-    overflow: visible;
-
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-
-    transform: translateX(-28px) scale(.985);
-    transform-origin: left center;
-
-    color: var(--heat-text);
-    background:
-        linear-gradient(
-            145deg,
-            color-mix(in srgb, var(--heat-group-color-1) 5%, transparent),
-            transparent 26%
-        ),
-        rgba(12, 16, 25, .97);
-
-    border: 1px solid rgba(255, 255, 255, .10);
-    border-radius: 0 16px 16px 0;
-
-    box-shadow: 20px 20px 46px rgba(0, 0, 0, .38);
-
-    backdrop-filter: blur(19px);
-    -webkit-backdrop-filter: blur(19px);
-
-    transition:
-        opacity .18s ease,
-        transform .18s ease,
-        visibility .18s ease;
-}
-
-/*
- * The popup frame no longer owns scrolling.
- * This inset inner scroller keeps the thumb inside the rounded card
- * instead of letting it sit on top of the outer border/radius.
- */
-.heat-mini-popout-scroll {
-    width: 100%;
-    max-height: 545px;
-    margin: 0;
-    padding: 14px 14px 14px 13px;
-
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-
-    /* Scroll normally, but keep browser scrollbar chrome hidden. */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.heat-mini-popout-scroll::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    display: none;
-}
-
-.heat-mini-rail:hover .heat-mini-popout,
-.heat-mini-rail:focus-within .heat-mini-popout {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: none;
-}
-
-
-.heat-mini-popout-head {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-
-    padding-bottom: 11px;
-
-    border-bottom: 1px solid var(--heat-border);
-}
-
-.heat-mini-popout-avatar {
-    width: 36px;
-    aspect-ratio: 250 / 450;
-
-    flex: 0 0 auto;
-
-    display: block;
-    overflow: hidden;
-
-    background-color: #111621;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    border-radius: 9px;
-}
-
-.heat-mini-popout-name {
-    color: #ffffff;
-
-    font-family: "Limelight", Georgia, serif;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: .95;
-}
-
-.heat-mini-popout-handle {
-    margin-top: 4px;
-
-    color: #8994a6;
-
-    font-family: var(--heat-font-display);
-    font-size: 6px;
-    font-weight: 800;
-    letter-spacing: .10em;
-    line-height: 1;
-    text-transform: uppercase;
-}
-
-
-/* ---------------------------------------------------------
-   Popout presence label follows the existing portrait dot.
-   The avatar dot remains the only visual status indicator.
-   --------------------------------------------------------- */
-
-.heat-mini-popout-presence-online {
-    display: none;
-}
-
-.heat-mini-popout-presence-offline {
-    display: inline;
-}
-
-.heat-mini-rail:has(.heat-mini-online.is-online)
-.heat-mini-popout-presence-online {
-    display: inline;
-}
-
-.heat-mini-rail:has(.heat-mini-online.is-online)
-.heat-mini-popout-presence-offline {
-    display: none;
-}
-
-.heat-mini-rail:has(.heat-mini-online.is-offline)
-.heat-mini-popout-presence-online {
-    display: none;
-}
-
-.heat-mini-rail:has(.heat-mini-online.is-offline)
-.heat-mini-popout-presence-offline {
-    display: inline;
-}
-
-.heat-mini-popout-group {
-    width: fit-content;
-    max-width: 100%;
-    margin-top: 9px;
-    padding: 5px 8px;
-
-    overflow: hidden;
-
-    color: var(--heat-text-soft);
-    background:
-        linear-gradient(
-            135deg,
-            color-mix(in srgb, var(--heat-group-color-1) 11%, transparent),
-            color-mix(in srgb, var(--heat-group-color-2) 7%, transparent)
-        );
-
-    border:
-        1px solid
-        color-mix(in srgb, var(--heat-group-color-1) 22%, var(--heat-border));
-    border-radius: 999px;
-
-    font-family: var(--heat-font-display);
-    font-size: 6px;
-    font-weight: 800;
-    letter-spacing: .08em;
-    line-height: 1;
-    text-overflow: ellipsis;
-    text-transform: uppercase;
-    white-space: nowrap;
 }
 
 /* =========================================================
@@ -3435,11 +3179,16 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         );
 }
 
+/* Remove the duplicate floating flame */
 .heat-mini-group-emoji {
     display: none;
 }
 
-/* Banner identity now owns text only; the round avatar is removed. */
+
+/* =========================================================
+   IDENTITY ON FULL-WIDTH COVER
+   ========================================================= */
+
 .heat-mini-identity {
     max-width: calc(100% - 48px);
     margin: 0;
@@ -3449,6 +3198,59 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     left: 24px;
     bottom: 20px;
     z-index: 4;
+
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.heat-mini-avatar {
+    width: 108px;
+    height: 108px;
+
+    flex: 0 0 108px;
+    position: relative;
+
+    background-color: var(--heat-panel-light);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    border:
+        4px solid
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 65%,
+            #ffffff
+        );
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.48),
+        0 0 20px
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 18%,
+            transparent
+        );
+}
+
+.heat-mini-online {
+    width: 16px;
+    height: 16px;
+
+    position: absolute;
+    right: 4px;
+    bottom: 8px;
+
+    background: var(--heat-green);
+
+    border: 3px solid #111520;
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 12px rgba(82, 214, 129, 0.8);
 }
 
 .heat-mini-name-block {
@@ -3488,7 +3290,52 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     white-space: nowrap;
 }
 
+.heat-mini-group {
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 9px;
+    padding: 6px 10px;
+    overflow: hidden;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--heat-post-accent) 72%,
+                transparent
+            ),
+            color-mix(
+                in srgb,
+                var(--heat-post-accent-2) 68%,
+                transparent
+            )
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+
+    font-family: var(--heat-font-display);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    line-height: 1;
+    text-transform: uppercase;
+
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   RESPONSIVE COVER IDENTITY
+   ========================================================= */
+
 @media screen and (max-width: 760px) {
+
     .heat-mini-cover {
         height: 190px;
     }
@@ -3497,48 +3344,126 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         max-width: calc(100% - 32px);
         left: 16px;
         bottom: 16px;
+        gap: 12px;
     }
+
+    .heat-mini-avatar {
+        width: 90px;
+        height: 90px;
+        flex-basis: 90px;
+    }
+
 }
 
 @media screen and (max-width: 500px) {
+
     .heat-mini-cover {
         height: 170px;
+    }
+
+    .heat-mini-avatar {
+        width: 76px;
+        height: 76px;
+        flex-basis: 76px;
     }
 
     #heat-browser #heat-main .heat-post-row .heat-post-banner-slot .heat-mini-handle {
         margin-top: 5px;
         font-size: 9px;
     }
+
+    .heat-mini-group {
+        margin-top: 7px;
+        padding: 5px 8px;
+        font-size: 8px;
+    }
+
 }
 
 /* =========================================================
-   MINI STATS — POPOUT
+   VERIFIED STATUS
+   ========================================================= */
+
+.heat-mini-verification {
+    min-height: 31px;
+    margin-top: 12px;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    color:
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 78%,
+            #ffffff
+        );
+
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 9%,
+            transparent
+        );
+
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 22%,
+            transparent
+        );
+
+    border-radius: 9px;
+
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.heat-mini-verified-icon {
+    width: 15px;
+    height: 15px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff;
+    background: var(--heat-blue);
+
+    border-radius: 50%;
+
+    font-size: 8px;
+}
+
+/* =========================================================
+   MINI STATS
    ========================================================= */
 
 .heat-mini-stats {
-    margin: 9px 0 0;
-    padding: 0;
+    margin-top: 12px;
+    padding: 12px 0;
 
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
 
-    border: 0;
+    border-top: 1px solid var(--heat-border);
+    border-bottom: 1px solid var(--heat-border);
 }
 
 .heat-mini-stats > div {
     min-width: 0;
-    padding: 8px 4px;
 
     text-align: center;
-
-    background: rgba(255, 255, 255, .025);
-    border: 1px solid rgba(255, 255, 255, .065);
-    border-radius: 10px;
 }
 
 .heat-mini-stats > div + div {
-    border-left: 1px solid rgba(255, 255, 255, .065);
+    border-left: 1px solid var(--heat-border);
 }
 
 .heat-mini-stats strong {
@@ -3547,80 +3472,69 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     color: var(--heat-text);
 
     font-family: var(--heat-font-display);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 800;
-    line-height: 1;
 }
 
 .heat-mini-stats span {
     display: block;
-    margin-top: 4px;
+    margin-top: 3px;
 
-    color: #758093;
+    color: var(--heat-muted);
 
-    font-size: 5px;
+    font-size: 7.5px;
     font-weight: 800;
-    letter-spacing: .09em;
-    line-height: 1;
+    letter-spacing: 0.55px;
     text-transform: uppercase;
+    line-height: 1.1;
 }
 
 /* =========================================================
-   MINI DETAILS — POPOUT
+   MINI DETAILS
    ========================================================= */
 
 .heat-mini-details {
-    margin-top: 6px;
+    margin-top: 11px;
 
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    display: flex;
+    flex-direction: column;
 }
 
 .heat-mini-detail {
     min-width: 0;
-    min-height: 0;
-    padding: 8px 9px;
+    min-height: 32px;
 
-    display: block;
-
-    background: #10151f;
-    border: 1px solid rgba(255, 255, 255, .06);
-    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .heat-mini-detail + .heat-mini-detail {
-    border-top: 1px solid rgba(255, 255, 255, .06);
-}
-
-.heat-mini-detail:nth-child(3):last-child {
-    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255, 255, 255, 0.045);
 }
 
 .heat-mini-detail span {
-    display: block;
+    flex: 0 0 auto;
 
-    color: #6f798b;
+    color: var(--heat-muted);
 
-    font-size: 5px;
+    font-size: 7.5px;
     font-weight: 800;
-    letter-spacing: .09em;
-    line-height: 1;
+    letter-spacing: 0.35px;
     text-transform: uppercase;
+    line-height: 1.15;
 }
 
 .heat-mini-detail strong {
     min-width: 0;
-    margin-top: 4px;
     overflow: hidden;
 
-    display: block;
+    color: var(--heat-text-soft);
 
-    color: #dce2ea;
-
-    font-size: 9px;
-    font-weight: 600;
-    text-align: left;
+    font-size: 8.5px;
+    font-weight: 700;
+    text-align: right;
 
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -3628,22 +3542,54 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 /* =========================================================
-   MINI BADGES / AWARDS — POPOUT
+   MINI STATUS
+   ========================================================= */
+
+.heat-mini-status {
+    margin-top: 10px;
+    padding: 9px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+
+    color: var(--heat-text-soft);
+
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 5%,
+            transparent
+        );
+
+    border: 1px solid var(--heat-border);
+    border-radius: 10px;
+
+    font-size: 7px;
+    line-height: 1.4;
+}
+
+.heat-mini-status-emoji {
+    flex: 0 0 auto;
+}
+
+/* =========================================================
+   MINI BADGES
    ========================================================= */
 
 .heat-mini-awards {
-    margin-top: 8px;
-    padding-top: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
 
     border-top: 1px solid var(--heat-border);
 }
 
 .heat-mini-awards-label {
-    margin-bottom: 6px;
+    margin-bottom: 7px;
 
     color: var(--heat-muted);
 
-    font-size: 7px;
+    font-size: 8px;
     font-weight: 800;
     letter-spacing: 0.8px;
     text-transform: uppercase;
@@ -3662,9 +3608,10 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-inline: contain;
-
     scrollbar-width: thin;
-    scrollbar-color: var(--heat-post-accent) rgba(255, 255, 255, 0.04);
+    scrollbar-color:
+        var(--heat-post-accent)
+        rgba(255, 255, 255, 0.04);
 }
 
 .heat-mini-awards-row > br {
@@ -3680,19 +3627,36 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     max-width: none;
     max-height: none;
     margin: 0;
-    padding: 5px;
+    padding: 6px;
+    box-sizing: border-box;
 
     display: flex;
     align-items: center;
     justify-content: center;
     object-fit: contain;
 
-    background: #161c28;
+    background:
+        linear-gradient(
+            145deg,
+            color-mix(
+                in srgb,
+                var(--heat-post-accent) 12%,
+                transparent
+            ),
+            rgba(255, 255, 255, 0.018)
+        );
 
-    border: 1px solid rgba(255, 255, 255, .07);
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 16%,
+            var(--heat-border)
+        );
+
     border-radius: 10px;
 
-    font-size: 14px;
+    font-size: 13px;
 
     transition:
         transform 0.18s ease,
@@ -3700,21 +3664,43 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         box-shadow 0.18s ease;
 }
 
+#heat-browser .heat-post-row .heat-mini-awards-row > a {
+    text-decoration: none;
+}
+
 #heat-browser .heat-post-row .heat-mini-awards-row > a > img {
     width: 100%;
     height: 100%;
-    max-width: 22px;
-    max-height: 22px;
+    max-width: 24px;
+    max-height: 24px;
     margin: 0;
     padding: 0;
-
     display: block;
     object-fit: contain;
-
     background: transparent;
     border: 0;
     border-radius: 0;
     box-shadow: none;
+}
+
+#heat-browser .heat-post-row .heat-mini-awards-row > span:hover,
+#heat-browser .heat-post-row .heat-mini-awards-row > img:hover,
+#heat-browser .heat-post-row .heat-mini-awards-row > a:hover {
+    transform: translateY(-2px);
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 52%,
+            var(--heat-border)
+        );
+    box-shadow:
+        0 7px 16px rgba(0, 0, 0, 0.22),
+        0 0 12px
+            color-mix(
+                in srgb,
+                var(--heat-post-accent) 17%,
+                transparent
+            );
 }
 
 /* =========================================================
@@ -3722,16 +3708,16 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
    ========================================================= */
 
 .heat-mini-actions {
-    margin-top: 8px;
+    margin-top: 12px;
 
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    gap: 8px;
 }
 
 #heat-browser #heat-main .heat-post-row .heat-mini-action {
     min-width: 0;
-    min-height: 34px;
+    min-height: 38px;
     padding: 0 8px;
 
     display: flex;
@@ -3740,23 +3726,36 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     gap: 6px;
 
     color: var(--heat-text-soft);
-    background: #151a26;
+    background: rgba(255, 255, 255, 0.022);
 
-    border: 1px solid rgba(255, 255, 255, .075);
-    border-radius: 11px;
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 20%,
+            var(--heat-border)
+        );
 
-    font-size: 7px;
+    border-radius: 9px;
+
+    font-size: 8.5px;
     font-weight: 800;
-    letter-spacing: .08em;
+    letter-spacing: 0.3px;
     text-transform: uppercase;
-    line-height: 1;
+    line-height: 1.15;
 }
 
 #heat-browser #heat-main .heat-post-row a.heat-mini-action:hover {
     color: #ffffff;
 
-    background: var(--heat-post-frosted-gradient);
-    border-color: color-mix(in srgb, var(--heat-group-color-1) 34%, transparent);
+    background:
+        linear-gradient(
+            135deg,
+            var(--heat-post-accent),
+            var(--heat-post-accent-2)
+        );
+
+    border-color: transparent;
 
     transform: translateY(-2px);
 }
@@ -3766,25 +3765,25 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
    ========================================================= */
 
 .heat-mini-links {
-    margin-top: 7px;
+    margin-top: 9px;
 
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 5px;
+    gap: 6px;
 }
 
 #heat-browser #heat-main .heat-post-row .heat-mini-profile .heat-mini-links a {
     min-width: 0;
-    height: 28px;
+    height: 30px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    color: #9aa5b7;
-    background: #10151f;
+    color: var(--heat-text-soft);
+    background: rgba(255, 255, 255, 0.022);
 
-    border: 1px solid rgba(255, 255, 255, .065);
+    border: 1px solid var(--heat-border);
     border-radius: 8px;
 
     font-size: 11px;
@@ -3793,8 +3792,88 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 #heat-browser #heat-main .heat-post-row .heat-mini-profile .heat-mini-links a:hover {
     color: #ffffff;
 
-    background: color-mix(in srgb, var(--heat-post-accent) 13%, var(--heat-panel-light));
-    border-color: color-mix(in srgb, var(--heat-post-accent) 25%, var(--heat-border));
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 13%,
+            var(--heat-panel-light)
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--heat-post-accent) 25%,
+            var(--heat-border)
+        );
+}
+
+@media screen and (min-width: 761px) {
+    .heat-mini-profile {
+        padding: 11px;
+    }
+
+    .heat-mini-actions {
+        gap: 6px;
+    }
+
+    #heat-browser #heat-main .heat-post-row .heat-mini-action {
+        min-height: 38px;
+        padding: 0 8px;
+        gap: 6px;
+
+        font-size: 8.5px;
+        letter-spacing: 0.15px;
+        white-space: nowrap;
+    }
+
+    .heat-mini-action span {
+        flex: 0 0 auto;
+    }
+
+    .heat-mini-links {
+        gap: 4px;
+    }
+
+    #heat-browser #heat-main .heat-post-row .heat-mini-profile .heat-mini-links a {
+        height: 28px;
+        font-size: 10px;
+    }
+}
+
+/* =========================================================
+   MINI PLAYER INFO
+   ========================================================= */
+
+.heat-mini-player {
+    margin-top: auto;
+    padding-top: 12px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px;
+
+    color: var(--heat-muted);
+
+    border-top: 1px solid var(--heat-border);
+
+    font-size: 7.5px;
+    line-height: 1.35;
+}
+
+.heat-mini-player strong {
+    color: var(--heat-post-accent);
+    font-size: 8.5px;
+}
+
+.heat-mini-player small {
+    width: 100%;
+    margin-top: 2px;
+
+    color: var(--heat-muted);
+
+    font-size: 7px;
+    line-height: 1.3;
 }
 
 /* =========================================================
@@ -3817,15 +3896,19 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 /* =========================================================
-   POST HEADER — DATE + LOCATION / NO STATUS DOT
+   POST HEADER
    ========================================================= */
 
 .heat-post-header {
-    min-height: 55px;
-    padding: 0 18px;
+    min-height: 54px;
+    padding: 11px 15px;
 
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto
+        auto;
+
     align-items: center;
     gap: 12px;
 
@@ -3837,58 +3920,51 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
     gap: 8px;
+}
 
-    color: var(--heat-muted);
+.heat-post-status-dot {
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 auto;
+
+    background: var(--heat-green);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 9px rgba(82, 214, 129, 0.7);
 }
 
 #heat-browser #heat-main .heat-post-row a.heat-post-permalink {
-    min-width: 0;
     overflow: hidden;
 
     color: var(--heat-muted);
 
     font-size: 9px;
     font-weight: 700;
-    line-height: 1.2;
 
     text-overflow: ellipsis;
     white-space: nowrap;
+    line-height: 1.2;
 }
 
 #heat-browser #heat-main .heat-post-row a.heat-post-permalink:hover {
-    color: var(--heat-text-soft);
-}
-
-.heat-post-header-separator {
-    color: var(--heat-muted);
-
-    font-size: 9px;
-    line-height: 1;
+    color: var(--heat-post-accent);
 }
 
 .heat-post-header-location {
-    min-width: 0;
-
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    gap: 5px;
 
-    overflow: hidden;
-
-    color: var(--heat-group-text);
+    color: var(--heat-post-accent);
 
     font-size: 9px;
     font-weight: 700;
-    line-height: 1.2;
-
-    text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.heat-post-header-location:empty,
-.heat-post-header-location > span:empty {
-    display: none;
+    line-height: 1.2;
 }
 
 .heat-post-header-actions {
@@ -3896,116 +3972,48 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 4px;
 }
 
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions
-:is(a, input, span) {
+
+/* Style Jcink post buttons */
+
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions a,
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions input,
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions span {
     margin: 0;
 }
 
-/*
- * Jcink action macros can render a native .button-small control
- * inside an anchor wrapper. Keep the wrapper visually inert so
- * Quote / Edit / Delete / Report render as ONE button, not two
- * nested rounded boxes.
- */
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions
-> a:not(.button-small):has(> .button-small),
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions
-> a:not(.button-small):has(> input[type="button"]),
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions
-> a:not(.button-small):has(> input[type="submit"]) {
-    min-width: 0;
-    min-height: 0;
-    padding: 0;
-
-    display: inline-flex;
-
-    color: inherit;
-    background: transparent;
-
-    border: 0;
-    border-radius: 0;
-
-    box-shadow: none;
-    text-decoration: none;
-    transform: none;
-}
-
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions
-> a:not(.button-small):has(> .button-small):is(:hover, :focus-visible),
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions
-> a:not(.button-small):has(> input[type="button"]):is(:hover, :focus-visible),
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions
-> a:not(.button-small):has(> input[type="submit"]):is(:hover, :focus-visible) {
-    color: inherit;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    transform: none;
-}
-
-/* Actual visible native action control. */
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions
-:is(
-    > a.button-small,
-    > .button-small,
-    > input[type="button"],
-    > input[type="submit"],
-    > a:not(.button-small) > .button-small,
-    > a:not(.button-small) > input[type="button"],
-    > a:not(.button-small) > input[type="submit"]
-) {
-    width: auto;
-    min-width: 0;
-    min-height: 38px;
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions .button-small,
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions a {
+    min-width: auto;
     max-width: none;
 
-    margin: 0;
-    padding: 0 14px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    padding: 5px 9px;
 
     color: var(--heat-text-soft);
-    background: rgba(255, 255, 255, 0.025);
-    background-image: none;
-
-    border: 1px solid var(--heat-border);
-    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.025);border: 1px solid var(--heat-border);
+    border-radius: 7px;
 
     box-shadow: none;
 
-    font-family: var(--heat-font-display);
-    font-size: 9px;
+    font-size: 8.5px;
     font-weight: 800;
-    line-height: 1.1;
     text-decoration: none;
-
-    transform: none;
+    min-height: 30px;
+    line-height: 1.1;
 }
 
-#heat-browser #heat-main .heat-post-row .heat-post-header-actions
-:is(
-    > a.button-small,
-    > .button-small,
-    > input[type="button"],
-    > input[type="submit"],
-    > a:not(.button-small) > .button-small,
-    > a:not(.button-small) > input[type="button"],
-    > a:not(.button-small) > input[type="submit"]
-):is(:hover, :focus-visible) {
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions .button-small:hover,
+#heat-browser #heat-main .heat-post-row .heat-post-header-actions a:hover {
     color: #ffffff;
 
     background:
         color-mix(
             in srgb,
-            var(--heat-post-accent) 8%,
-            rgba(255,255,255,.025)
+            var(--heat-post-accent) 14%,
+            var(--heat-panel-light)
         );
-    background-image: none;
 
     border-color:
         color-mix(
@@ -4013,47 +4021,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
             var(--heat-post-accent) 28%,
             var(--heat-border)
         );
-
-    box-shadow: none;
-    outline: none;
-    transform: none;
-}
-
-@media screen and (max-width: 760px) {
-    .heat-post-header {
-        grid-template-columns: minmax(0, 1fr) auto;
-    }
-
-    .heat-post-header-actions {
-        grid-column: 2;
-        grid-row: 1;
-        gap: 4px;
-    }
-
-    #heat-browser #heat-main .heat-post-row .heat-post-header-actions
-    :is(
-        > a.button-small,
-        > .button-small,
-        > input[type="button"],
-        > input[type="submit"],
-        > a:not(.button-small) > .button-small,
-        > a:not(.button-small) > input[type="button"],
-        > a:not(.button-small) > input[type="submit"]
-    ) {
-        min-height: 34px;
-        padding: 0 10px;
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .heat-post-header {
-        padding-right: 12px;
-        padding-left: 12px;
-    }
-
-    .heat-post-header-left {
-        gap: 5px;
-    }
 }
 
 /* =========================================================
@@ -4161,7 +4128,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
    ========================================================= */
 
 .heat-post-copy #QUOTE,
-.heat-post-copy blockquote {
+.heat-post-copy .postcolor > blockquote {
     margin: 16px 0;
     padding: 14px 16px;
 
@@ -4347,45 +4314,6 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     line-height: 1.3;
 }
 
-.heat-post-player-tag {
-    min-height: 30px;
-    padding: 0 11px;
-
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-
-    color: var(--heat-muted);
-    background: rgba(255, 255, 255, .022);
-
-    border:
-        1px solid
-        color-mix(
-            in srgb,
-            var(--heat-post-accent) 16%,
-            var(--heat-border)
-        );
-    border-radius: 9px;
-
-    font-size: 7.5px;
-    font-weight: 800;
-    letter-spacing: .45px;
-    text-transform: uppercase;
-    line-height: 1;
-}
-
-.heat-post-player-label {
-    color: var(--heat-muted);
-}
-
-.heat-post-player-alias {
-    color: var(--heat-group-text);
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: .4px;
-    text-transform: uppercase;
-}
-
 .heat-post-group-chip {
     width: 28px;
     height: 28px;
@@ -4482,16 +4410,17 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     width: 100%;
     min-width: 0;
-    min-height: 102px;
+    min-height: 104px;
 
     position: relative;
 
     display: grid;
     grid-template-columns:
-        56px
+        58px
         minmax(0, 1fr)
         106px
-        minmax(184px, 212px);
+        145px
+        82px;
 
     align-items: center;
 
@@ -4571,8 +4500,8 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
    ========================================================= */
 
 .heat-topic-message-avatar {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     margin-left: 12px;
 
     position: relative;
@@ -4667,7 +4596,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-topic-information {
     min-width: 0;
-    padding: 16px 16px;
+    padding: 14px 16px;
 
     display: flex;
     flex-direction: column;
@@ -4686,10 +4615,10 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
     overflow: hidden;
 
     font-family: var(--heat-font-display);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.18px;
-    line-height: 1.22;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.80px;
+    line-height: 1.15;
 
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -4702,25 +4631,15 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 .heat-topic-status {
     max-width: 100%;
     margin-top: 5px;
-    padding-left: 1px;
-
-    order: 3;
 
     overflow: hidden;
 
-    /* Same UI font language as SENT FROM, while preserving original casing. */
-    color:
-        color-mix(
-            in srgb,
-            var(--heat-muted) 88%,
-            var(--heat-text-soft) 12%
-        );
+    color: var(--heat-muted);
 
-    font-family: var(--heat-font-display);
-    font-size: 7px;
-    font-weight: 700;
-    letter-spacing: 0.28px;
-    line-height: 1.2;
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: 0.15px;
+    line-height: 1.35;
     text-transform: none;
 
     text-overflow: ellipsis;
@@ -4732,162 +4651,45 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 .heat-topic-starter {
-    width: max-content;
-    order: 2;
-    max-width: 100%;
     min-width: 0;
-    min-height: 22px;
     margin-top: 7px;
-    padding: 2px 6px;
 
-    display: inline-flex;
+    display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 5px;
 
-    color: #8390a4;
+    color: var(--heat-muted);
 
-    background:
-        linear-gradient(
-            135deg,
-            color-mix(
-                in srgb,
-                var(--heat-topic-accent) 4%,
-                transparent
-            ),
-            color-mix(
-                in srgb,
-                var(--heat-topic-accent-2) 2%,
-                transparent
-            )
-        ),
-        rgba(255, 255, 255, 0.012);
-
-    border:
-        1px solid
-        color-mix(
-            in srgb,
-            var(--heat-topic-accent) 12%,
-            rgba(255, 255, 255, 0.05)
-        );
-    border-radius: 7px;
-
-    font-size: 8.5px;
-    font-weight: 500;
-    line-height: 1;
+    font-size: 11px;
+    line-height: 1.3;
 }
 
 .heat-topic-starter-label {
-    min-height: 16px;
-
-    display: inline-flex;
-    align-items: center;
-
-    color: #778397;
-
-    font-family: var(--heat-font-display);
-    font-size: 6px;
-    font-weight: 700;
-    letter-spacing: 0.34px;
-    line-height: 1;
-    text-transform: uppercase;
-    white-space: nowrap;
+    font-size: 9px;
+    line-height: 1.15;
 }
 
 .heat-topic-starter strong {
-    min-width: 0;
-    min-height: 16px;
-
-    display: inline-flex;
-    align-items: center;
-
-    color: var(--heat-topic-accent);
-
-    font-size: 8.75px;
-    font-weight: 700;
-    line-height: 1;
+    color: var(--heat-text-soft);
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.1;
 }
 
 #heat-browser #heat-main .heat-topic-row .heat-topic-starter strong > a[href] {
-    min-height: 16px;
-
-    display: inline-flex;
-    align-items: center;
-
-    color: var(--heat-topic-accent);
-    line-height: 1;
+    color: var(--heat-text-soft);
 }
 
 .heat-topic-pages {
-    min-width: 0;
-    min-height: 16px;
-    margin-left: 1px;
+    color: var(--heat-topic-accent);
 
-    display: inline-flex;
-    align-items: center;
-    align-self: center;
-    flex-wrap: wrap;
-    gap: 3px;
-
-    /* Match the SENT FROM label treatment.
-       Number circles keep their own typography below. */
-    color: #778397;
-
-    font-family: var(--heat-font-subtext);
-    font-size: 6px;
-    font-weight: 400;
-    letter-spacing: 0.34px;
-    line-height: 1;
-    text-transform: uppercase;
+    font-size: 9.5px;
+    font-weight: 750;
 }
 
 .heat-topic-pages:empty {
     display: none;
-}
-
-#heat-browser #heat-main .heat-topic-pages a {
-    width: 18px;
-    height: 18px;
-    min-width: 18px;
-    min-height: 18px;
-    padding: 0;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--heat-text-soft);
-    background: rgba(255, 255, 255, 0.04);
-
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 50%;
-
-    font-family: var(--heat-font-display);
-    font-size: 8px;
-    font-weight: 700;
-    line-height: 1;
-    text-decoration: none;
-
-    transition:
-        color .2s ease,
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease;
-}
-
-#heat-browser #heat-main .heat-topic-pages a:is(:hover, :focus-visible) {
-    color: #ffffff;
-    background: var(--heat-ui-hover-surface);
-
-    border-color:
-        color-mix(
-            in srgb,
-            var(--heat-ui-accent-1) 40%,
-            rgba(255, 255, 255, 0.09)
-        );
-
-    outline: none;
-    transform: translateY(-1px);
 }
 
 
@@ -4897,8 +4699,7 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-topic-statistics {
     min-width: 0;
-    min-height: 58px;
-    padding: 13px 9px;
+    padding: 13px 8px;
 
     display: grid;
     grid-template-columns:
@@ -4937,216 +4738,153 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
     color: var(--heat-muted);
 
-    font-size: 7px;
+    font-size: 9px;
     font-weight: 800;
-    letter-spacing: 0.40px;
+    letter-spacing: 0.55px;
     text-transform: uppercase;
     line-height: 1.15;
 }
 
 
 /* =========================================================
-   LATEST REPLY MINI CARD
+   LATEST REPLY
    ========================================================= */
 
-.heat-topic-latest-card {
+.heat-topic-latest {
     min-width: 0;
-    margin: 12px 8px 12px 6px;
-    padding: 10px 7px 10px 9px;
+    min-height: 70px;
+    padding: 12px 14px;
 
-    display: grid;
-    grid-template-columns:
-        minmax(0, 1fr)
-        52px;
+    display: flex;
     align-items: center;
-    gap: 7px;
+    justify-content: flex-end;
 
-    background:
-        linear-gradient(
-            145deg,
-            color-mix(
-                in srgb,
-                var(--heat-topic-accent) 3%,
-                transparent
-            ),
-            rgba(255, 255, 255, 0.012)
-        );
-
-    border:
-        1px solid rgba(255, 255, 255, 0.055);
-    border-radius: 12px;
+    border-left:
+        1px solid rgba(255, 255, 255, 0.045);
 }
 
 .heat-topic-latest-copy {
     min-width: 0;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
 }
 
 .heat-topic-latest-label {
     color: var(--heat-muted);
 
-    font-size: 7px;
+    font-size: 9px;
     font-weight: 800;
-    letter-spacing: 0.52px;
+    letter-spacing: 0.65px;
     text-transform: uppercase;
     line-height: 1.15;
 }
 
 .heat-topic-last-poster {
     max-width: 100%;
-    margin-top: 5px;
+    margin-top: 4px;
 
     overflow: hidden;
 
     color: var(--heat-text-soft);
 
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
 
-    text-align: left;
+    text-align: right;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-#heat-browser
-#heat-main
-.heat-topic-row
-.heat-topic-latest-card
-.heat-topic-last-poster
-a[href] {
+#heat-browser #heat-main .heat-topic-row .heat-topic-latest .heat-topic-last-poster a[href] {
     color: var(--heat-text-soft);
 }
 
 .heat-topic-last-time {
     max-width: 100%;
-    margin-top: 5px;
+    margin-top: 3px;
 
     overflow: hidden;
 
     color: var(--heat-muted);
 
-    font-size: 8px;
+    font-size: 9.5px;
     line-height: 1.25;
 
-    text-align: left;
+    text-align: right;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 
 /* =========================================================
-   LAST-POSTER FIELD 2 IMAGE
-   Blank first paint. Field 2 only.
+   LARGE LAST-POSTER GIF AVATAR
    ========================================================= */
 
 .heat-topic-last-avatar {
-    width: 52px;
-    height: 62px;
+    width: 62px;
+    height: 72px;
 
     position: relative;
-    justify-self: end;
+    justify-self: center;
 
     overflow: visible;
 
-    background: transparent;
+    background:
+        linear-gradient(
+            145deg,
+            var(--heat-topic-accent),
+            var(--heat-topic-accent-2)
+        );
 
-    border: 0;
-    border-radius: 12px;
+    border-radius: 15px;
 
-    box-shadow: none;
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.28);
 }
 
 .heat-topic-last-avatar-image {
     position: absolute;
-    inset: 0;
+    inset: 3px;
 
     overflow: hidden;
 
     background-color: #151925;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
-    border: 0;
     border-radius: 12px;
-
-    /* Neutral depth only — no border, no group-color glow. */
-    box-shadow:
-        0 3px 0 rgba(0, 0, 0, 0.16),
-        0 7px 14px rgba(0, 0, 0, 0.24);
 }
 
-
-/* Loading feedback only.
-   Shows while Field 2 is actively resolving, then disappears.
-   Missing/broken Field 2 stays blank. */
-.heat-topic-last-avatar-image.is-field2-pending::before,
-.heat-topic-last-avatar-image.is-field2-pending::after {
-    content: "";
+.heat-topic-last-avatar-image::before {
+    content: "👤";
 
     position: absolute;
-    left: 50%;
-    z-index: 0;
+    inset: 0;
 
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    background: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.72);
 
-    transform: translateX(-50%);
-
-    pointer-events: none;
+    font-size: 20px;
 }
 
-.heat-topic-last-avatar-image.is-field2-pending::before {
-    width: 12px;
-    height: 12px;
-
-    top: 15px;
-
-    border-radius: 50%;
-}
-
-.heat-topic-last-avatar-image.is-field2-pending::after {
-    width: 26px;
-    height: 13px;
-
-    top: 30px;
-
-    border-radius: 13px 13px 7px 7px;
-}
-
-.heat-topic-last-avatar-image.has-field2-media::before,
-.heat-topic-last-avatar-image.has-field2-media::after {
-    display: none;
-}
-
-.heat-topic-last-avatar-native {
-    width: 100%;
-    height: 100%;
-
-    position: relative;
-    z-index: 1;
-
-    display: block;
-
-    object-fit: cover;
-    object-position: center;
-
-    border: 0;
-    border-radius: inherit;
-}
-
-.heat-topic-last-avatar-native[hidden] {
+.heat-topic-last-avatar-image[style*="background-image"]::before {
     display: none;
 }
 
 .heat-topic-last-online {
-    width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 11px;
 
     position: absolute;
     right: -2px;
-    bottom: 2px;
+    bottom: 3px;
     z-index: 5;
 
     background: #646b7a;
@@ -5156,6 +4894,7 @@ a[href] {
 
     box-shadow: none;
 }
+
 
 /* =========================================================
    LEGACY CLEANUP
@@ -5182,10 +4921,11 @@ a[href] {
 
     .heat-topic-row {
         grid-template-columns:
-            54px
+            56px
             minmax(0, 1fr)
-            96px
-            minmax(174px, 194px);
+            94px
+            130px
+            74px;
     }
 
     .heat-topic-information {
@@ -5193,8 +4933,14 @@ a[href] {
         padding-left: 12px;
     }
 
-    .heat-topic-latest-card {
-        margin: 10px 7px 10px 4px;
+    .heat-topic-latest {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .heat-topic-last-avatar {
+        width: 58px;
+        height: 68px;
     }
 
 }
@@ -5205,7 +4951,8 @@ a[href] {
     .heat-topic-row {
         grid-template-columns:
             56px
-            minmax(0, 1fr);
+            minmax(0, 1fr)
+            74px;
 
         align-items: center;
     }
@@ -5217,6 +4964,11 @@ a[href] {
 
     .heat-topic-information {
         grid-column: 2;
+        grid-row: 1;
+    }
+
+    .heat-topic-last-avatar {
+        grid-column: 3;
         grid-row: 1;
     }
 
@@ -5232,11 +4984,23 @@ a[href] {
         border-left: 0;
     }
 
-    .heat-topic-latest-card {
-        grid-column: 2;
+    .heat-topic-latest {
+        grid-column: 2 / -1;
         grid-row: 2;
 
-        margin: 7px 9px 7px 8px;
+        justify-content: flex-start;
+
+        border-top:
+            1px solid rgba(255, 255, 255, 0.045);border-left: 0;
+    }
+
+    .heat-topic-latest-copy {
+        align-items: flex-start;
+    }
+
+    .heat-topic-last-poster,
+    .heat-topic-last-time {
+        text-align: left;
     }
 
 }
@@ -5247,7 +5011,8 @@ a[href] {
     .heat-topic-row {
         grid-template-columns:
             52px
-            minmax(0, 1fr);
+            minmax(0, 1fr)
+            68px;
     }
 
     .heat-topic-message-avatar {
@@ -5277,16 +5042,21 @@ a[href] {
         font-size: 9px;
     }
 
+    .heat-topic-last-avatar {
+        width: 52px;
+        height: 62px;
+    }
+
     .heat-topic-statistics {
         grid-column: 1 / -1;
         grid-row: 2;
     }
 
-    .heat-topic-latest-card {
+    .heat-topic-latest {
         grid-column: 1 / -1;
         grid-row: 3;
 
-        margin: 7px 9px 9px;
+        min-height: auto;
     }
 
 }
@@ -5354,7 +5124,7 @@ a[href] {
     min-width: 0;
 
     display: block;
-    overflow: visible;
+    overflow: hidden;
 
     color: var(--heat-text);
 
@@ -5363,10 +5133,9 @@ a[href] {
     font-weight: 800;
     line-height: 1.1;
 
-    overflow-wrap: anywhere;
     text-decoration: none;
-    text-overflow: clip;
-    white-space: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* =========================================================
@@ -6220,9 +5989,7 @@ html.heat-route-profile .heat-tracker-results .tracker-item:has(.myturn) {
 
 box-shadow:
     0 14px 34px rgba(0, 0, 0, 0.24);
-}
-
-.heat-widget-heading {
+}.heat-widget-heading {
     margin-bottom: 13px;
 
     display: flex;
@@ -6471,12 +6238,11 @@ text-transform:uppercase;
 .heat-newest-member-copy strong {
     display: block;
     max-width: 100%;
-    overflow: visible;
+    overflow: hidden;
     font-size: 11px;
     line-height: 1.25;
-    overflow-wrap: anywhere;
-    text-overflow: clip;
-    white-space: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #heat-browser .heat-newest-member strong,
@@ -7053,7 +6819,7 @@ html:not(.heat-route-subforum)
 
 body.heat-subforum-page .heat-subforum-directory {
     width: 100%;
-    margin: 0 0 14px;
+    margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -7076,96 +6842,78 @@ html.heat-route-subforum .heat-subforum-directory-card {
     grid-template-rows: auto auto;
     overflow: hidden;
     isolation: isolate;
-
     color: var(--heat-text);
-
     background:
+        radial-gradient(
+            ellipse at 82% 18%,
+            color-mix(in srgb, var(--heat-group-color-2) 6%, transparent),
+            transparent 48%
+        ),
         linear-gradient(
             145deg,
-            color-mix(
-                in srgb,
-                var(--heat-group-color-1) 3.5%,
-                transparent
-            ),
-            transparent 35%
+            rgba(255,255,255,.038),
+            rgba(255,255,255,.012) 44%,
+            rgba(7,10,17,.22)
         ),
-        #111722;
-
-    border: 1px solid rgba(255,255,255,.075);
-    border-radius: 17px;
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.018),
-        0 12px 28px rgba(0,0,0,.12);
-
-    transition:
-        border-color .20s ease,
-        box-shadow .20s ease;
-}
-
-html.heat-route-subforum .heat-subforum-directory-card::before {
-    content: "";
-
-    height: 2px;
-
-    position: absolute;
-    top: 0;
-    right: 18px;
-    left: 18px;
-    z-index: 4;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--heat-group-color-1) 20%,
-            var(--heat-group-color-2) 72%,
-            transparent
+        #121722;
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--heat-group-color-1) 36%,
+            var(--heat-border)
         );
-
-    border-radius: 0 0 999px 999px;
-
-    opacity: .85;
-
-    pointer-events: none;
+    border-radius: 18px;
+    box-shadow:
+        0 14px 32px rgba(0,0,0,.24),
+        inset 0 1px 0 rgba(255,255,255,.045);
+    transition:
+        transform .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease;
 }
 
 html.heat-route-subforum .heat-subforum-directory-card:hover,
 html.heat-route-subforum .heat-subforum-directory-card:focus-within {
+    transform: translateY(-2px);
     border-color:
         color-mix(
             in srgb,
-            var(--heat-group-color-1) 22%,
-            rgba(255,255,255,.08)
+            var(--heat-group-color-1) 54%,
+            rgba(255,255,255,.18)
         );
-
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.025),
-        0 14px 30px rgba(0,0,0,.15);
+        0 19px 38px rgba(0,0,0,.29),
+        0 0 18px
+        color-mix(
+            in srgb,
+            var(--heat-group-color-1) 10%,
+            transparent
+        ),
+        inset 0 1px 0 rgba(255,255,255,.06);
 }
 
 /* Native nested-subforum rail. Status-image links do not create tabs. */
 body.heat-subforum-page .heat-subforum-directory-tabs {
     width: 100%;
     min-width: 0;
-    min-height: 34px;
-    padding: 7px 9px 6px;
-
+    min-height: 39px;
+    padding: 7px 10px 5px;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    gap: 5px;
-
+    gap: 6px;
     overflow-x: auto;
     overflow-y: hidden;
-
     overscroll-behavior-inline: contain;
     scroll-snap-type: x proximity;
-
-    background: rgba(255,255,255,.008);
-
-    border-bottom: 1px solid rgba(255,255,255,.045);
-
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.032),
+            rgba(255,255,255,.008)
+        );
+    border-bottom: 1px solid rgba(255,255,255,.055);
     scrollbar-width: thin;
     scrollbar-color:
         var(--heat-active-group-2, var(--heat-blue))
@@ -7194,36 +6942,27 @@ body.heat-subforum-page
     width: auto;
     min-width: max-content;
     max-width: 180px;
-    min-height: 20px;
+    min-height: 24px;
     padding: 0 8px;
-
     flex: 0 0 auto;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-
+    gap: 5px;
     overflow: hidden;
-
     scroll-snap-align: start;
-
-    color: #8995a8;
-    background: rgba(255,255,255,.025);
-
-    border: 1px solid rgba(255,255,255,.055);
-    border-radius: 999px;
-
+    color: var(--heat-muted);
+    background: rgba(255,255,255,.028);
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 7px;
     font-family: var(--heat-font-main);
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 400;
     line-height: 1;
-
     text-decoration: none;
     text-overflow: ellipsis;
     text-transform: lowercase;
     white-space: nowrap;
-
     transition:
         color .18s ease,
         background .18s ease,
@@ -7248,8 +6987,7 @@ body.heat-subforum-page
 .heat-subforum-directory-tabs a[href*="showforum="]:not(:has(img)):hover,
 body.heat-subforum-page
 .heat-subforum-directory-tabs a[href*="showforum="]:not(:has(img)):focus-visible {
-    color: #fff;
-    background: rgba(255,255,255,.048);
+    color: #fff;background: rgba(255,255,255,.048);
     border-color:
         color-mix(
             in srgb,
@@ -7287,88 +7025,73 @@ body.heat-subforum-page
 /* One logical card body: forum identity on the left, activity on the right. */
 body.heat-subforum-page .heat-subforum-directory-body {
     min-width: 0;
-    min-height: 132px;
-    padding: 9px;
-
+    min-height: 142px;
+    padding: 8px;
     display: grid;
-    grid-template-columns:
-        minmax(0, 43fr)
-        minmax(0, 57fr);
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
     align-items: stretch;
-    gap: 9px;
+    gap: 8px;
 }
 
 body.heat-subforum-page .heat-subforum-directory-artwork {
     width: 100%;
     min-width: 0;
-    min-height: 114px;
-
+    min-height: 126px;
     position: relative;
-
     overflow: hidden;
-
-    background-color: #0e141d;
     background-clip: padding-box;
-
-    border: 0;
-    border-radius: 12px;
-
-    box-shadow: none;
-
-    transform: none;
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 13px;
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.025);
+    transform: scale(1.001);
 }
 
 body.heat-subforum-page .heat-subforum-directory-overlay {
     background:
         linear-gradient(
-            90deg,
-            rgba(7,10,16,.76) 0%,
-            rgba(7,10,16,.28) 54%,
-            rgba(7,10,16,.12)
-        ),
-        linear-gradient(
-            0deg,
-            rgba(7,10,16,.66),
-            transparent 55%
+            180deg,
+            rgba(7,9,16,.015),
+            rgba(7,9,16,.10) 48%,
+            rgba(7,9,16,.74) 100%
         );
 }
 
 body.heat-subforum-page .heat-subforum-directory-identity {
     width: 100%;
     height: 100%;
-    padding: 16px 17px;
-
+    padding: 13px;
     position: absolute;
     inset: 0;
     z-index: 3;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-
     pointer-events: none;
 }
 
 body.heat-subforum-page .heat-subforum-directory-identity .heat-forum-kicker {
-    display: none;
+    margin: 0 0 5px;
+    color: rgba(255,255,255,.62);
+    font-size: 8px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 1;
+    text-transform: uppercase;
 }
 
 body.heat-subforum-page .heat-subforum-directory-identity .heat-forum-title {
     max-width: 100%;
     margin: 0;
-
     overflow: hidden;
-
     color: #fff;
-
     font-family: var(--heat-font-main);
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 400;
     letter-spacing: normal;
-    line-height: .95;
-
+    line-height: 1.05;
     text-overflow: ellipsis;
-    text-shadow: 0 2px 14px rgba(0,0,0,.35);
     white-space: nowrap;
 }
 
@@ -7392,98 +7115,58 @@ body.heat-subforum-page
 
 body.heat-subforum-page .heat-subforum-directory-activity {
     min-width: 0;
-    min-height: 114px;
-    padding: 15px 16px;
-
+    min-height: 126px;
+    padding: 14px;
     position: relative;
-
     display: grid;
-    grid-template-columns:
-        48px
-        minmax(0, 1fr);
+    grid-template-columns: 48px minmax(0, 1fr);
     align-items: center;
-    gap: 12px;
-
+    gap: 11px;
     overflow: hidden;
-
     background:
         radial-gradient(
-            ellipse at 10% 0%,
-            rgba(255,255,255,.075),
-            rgba(255,255,255,.02) 34%,
-            transparent 64%
+            ellipse at 12% 0%,
+            rgba(255,255,255,.085),
+            rgba(255,255,255,.025) 38%,
+            transparent 68%
         ),
         radial-gradient(
             ellipse at 100% 100%,
-            color-mix(
-                in srgb,
-                var(--heat-group-color-2) 5.5%,
-                transparent
-            ),
-            transparent 56%
+            color-mix(in srgb, var(--heat-group-color-2) 7%, transparent),
+            transparent 52%
         ),
         linear-gradient(
-            135deg,
-            color-mix(
-                in srgb,
-                var(--heat-group-color-1) 4.5%,
-                transparent
-            ),
-            color-mix(
-                in srgb,
-                var(--heat-group-color-2) 3%,
-                transparent
-            )
-        ),
-        #171d29;
-
-    border: 1px solid rgba(255,255,255,.055);
-    border-radius: 12px;
-
+            150deg,
+            rgba(31,36,49,.84),
+            rgba(18,22,32,.91)
+        );
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 13px;
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.045),
-        0 8px 18px rgba(0,0,0,.10);
+        0 10px 24px rgba(0,0,0,.20),
+        inset 0 1px 0 rgba(255,255,255,.075);
 }
 
 body.heat-subforum-page .heat-subforum-directory-activity::before {
     content: "";
-
     height: 2px;
-
     position: absolute;
     top: 0;
-    right: 16px;
-    left: 16px;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--heat-group-color-1),
-            var(--heat-group-color-2),
-            transparent
-        );
-
+    right: 15px;
+    left: 15px;
+    background: var(--heat-group-gradient, var(--heat-gradient));
     border-radius: 999px;
-
-    opacity: .70;
+    opacity: .68;
 }
 
 body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-avatar {
     width: 48px;
     height: 48px;
-    padding: 0;
-
+    padding: 2px;
     position: relative;
-
-    background: transparent;
-
     border: 0;
-    border-radius: 12px;
-
-    box-shadow:
-        0 5px 13px rgba(0,0,0,.24);
-
+    border-radius: 15px;
     transition:
         transform .2s ease,
         filter .2s ease;
@@ -7493,18 +7176,14 @@ body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-avatar-image {
     width: auto;
     height: auto;
-
     position: absolute;
-    inset: 0;
-
+    inset: 2px;
     overflow: hidden;
-
     background-color: rgba(255,255,255,.055);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
-    border-radius: 12px;
+    border-radius: 13px;
 }
 
 body.heat-subforum-page
@@ -7529,31 +7208,24 @@ body.heat-subforum-page
 
 body.heat-subforum-page .heat-subforum-activity-label {
     margin-bottom: 5px;
-
-    color: #7e8ca2;
-
+    color: var(--heat-muted);
     font-family: var(--heat-font-subtext);
-    font-size: 6.5px;
+    font-size: 8px;
     font-weight: 400;
-    letter-spacing: .75px;
+    letter-spacing: .9px;
     line-height: 1;
-
     text-transform: uppercase;
 }
 
 body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-topic {
     max-width: 100%;
-
     overflow: hidden;
-
-    color: #d7ddea;
-
+    color: var(--heat-text-soft);
     font-family: var(--heat-font-display);
-    font-size: 9px;
-    font-weight: 700;
-    line-height: 1.2;
-
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.25;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -7578,12 +7250,9 @@ body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-author {
     min-width: 0;
     max-width: 100%;
-
     overflow: hidden;
-
-    font-size: 13px;
-    line-height: 1.15;
-
+    font-size: 14px;
+    line-height: 1.2;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -7592,21 +7261,17 @@ body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-author,
 body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-author * {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 body.heat-subforum-page
 .heat-subforum-directory-activity .heat-lastpost-time {
     min-width: 0;
-
     overflow: hidden;
-
-    color: #748196;
-
+    color: rgba(143,150,168,.70);
     font-family: var(--heat-font-display);
-    font-size: 7px;
+    font-size: 9px;
     line-height: 1.25;
-
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -7620,7 +7285,6 @@ body.heat-subforum-page
 @media screen and (max-width: 700px) {
     body.heat-subforum-page .heat-subforum-directory-body {
         min-height: 0;
-
         grid-template-columns: minmax(0, 1fr);
         grid-template-rows: 150px auto;
     }
@@ -7631,12 +7295,7 @@ body.heat-subforum-page
 
     body.heat-subforum-page .heat-subforum-directory-activity {
         min-height: 104px;
-        padding: 14px;
-    }
-
-    body.heat-subforum-page
-    .heat-subforum-directory-identity .heat-forum-title {
-        font-size: 20px;
+        padding: 15px;
     }
 }
 
@@ -7654,55 +7313,111 @@ body.heat-subforum-page
    ========================================================= */
 
 .heat-switch-dropdown {
-    width: 268px;
-    padding: 7px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.025),
-            transparent 36%
-        ),
-        #111722;
-
-    border-color: rgba(255,255,255,.10);
-
-    box-shadow:
-        0 20px 42px rgba(0,0,0,.42);
+    width: 275px;
+    padding: 11px;
 }
 
-.heat-switch-dropdown-head {
-    padding: 3px 4px 6px;
-
-    display: flex;
+.heat-switch-current {
+    min-height: 64px;
+    padding: 9px;
+    display: grid;
+    grid-template-columns: 43px minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+    gap: 10px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid var(--heat-border);
+    border-radius: 12px;
 }
 
-.heat-switch-dropdown .heat-account-dropdown-title {
-    padding: 0;
+.heat-switch-current-avatar {
+    width: 43px;
+    height: 43px;
+    position: relative;
+    display: block;
+    overflow: visible;
+    background: var(--heat-gradient);
+    border: 2px solid rgba(255,255,255,.35);
+    border-radius: 50%;
+}
 
-    color: #8c97a9;
+.heat-switch-current-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
 
-    font-family: var(--heat-font-display);
+.heat-switch-current-copy small {
+    color: var(--heat-muted);
     font-size: 7px;
-    font-weight: 700;
-    letter-spacing: .14em;
-    line-height: 1;
-
+    font-weight: 750;
+    letter-spacing: .8px;
+    line-height: 1.2;
     text-transform: uppercase;
 }
 
-.heat-switch-count {
-    flex: 0 0 auto;
+.heat-switch-current-copy strong {
+    margin-top: 3px;
+    overflow: hidden;
+    color: #fff;
+    font-family: var(--heat-font-display);
+    font-size: 11px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-    color: #5f6b7e;
+.heat-switch-current-copy em {
+    margin-top: 2px;
+    overflow: hidden;
+    color: var(--heat-muted);
+    font-size: 8px;
+    font-style: normal;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-    font-family: var(--heat-font-body);
-    font-size: 7px;
-    font-weight: 600;
-    line-height: 1;
+.heat-switch-current > i {
+    color: var(--heat-green);
+    font-size: 16px;
+}
+
+.heat-account-dropdown .heat-switch-account-button {
+    min-height: 52px;
+    padding: 8px 10px;
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+}
+
+.heat-switch-account-button > i:first-child {
+    color: var(--heat-pink);
+    font-size: 18px;
+}
+
+.heat-switch-account-button > i:last-child {
+    color: var(--heat-muted);
+    font-size: 13px;
+}
+
+.heat-switch-account-button > span {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.heat-switch-account-button strong {
+    color: var(--heat-text);
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+.heat-switch-account-button small {
+    margin-top: 3px;
+    color: var(--heat-muted);
+    font-size: 8px;
+    line-height: 1.2;
 }
 
 #heat-header .heat-switch-dropdown {
@@ -7710,8 +7425,17 @@ body.heat-subforum-page
     right: 0;
 }
 
+#heat-header .heat-switch-current-avatar .heat-active-avatar-image {
+    border-radius: 50%;
+}
+
+#heat-header .heat-switch-current-avatar .heat-active-online {
+    right: -1px;
+    bottom: 1px;
+}
+
 #heat-header .heat-account-chevron {
-    transition: transform .18s ease;
+    transition: transform .2s ease;
 }
 
 #heat-header .heat-active-account[aria-expanded="true"]
@@ -7719,14 +7443,12 @@ body.heat-subforum-page
     transform: rotate(180deg);
 }
 
-
 /* =========================================================
-   REAL JCINK SUB-ACCOUNT SOURCE + ENHANCED LIST
+   REAL JCINK SUB-ACCOUNT SWITCHER
    ========================================================= */
 
 .heat-real-subaccounts {
     width: 100%;
-    min-width: 0;
 }
 
 .heat-real-subaccounts form,
@@ -7734,232 +7456,34 @@ body.heat-subforum-page
     width: 100%;
 }
 
-/* Functional native fallback if enhancement cannot initialize. */
 .heat-real-subaccounts select {
-    min-height: 38px;
-    padding: 0 34px 0 11px;
-
+    min-height: 48px;
+    padding: 0 38px 0 40px;
     color: var(--heat-text);
-
     background:
         linear-gradient(
             rgba(255,255,255,.04),
             rgba(255,255,255,.04)
         ),
         var(--heat-panel);
-
     border: 1px solid var(--heat-border);
-    border-radius: 10px;
-
+    border-radius: 11px;
     font-family: var(--heat-font-body);
     font-size: 10px;
     font-weight: 700;
-
     outline: none;
     cursor: pointer;
 }
 
 .heat-real-subaccounts select:hover,
 .heat-real-subaccounts select:focus {
-    border-color:
-        color-mix(
-            in srgb,
-            var(--heat-active-group-1, var(--heat-blue)) 34%,
-            var(--heat-border)
-        );
+    border-color: rgba(255,44,133,.45);
+    background-color: rgba(255,44,133,.06);
 }
 
-/* Hide the native source only after the card list is built. */
-.heat-real-subaccounts.is-enhanced
-> #subaccounts_menu,
-.heat-real-subaccounts.is-enhanced
-> form {
-    display: none;
-}
-
-.heat-subaccount-list {
-    width: 100%;
-    max-height: min(390px, 56vh);
-    padding-right: 2px;
-
-    display: grid;
-    gap: 6px;
-
-    overflow-y: auto;
-    overscroll-behavior: contain;
-
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,.14) transparent;
-}
-
-.heat-subaccount-list::-webkit-scrollbar {
-    width: 5px;
-}
-
-.heat-subaccount-list::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.heat-subaccount-list::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,.14);
-    border-radius: 999px;
-}
-
-.heat-subaccount-option {
-    width: 100%;
-    min-width: 0;
-    min-height: 56px;
-    padding: 7px 9px;
-
-    display: grid;
-    grid-template-columns: 40px minmax(0, 1fr) 28px;
-    align-items: center;
-    gap: 9px;
-
-    color: #fff;
-    background: rgba(255,255,255,.018);
-
-    border: 1px solid rgba(255,255,255,.055);
-    border-radius: 12px;
-
-    box-shadow: none;
-
-    text-align: left;
-    cursor: pointer;
-
-    transition:
-        background .16s ease,
-        border-color .16s ease,
-        transform .16s ease;
-}
-
-.heat-subaccount-option:hover,
-.heat-subaccount-option:focus-visible {
-    background:
-        color-mix(
-            in srgb,
-            var(--heat-active-group-1, var(--heat-blue)) 3.5%,
-            rgba(255,255,255,.018)
-        );
-
-    border-color:
-        color-mix(
-            in srgb,
-            var(--heat-active-group-1, var(--heat-blue)) 18%,
-            rgba(255,255,255,.055)
-        );
-
-    transform: translateY(-1px);
-    outline: none;
-}
-
-.heat-subaccount-avatar {
-    width: 40px;
-    height: 40px;
-
-    position: relative;
-
-    display: grid;
-    place-items: center;
-
-    overflow: hidden;
-
-    color: #748196;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.05),
-            rgba(255,255,255,.015)
-        ),
-        #151b26;
-
-    border-radius: 11px;
-
-    box-shadow:
-        0 5px 12px rgba(0,0,0,.18);
-}
-
-.heat-subaccount-avatar img {
-    width: 100%;
-    height: 100%;
-
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-
-    display: block;
-    object-fit: cover;
-
-    border-radius: inherit;
-}
-
-.heat-subaccount-avatar i {
-    position: relative;
-    z-index: 1;
-
-    font-size: 17px;
-}
-
-.heat-subaccount-avatar.is-fallback img {
-    display: none;
-}
-
-.heat-subaccount-copy {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.heat-subaccount-copy strong {
-    overflow: hidden;
-
+.heat-real-subaccounts option {
     color: var(--heat-text);
-
-    font-family: var(--heat-font-display);
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1.05;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.heat-subaccount-arrow {
-    width: 26px;
-    height: 26px;
-
-    display: grid;
-    place-items: center;
-
-    color: #718095;
-    background: rgba(255,255,255,.015);
-
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 8px;
-
-    font-size: 12px;
-}
-
-.heat-subaccount-empty {
-    min-height: 52px;
-    padding: 10px 12px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--heat-muted);
-    background: rgba(255,255,255,.018);
-
-    border: 1px solid rgba(255,255,255,.05);
-    border-radius: 11px;
-
-    font-size: 8px;
-    font-weight: 600;
-    text-align: center;
+    background: var(--heat-panel);
 }
 
 /* =========================================================
@@ -8232,7 +7756,24 @@ html.heat-route-active-topics body
     align-items: center;
 
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.025);
+
+    background:
+        radial-gradient(
+            circle at 27px 50%,
+            #ff514b 0 5px,
+            transparent 6px
+        ),
+        radial-gradient(
+            circle at 47px 50%,
+            #ffc928 0 5px,
+            transparent 6px
+        ),
+        radial-gradient(
+            circle at 67px 50%,
+            #20d765 0 5px,
+            transparent 6px
+        ),
+        rgba(255, 255, 255, 0.025);
 
     border: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.065);
@@ -8445,9 +7986,7 @@ html.heat-route-active-topics #active-topics
 > td:nth-child(3) a {
     color: var(--heat-text);
 
-    font-family: var(--heat-font-display);
-
-    font-size: 12px;
+    font-family: var(--heat-font-display);font-size: 12px;
     font-weight: 750;
 }
 
@@ -8628,43 +8167,13 @@ html.heat-route-active-topics #active-topics
    --------------------------------------------------------- */
 
 html.heat-route-active-topics body
-#innerwrapper
-#active-topics ~ :is(table, div, section):has(
-    :is(
-        img[alt*="Open Topic" i],
-        img[alt*="Hot Topic" i],
-        img[alt*="Poll" i],
-        img[alt*="Locked Topic" i],
-        img[alt*="Moved Topic" i],
-        img[src*="t_new" i],
-        img[src*="t_nonew" i],
-        img[src*="t_hot" i],
-        img[src*="t_poll" i],
-        img[src*="t_closed" i],
-        img[src*="t_moved" i]
-    )
-) {
-    display: none;
-}
-
-/*
- * Regular forum listings use a different native structure from Active Topics:
- * two bare .wrapmini blocks are appended directly to #innerwrapper. Match the
- * poll/closed icon block and its immediately preceding open/hot-topic block so
- * other compact forum copy remains untouched.
- */
-
-html.heat-route-subforum body
-#innerwrapper > .wrapmini[align="left"]:has(
-    + .wrapmini[align="left"]
-    img[alt="New Votes / Posts"][src*="cube-small" i]
+#innerwrapper > table:has(
+    img[alt*="Open Topic"]
 ),
 
-html.heat-route-subforum body
-#innerwrapper > .wrapmini[align="left"]:has(
-    img[alt="New Votes / Posts"][src*="cube-small" i],
-    img[alt="No New Votes / Posts"][src*="cube-small" i],
-    img[alt="Closed"][src*="closed" i]
+html.heat-route-active-topics body
+#innerwrapper > div:has(
+    > img[alt*="Open Topic"]
 ) {
     display: none;
 }
@@ -9341,14 +8850,11 @@ html.heat-route-index
 
 /* Browsing users: the permanent shell owns the appearance. */
 html.heat-route-subforum .heat-topic-list-browsers-shell {
-    min-height: 42px;
-    padding: 10px 15px;
+    min-height: 0;
+    padding: 5px 10px;
     color: var(--heat-muted);
-    background: #10151f;
-    border-top: 1px solid rgba(255, 255, 255, 0.045);
-    border-right: 0;
-    border-bottom: 0;
-    border-left: 0;
+    background: rgba(255, 255, 255, 0.012);
+    border: 0;
     font-family: var(--heat-font-body);
     font-size: 9px;
     font-weight: 600;
@@ -9373,13 +8879,8 @@ html.heat-route-subforum .heat-topic-list-browsers-shell {
 
 /* Sorting controls: permanent shell + native form/table structure. */
 html.heat-route-subforum .heat-topic-list-filters-shell:has(select) {
-    margin-top: 0;
+    margin-top: 8px;
     overflow: visible;
-
-    background: #0f141e;
-
-    border-top:
-        1px solid rgba(255, 255, 255, 0.045);
 }
 
 .heat-topic-list-filters-shell form,
@@ -9396,7 +8897,7 @@ html.heat-route-subforum .heat-topic-list-filters-shell :is(td, div):has(> selec
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    padding: 11px 14px;
+    padding: 8px 10px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -9473,33 +8974,6 @@ body:where(:not(.heat-login-page):not(.heat-register-page))
     }
 }
 
-
-/* ---------------------------------------------------------
-   FORUM VIEW LOWER RHYTHM — ROOMIER CLEANUP PASS 4
-
-   Native pagination/search/moderation/forum-jump controls stay
-   native and functional. This only tightens the vertical rhythm
-   around them; no DOM relocation and no visual-layout JS.
-   --------------------------------------------------------- */
-
-html.heat-route-subforum #topic-list.heat-topic-list {
-    margin-bottom: 10px;
-}
-
-html.heat-route-subforum #heat-main .pagination {
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
-html.heat-route-subforum #heat-footer {
-    margin-top: 14px;
-}
-
-html.heat-route-subforum #innerwrapper {
-    padding-bottom: 14px;
-}
-
-
 /* =========================================================
    HEAT DARK DROPDOWN MENUS
 
@@ -9510,9 +8984,7 @@ html.heat-route-subforum #innerwrapper {
    - Search and navigation selects
    ========================================================= */
 
-/* Opened dropdown choices */
-
-body select option {
+/* Opened dropdown choices */body select option {
     color: #f4f6fb;
     background-color: #171c28;
 
@@ -9791,7 +9263,6 @@ body select option:disabled {
     .heat-sidebar-online,
     .heat-profile-online,
     .heat-mini-online,
-    .heat-post-status-dot,
     .heat-lastpost-online,
     .heat-topic-last-online,
     .heat-visitor-dot
@@ -9806,7 +9277,6 @@ body select option:disabled {
     .heat-sidebar-online,
     .heat-profile-online,
     .heat-mini-online,
-    .heat-post-status-dot,
     .heat-lastpost-online,
     .heat-topic-last-online,
     .heat-visitor-dot
@@ -9821,7 +9291,6 @@ body select option:disabled {
     .heat-sidebar-online,
     .heat-profile-online,
     .heat-mini-online,
-    .heat-post-status-dot,
     .heat-lastpost-online,
     .heat-topic-last-online,
     .heat-visitor-dot
@@ -10336,6 +9805,16 @@ body.heat-usercp-page #heat-browser textarea::placeholder {
 }
 
 #heat-browser #heat-main .heat-post-row
+.heat-mini-avatar {
+    border-color:
+        color-mix(in srgb, var(--heat-group-color-1) 72%, #ffffff);
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.34),
+        0 0 0 3px color-mix(in srgb, var(--heat-group-color-1) 12%, transparent),
+        0 0 18px color-mix(in srgb, var(--heat-group-color-1) 22%, transparent);
+}
+
+#heat-browser #heat-main .heat-post-row
 .heat-mini-verification,
 #heat-browser #heat-main .heat-post-row
 .heat-mini-profile a.heat-mini-partner {
@@ -10352,7 +9831,7 @@ body.heat-usercp-page #heat-browser textarea::placeholder {
 }
 
 #heat-browser #heat-main .heat-post-row
-:is(.heat-post-header-location, .heat-post-reaction span) {
+:is(.heat-mini-player strong, .heat-post-header-location, .heat-post-reaction span) {
     color: var(--heat-group-text);
     -webkit-text-fill-color: currentColor;
     text-transform: capitalize;
@@ -10388,6 +9867,40 @@ a.heat-mini-action:hover {
     backdrop-filter: blur(8px) saturate(1.08);
 }
 
+/* Accent-side comm messages use the post author's softer glass gradient. */
+.heat-post-row
+[data-heat-comm]
+.heat-comm-message.is-starter
+.heat-comm-bubble {
+    color: #ffffff !important;
+    background:
+        var(--heat-post-frosted-gradient) !important;
+    border:
+        1px solid #000;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 9px 20px rgba(0,0,0,.18),
+        0 0 16px
+        color-mix(
+            in srgb,
+            var(--heat-group-color-1) 12%,
+            transparent
+        ) !important;
+    backdrop-filter: blur(10px) saturate(1.08);
+}
+
+.heat-post-row
+[data-heat-comm]
+.heat-comm-message.is-starter
+.heat-comm-time {
+    color:
+        color-mix(
+            in srgb,
+            var(--heat-muted) 78%,
+            rgba(255,255,255,.58)
+        ) !important;
+}
+
 @media screen and (max-width: 760px) {
     #heat-browser #heat-main .heat-post-row
     .heat-post-profile-column {
@@ -10407,8 +9920,7 @@ a.heat-mini-action:hover {
     --heat-accent-2: var(--heat-group-color-3);
 }
 
-#heat-browser #heat-main
-.heat-forum-tile:not(.heat-subforum-directory-card)
+#heat-browser #heat-main .heat-forum-tile
 .heat-lastpost-avatar {
     background: var(--heat-group-gradient);
     border-color:
@@ -10470,8 +9982,7 @@ a.heat-mini-action:hover {
     .heat-lastpost-author span[class],
     .heat-lastpost-author span[class] > a,
     .heat-topic-last-poster span[class],
-    .heat-topic-last-poster span[class] > a,
-    .heat-topic-starter strong span[class],
+    .heat-topic-last-poster span[class] > a,.heat-topic-starter strong span[class],
     .heat-topic-starter strong span[class] > a,
     .heat-recent-topic-author span[class],
     .heat-recent-topic-author span[class] > a,
@@ -11470,8 +10981,7 @@ body.heat-member-list-page #innerwrapper > .tableborder:empty {
     display: block;
     color: var(--heat-active-group-text, #c6adff);
     font-family: var(--heat-font-display);
-    font-size: 23px;
-    font-weight: 850;
+    font-size: 23px;font-weight: 850;
     line-height: 1;
 }
 
@@ -12470,8 +11980,7 @@ button {
 }
 
 /* =========================================================
-   HEAT MiamiOS Stable v2 — FINAL FONT OWNERSHIP
-   Loads after prior page-component revisions.
+   HEAT MiamiOS Stable v2 — FINAL FONT OWNERSHIPLoads after prior page-component revisions.
    ========================================================= */
 
 /* Main display font */
@@ -12744,10 +12253,53 @@ button {
 }
 
 /* =========================================================
-   HEAT — RENDERED POST EMOTICONS
-   Posting picker is owned pre-paint by Board Wrapper REV64.
+   HEAT LIVE TRANSFER — SMILEY SIZE + TEMPLATE SUPPORT FIX 1
+
+   Jcink outputs clickable and rendered smilies as small images.
+   Enlarge only true Jcink emoticons without affecting photos,
+   GIF slots, profile media, attachments, or template artwork.
    ========================================================= */
 
+/* Posting/reply screen: clickable smiley picker. */
+html.heat-route-posting
+#heat-browser
+:is(
+    a[href^="javascript:emoticon"],
+    a[href*="emoticon("]
+)
+img[alt="smilie" i],
+#heat-browser
+form[name="REPLIER"]
+:is(
+    a[href^="javascript:emoticon"],
+    a[href*="emoticon("]
+)
+img[alt="smilie" i] {
+    width: auto;
+    height: 22px;
+    max-width: none;
+    max-height: 22px;
+
+    margin: 3px 2px;
+    padding: 0;
+
+    display: inline-block;
+
+    object-fit: contain;
+    object-position: center;
+
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    vertical-align: middle;
+}
+
+/*
+ * Rendered posts and all HEAT thread-template writing areas.
+ * The attribute and URL checks isolate native Jcink emoticons,
+ * so ordinary images and dedicated GIF/media slots stay unchanged.
+ */
 .heat-post-copy img[alt="smilie" i],
 .heat-post-copy img[src*="/html/emoticons/" i],
 .heat-post-copy img[src*="/emoticons/" i] {
@@ -12769,6 +12321,331 @@ button {
     box-shadow: none !important;
 
     vertical-align: -5px !important;
+}
+
+/* Slightly tighter fit on narrow screens. */
+@media screen and (max-width: 600px) {
+    html.heat-route-posting
+    #heat-browser
+    :is(
+        a[href^="javascript:emoticon"],
+        a[href*="emoticon("]
+    )
+    img[alt="smilie" i],
+    #heat-browser
+    form[name="REPLIER"]
+    :is(
+        a[href^="javascript:emoticon"],
+        a[href*="emoticon("]
+    )
+    img[alt="smilie" i] {
+        height: 20px;
+        max-height: 20px;
+    }
+
+    .heat-post-copy img[alt="smilie" i],
+    .heat-post-copy img[src*="/html/emoticons/" i],
+    .heat-post-copy img[src*="/emoticons/" i] {
+        height: 20px !important;
+        max-height: 20px !important;
+    }
+}
+
+/* =========================================================
+   HEAT FOUNDATION — NATIVE SMILEY PANEL FIRST-PAINT OWNER
+
+   Jcink already renders the complete clickable-smiley picker as:
+   - outer td.pformleft
+   - #smilies-table
+   - native rows/cells containing the real emoticon links
+
+   Keep that DOM authoritative. CSS flattens the native rows into
+   the approved compact six-column scroll grid from first paint.
+   No DOMContentLoaded rebuild, link movement, or replaceChildren().
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   OUTER NATIVE SMILEY CELL
+   --------------------------------------------------------- */
+
+html.heat-route-posting
+#heat-browser
+#posting-form
+ td.pformleft:has(#smilies-table),
+#heat-browser
+form[name="REPLIER"]
+td.pformleft:has(#smilies-table) {
+    width: 196px;
+    min-width: 196px;
+    max-width: 196px;
+    padding: 14px 10px;
+
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+/*
+ * The native title lives inside the first #smilies-table row.
+ * Hide that row and paint the same stable heading from CSS so the
+ * scroll viewport can contain smileys only without rewriting DOM.
+ */
+html.heat-route-posting
+#heat-browser
+#posting-form
+ td.pformleft:has(#smilies-table)::before,
+#heat-browser
+form[name="REPLIER"]
+td.pformleft:has(#smilies-table)::before {
+    content: "Clickable Smilies";
+
+    margin: 0 0 10px;
+
+    display: block;
+
+    color: var(--heat-text, #f4f5fb);
+
+    font-family: var(--heat-font-display, sans-serif);
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* The former JS rebuild discarded these native helper nodes. */
+html.heat-route-posting
+#heat-browser
+#posting-form
+ td.pformleft:has(#smilies-table) > br,
+html.heat-route-posting
+#heat-browser
+#posting-form
+ td.pformleft:has(#smilies-table) > .desc,
+#heat-browser
+form[name="REPLIER"]
+td.pformleft:has(#smilies-table) > br,
+#heat-browser
+form[name="REPLIER"]
+td.pformleft:has(#smilies-table) > .desc {
+    display: none;
+}
+
+/* ---------------------------------------------------------
+   NATIVE TABLE BECOMES THE SCROLL VIEWPORT
+   --------------------------------------------------------- */
+
+html.heat-route-posting
+#heat-browser
+#smilies-table,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table {
+    width: 176px;
+    max-width: 100%;
+    max-height: 174px;
+    margin: 0 auto;
+    padding: 8px 7px;
+
+    box-sizing: border-box;
+    display: block;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    color: inherit;
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 12px;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        var(--heat-active-group-1, var(--heat-pink))
+        rgba(255, 255, 255, 0.035);
+}
+
+html.heat-route-posting
+#heat-browser
+#smilies-table::-webkit-scrollbar,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table::-webkit-scrollbar {
+    width: 5px;
+}
+
+html.heat-route-posting
+#heat-browser
+#smilies-table::-webkit-scrollbar-track,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.025);
+    border-radius: 999px;
+}
+
+html.heat-route-posting
+#heat-browser
+#smilies-table::-webkit-scrollbar-thumb,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            180deg,
+            var(--heat-active-group-1, var(--heat-pink)),
+            var(--heat-active-group-2, var(--heat-orange))
+        );
+    border-radius: 999px;
+}
+
+/* ---------------------------------------------------------
+   FLATTEN NATIVE ROWS INTO THE APPROVED SIX-COLUMN GRID
+   --------------------------------------------------------- */
+
+html.heat-route-posting
+#heat-browser
+#smilies-table > tbody,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table > tbody {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(6, 22px);
+    grid-auto-rows: 28px;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+html.heat-route-posting
+#heat-browser
+#smilies-table > tbody > tr,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table > tbody > tr {
+    display: contents;
+}
+
+/* Native heading is replaced visually by the parent pseudo-heading. */
+html.heat-route-posting
+#heat-browser
+#smilies-table > tbody > tr:first-child,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table > tbody > tr:first-child {
+    display: none;
+}
+
+html.heat-route-posting
+#heat-browser
+#smilies-table > tbody > tr:not(:first-child) > td,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table > tbody > tr:not(:first-child) > td {
+    width: 22px;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: visible;
+
+    color: inherit;
+    background: transparent;
+    border: 0;
+
+    font-size: 0;
+    line-height: 1;
+}
+
+html.heat-route-posting
+#heat-browser
+#smilies-table
+a[href*="emoticon("],
+#heat-browser
+form[name="REPLIER"]
+#smilies-table
+a[href*="emoticon("] {
+    width: 22px;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: 0;
+    border-radius: 7px;
+    box-shadow: none;
+
+    line-height: 1;
+    text-decoration: none;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+}
+
+html.heat-route-posting
+#heat-browser
+#smilies-table
+a[href*="emoticon("]:hover,
+html.heat-route-posting
+#heat-browser
+#smilies-table
+a[href*="emoticon("]:focus-visible,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table
+a[href*="emoticon("]:hover,
+#heat-browser
+form[name="REPLIER"]
+#smilies-table
+a[href*="emoticon("]:focus-visible {
+    background:
+        color-mix(
+            in srgb,
+            var(--heat-active-group-1, var(--heat-pink)) 14%,
+            transparent
+        );
+    outline: none;
+    transform: scale(1.08);
+}
+
+/* Override the generic picker margin while retaining its 22px height. */
+html.heat-route-posting
+#heat-browser
+#smilies-table
+img[alt="smilie" i],
+#heat-browser
+form[name="REPLIER"]
+#smilies-table
+img[alt="smilie" i] {
+    margin: 0;
+}
+
+/* ---------------------------------------------------------
+   NARROW SCREENS
+   --------------------------------------------------------- */
+
+@media screen and (max-width: 700px) {
+    html.heat-route-posting
+    #heat-browser
+    #posting-form
+    td.pformleft:has(#smilies-table),
+    #heat-browser
+    form[name="REPLIER"]
+    td.pformleft:has(#smilies-table) {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+    }
 }
 
 /* =========================================================
