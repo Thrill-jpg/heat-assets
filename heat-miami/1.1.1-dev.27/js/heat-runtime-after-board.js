@@ -5082,13 +5082,7 @@ function renderVoiceAddonBody(body, fields, timeText) {
     body.appendChild(transcript);
   }
 
-  appendAddonFooter(
-    body,
-    audioSrc
-      ? ""
-      : "",
-    timeText
-  );
+  appendAddonFooter(body, "", timeText);
 }
 
 function renderCallAddonBody(body, fields, timeText) {
@@ -5153,7 +5147,7 @@ function buildCollectorAddonMessage(
   var actorName = member.displayName || member.nickname || "HEAT member";
   var timeText = readableTime(row);
 
-  message.className = "heat-comm-message";
+  message.className = "heat-comm-message is-addon-" + addon.type;
   message.dataset.sourcePostId = row.dataset.postId || "";
 
   if (isStarter) {
@@ -5181,7 +5175,7 @@ function buildCollectorAddonMessage(
 
   var article = createAddonNode(
     "article",
-    "heat-comm-addon-event theme-" + addonTheme(addon.type)
+    "heat-comm-addon-event is-addon-" + addon.type + " theme-" + addonTheme(addon.type)
   );
   var head = createAddonNode(
     "div",
