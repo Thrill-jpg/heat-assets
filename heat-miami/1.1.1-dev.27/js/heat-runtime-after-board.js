@@ -3762,6 +3762,24 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     "group-gifs": true
   };
 
+var COLLECTOR_ADDON_TYPES = {
+  silenced: true,
+  silence: true,
+  reply: true,
+  replied: true,
+  location: true,
+  map: true,
+  pin: true,
+  pay: true,
+  applepay: true,
+  payment: true,
+  voice: true,
+  voicenote: true,
+  call: true,
+  facetime: true,
+  unsent: true
+};
+
   function releasePrepaint() {
     if (
       window.HEAT_COMM_PREPAINT &&
@@ -4592,6 +4610,645 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
   }
 
 
+/* =======================================================
+   COLLECTOR ADD-ON PACK V1
+
+   Lightweight post-body tags for special collector events.
+   One reply equals one event card.
+   ======================================================= */
+
+function parseAddonAlias(type) {
+  var normalized = cleanText(type).toLowerCase();
+
+  if (normalized === "silence") return "silenced";
+  if (normalized === "replied") return "reply";
+  if (normalized === "map" || normalized === "pin") return "location";
+  if (
+    normalized === "applepay" ||
+    normalized === "payment"
+  ) {
+    return "pay";
+  }
+  if (normalized === "voicenote") return "voice";
+  if (normalized === "facetime") return "call";
+
+  return normalized;
+}
+
+function sourcePlainText(source) {
+  if (!source) return "";
+
+  var html = String(source.innerHTML || "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/p>\s*<p[^>]*>/gi, "\n")
+    .replace(/<\/div>\s*<div[^>]*>/gi, "\n")
+    .replace(/<\/li>\s*<li[^>]*>/gi, "\n")
+    .replace(/<\/tr>\s*<tr[^>]*>/gi, "\n");
+
+  var plain = document.createElement("div");
+  plain.innerHTML = html;
+
+  return plain.textContent
+    .replace(/\u00a0/g, " ")
+    .replace(/\r/g, "")
+    .trim();
+}
+
+function parseCollectorAddon(source) {
+  var text = sourcePlainText(source);
+  var match = text.match(/^[\[]([a-z0-9_-]+)[\]]([\s\S]*?)[\[]\/\1[\]]$/i);
+
+  if (!match) return null;
+
+  var type = parseAddonAlias(match[1]);
+
+  if (!COLLECTOR_ADDON_TYPES[type]) {
+    return null;
+  }
+
+  var rawBody = String(match[2] || "")
+    .replace(/^\s+|\s+$/g, "");
+
+  var fields = Object.create(null);
+  var lines = rawBody ? rawBody.split(/\n+/) : [];
+  var messageLines = [];
+
+  lines.forEach(function (line) {
+    var cleaned = String(line || "").trim();
+    var separatorIndex = cleaned.indexOf("=");
+
+    if (!cleaned) return;
+
+    if (separatorIndex === -1) {
+      messageLines.push(cleaned);
+      return;
+    }
+
+    var key = cleanText(
+      cleaned.slice(0, separatorIndex)
+    ).toLowerCase();
+    var value = cleanText(
+      cleaned.slice(separatorIndex + 1)
+    );
+
+    if (!key) {
+      messageLines.push(cleaned);
+      return;
+    }
+
+    fields[key] = value;
+  });
+
+  if (messageLines.length && !fields.message) {
+    fields.message = messageLines.join("\n");
+  }
+
+  return {
+    type: type,
+    fields: fields,
+    rawText: text
+  };
+}
+
+function createAddonNode(tagName, className, text) {
+  var node = document.createElement(tagName);
+
+  if (className) {
+    node.className = className;
+  }
+
+  if (typeof text !== "undefined" && text !== null) {
+    node.textContent = text;
+  }
+
+  return node;
+}
+
+function addonTheme(type) {
+  if (type === "reply") return "pink";
+  if (type === "location" || type === "pay") return "green";
+  if (type === "voice" || type === "silenced") return "blue";
+  if (type === "call") return "orange";
+
+  return "blue";
+}
+
+function addonIcon(type, fields) {
+  if (type === "silenced") return "🔕";
+  if (type === "reply") return "↩️";
+  if (type === "location") return "📍";
+  if (type === "pay") return "💸";
+  if (type === "voice") return "🎙️";
+  if (type === "call") {
+    var rawType = cleanText(fields.type).toLowerCase();
+    return rawType === "facetime" ? "📹" : "📞";
+  }
+  if (type === "unsent") return "🗑️";
+
+  return "✦";
+}
+
+function addonTitle(type, fields) {
+  if (type === "silenced") return "Notifications Silenced";
+  if (type === "reply") return "Reply";
+  if (type === "location") return "Location Shared";
+  if (type === "voice") return "Voice Note";
+  if (type === "unsent") return "Message Unsent";
+
+  if (type === "pay") {
+    var payType = cleanText(fields.type).toLowerCase();
+    if (payType === "sent" || payType === "payment") return "Apple Pay Sent";
+    if (payType === "received") return "Apple Pay Received";
+    if (payType === "paid") return "Apple Pay Paid";
+    return "Apple Pay Request";
+  }
+
+  if (type === "call") {
+    var callType = cleanText(fields.type).toLowerCase();
+    if (callType === "facetime") return "FaceTime Call";
+    return "Call Event";
+  }
+
+  return "Collector Event";
+}
+
+function addonSubtitle(type, actorName, fields) {
+  if (type === "silenced") {
+    return actorName + " has notifications silenced";
+  }
+  if (type === "reply") {
+    return actorName + " replied to a message";
+  }
+  if (type === "location") {
+    return actorName + " shared a location";
+  }
+  if (type === "voice") {
+    return actorName + " sent a voice message";
+  }
+  if (type === "unsent") {
+    return actorName + " unsent a message";
+  }
+  if (type === "pay") {
+    var payType = cleanText(fields.type).toLowerCase();
+    if (payType === "sent" || payType === "payment") return actorName + " sent a payment";
+    if (payType === "received") return actorName + " received a payment";
+    if (payType === "paid") return actorName + " marked a payment as paid";
+    return actorName + " requested a payment";
+  }
+  if (type === "call") {
+    var callType = cleanText(fields.type).toLowerCase();
+    var status = cleanText(fields.status).toLowerCase();
+    if (status === "missed") return actorName + " missed a " + (callType || "call");
+    if (status === "incoming") return actorName + " started an incoming " + (callType || "call");
+    return actorName + " started a " + (callType === "facetime" ? "FaceTime call" : "call");
+  }
+
+  return actorName;
+}
+
+function appendAddonFooter(container, label, timeText) {
+  var foot = createAddonNode(
+    "div",
+    "heat-comm-addon-foot"
+  );
+  foot.appendChild(
+    createAddonNode(
+      "span",
+      "heat-comm-addon-foot-label",
+      label
+    )
+  );
+  foot.appendChild(
+    createAddonNode(
+      "span",
+      "heat-comm-addon-foot-time",
+      timeText
+    )
+  );
+  container.appendChild(foot);
+}
+
+function renderReplyAddonBody(body, fields, timeText) {
+  var quote = createAddonNode(
+    "div",
+    "heat-comm-addon-reply-quote"
+  );
+  quote.appendChild(
+    createAddonNode(
+      "span",
+      "heat-comm-addon-reply-label",
+      "Replying to"
+    )
+  );
+  quote.appendChild(
+    createAddonNode(
+      "p",
+      "heat-comm-addon-reply-text",
+      fields.quote || "Previous message"
+    )
+  );
+
+  body.appendChild(quote);
+
+  if (fields.message) {
+    body.appendChild(
+      createAddonNode(
+        "div",
+        "heat-comm-addon-note",
+        fields.message
+      )
+    );
+  }
+
+  appendAddonFooter(body, "Self-contained reply snippet", timeText);
+}
+
+function renderLocationAddonBody(body, fields, timeText) {
+  var box = createAddonNode(
+    "div",
+    "heat-comm-addon-location-box"
+  );
+  var map = createAddonNode(
+    "div",
+    "heat-comm-addon-map-thumb"
+  );
+  var pin = createAddonNode(
+    "div",
+    "heat-comm-addon-map-pin"
+  );
+  var meta = createAddonNode(
+    "div",
+    "heat-comm-addon-location-meta"
+  );
+  var actions = createAddonNode(
+    "div",
+    "heat-comm-addon-btn-row"
+  );
+
+  map.appendChild(pin);
+  meta.appendChild(
+    createAddonNode(
+      "strong",
+      "heat-comm-addon-location-name",
+      fields.name || "Shared location"
+    )
+  );
+  meta.appendChild(
+    createAddonNode(
+      "small",
+      "heat-comm-addon-location-address",
+      fields.address || "Location details unavailable"
+    )
+  );
+
+  actions.appendChild(
+    createAddonNode(
+      "span",
+      "heat-comm-addon-btn is-primary",
+      "Open in Maps"
+    )
+  );
+  actions.appendChild(
+    createAddonNode(
+      "span",
+      "heat-comm-addon-btn",
+      "Share ETA"
+    )
+  );
+
+  box.appendChild(map);
+  box.appendChild(meta);
+  box.appendChild(actions);
+  body.appendChild(box);
+  appendAddonFooter(body, "Map card add-on", timeText);
+}
+
+function renderPayAddonBody(body, fields, timeText) {
+  var card = createAddonNode(
+    "div",
+    "heat-comm-addon-pay-card"
+  );
+  var head = createAddonNode(
+    "div",
+    "heat-comm-addon-pay-head"
+  );
+  var amountWrap = createAddonNode(
+    "div",
+    "heat-comm-addon-pay-amount"
+  );
+  var type = cleanText(fields.type).toLowerCase();
+  var typeLabel =
+    type === "sent" || type === "payment"
+      ? "sent"
+      : type === "received"
+      ? "received"
+      : type === "paid"
+      ? "paid"
+      : "request";
+  var amountValue = cleanText(fields.amount);
+
+  head.appendChild(
+    createAddonNode(
+      "div",
+      "heat-comm-addon-pay-logo",
+      "Apple Pay"
+    )
+  );
+
+  amountWrap.appendChild(
+    createAddonNode(
+      "strong",
+      "heat-comm-addon-pay-amount-value",
+      amountValue
+        ? (amountValue.charAt(0) === "$" ? amountValue : "$" + amountValue)
+        : "$0"
+    )
+  );
+  amountWrap.appendChild(
+    createAddonNode(
+      "small",
+      "heat-comm-addon-pay-amount-label",
+      typeLabel
+    )
+  );
+  head.appendChild(amountWrap);
+  card.appendChild(head);
+
+  if (fields.note) {
+    card.appendChild(
+      createAddonNode(
+        "p",
+        "heat-comm-addon-pay-note",
+        fields.note
+      )
+    );
+  }
+
+  var actions = createAddonNode(
+    "div",
+    "heat-comm-addon-btn-row"
+  );
+
+  actions.appendChild(
+    createAddonNode(
+      "span",
+      "heat-comm-addon-btn is-primary",
+      typeLabel === "request" ? "Pay" : "View"
+    )
+  );
+  actions.appendChild(
+    createAddonNode(
+      "span",
+      "heat-comm-addon-btn",
+      "Message"
+    )
+  );
+
+  card.appendChild(actions);
+  body.appendChild(card);
+  appendAddonFooter(body, "Visual-only or functional payment event", timeText);
+}
+
+function renderVoiceAddonBody(body, fields, timeText) {
+  var wave = createAddonNode(
+    "div",
+    "heat-comm-addon-wave"
+  );
+  var play = createAddonNode(
+    "div",
+    "heat-comm-addon-wave-play",
+    "▶"
+  );
+  var bars = createAddonNode(
+    "div",
+    "heat-comm-addon-wave-bars"
+  );
+  var duration = createAddonNode(
+    "small",
+    "heat-comm-addon-wave-duration",
+    fields.duration || "0:00"
+  );
+  var barCount = 12;
+  var audioSrc = normalizeMediaUrl(fields.src);
+
+  wave.appendChild(play);
+  for (var index = 0; index < barCount; index += 1) {
+    bars.appendChild(createAddonNode("span", "", ""));
+  }
+  wave.appendChild(bars);
+  wave.appendChild(duration);
+  body.appendChild(wave);
+
+  if (audioSrc) {
+    var audio = createAddonNode(
+      "audio",
+      "heat-comm-addon-audio"
+    );
+    audio.controls = true;
+    audio.preload = "none";
+    audio.src = audioSrc;
+    body.appendChild(audio);
+  }
+
+  if (fields.transcript) {
+    var transcript = createAddonNode(
+      "div",
+      "heat-comm-addon-transcript"
+    );
+    transcript.appendChild(
+      createAddonNode(
+        "strong",
+        "",
+        "Transcript"
+      )
+    );
+    transcript.appendChild(
+      createAddonNode(
+        "p",
+        "",
+        fields.transcript
+      )
+    );
+    body.appendChild(transcript);
+  }
+
+  appendAddonFooter(
+    body,
+    audioSrc
+      ? "Real audio or RP-only · transcript optional"
+      : "RP-only voice note · transcript optional",
+    timeText
+  );
+}
+
+function renderCallAddonBody(body, fields, timeText) {
+  var grid = createAddonNode(
+    "div",
+    "heat-comm-addon-call-grid"
+  );
+  var card = createAddonNode(
+    "div",
+    "heat-comm-addon-call-mini"
+  );
+  var rawStatus = cleanText(fields.status).toLowerCase();
+  var rawType = cleanText(fields.type).toLowerCase();
+  var niceType = rawType === "facetime" ? "FaceTime" : rawType ? rawType : "Call";
+  var headline = "Call updated";
+  var detail = fields.duration ? "Duration · " + fields.duration : "Tap-in collector event";
+
+  if (rawStatus === "ended") {
+    headline = niceType + " ended";
+  } else if (rawStatus === "missed") {
+    headline = "Missed " + niceType.toLowerCase();
+  } else if (rawStatus === "incoming") {
+    headline = "Incoming " + niceType.toLowerCase();
+  } else if (rawStatus === "declined") {
+    headline = niceType + " declined";
+  } else if (rawStatus === "ongoing" || rawStatus === "active") {
+    headline = niceType + " active";
+  }
+
+  card.appendChild(
+    createAddonNode(
+      "strong",
+      "",
+      headline
+    )
+  );
+  card.appendChild(
+    createAddonNode(
+      "small",
+      "",
+      detail
+    )
+  );
+
+  grid.appendChild(card);
+  body.appendChild(grid);
+  appendAddonFooter(body, "One tag, multiple call states", timeText);
+}
+
+function buildCollectorAddonMessage(
+  row,
+  identityMode,
+  addon,
+  isStarter
+) {
+  var message = document.createElement("div");
+  var bubble = document.createElement("div");
+  var member = rowMemberData(row);
+  var actorName = member.displayName || member.nickname || "HEAT member";
+  var timeText = readableTime(row);
+
+  message.className = "heat-comm-message";
+  message.dataset.sourcePostId = row.dataset.postId || "";
+
+  if (isStarter) {
+    message.classList.add("is-starter");
+  }
+
+  if (addon.type === "unsent") {
+    message.classList.add("is-addon-system");
+    bubble.className = "heat-comm-bubble is-addon-system-wrap";
+    bubble.appendChild(
+      createAddonNode(
+        "div",
+        "heat-comm-addon-systemline",
+        addonIcon(addon.type, addon.fields) + " " + addonSubtitle(addon.type, actorName, addon.fields)
+      )
+    );
+    message.appendChild(bubble);
+    return message;
+  }
+
+  bubble.className = "heat-comm-bubble is-addon-card";
+
+  var article = createAddonNode(
+    "article",
+    "heat-comm-addon-event theme-" + addonTheme(addon.type)
+  );
+  var head = createAddonNode(
+    "div",
+    "heat-comm-addon-head"
+  );
+  var icon = createAddonNode(
+    "div",
+    "heat-comm-addon-icon",
+    addonIcon(addon.type, addon.fields)
+  );
+  var titleWrap = createAddonNode(
+    "div",
+    "heat-comm-addon-title"
+  );
+  var body = createAddonNode(
+    "div",
+    "heat-comm-addon-body"
+  );
+  var subtitleText = addonSubtitle(addon.type, actorName, addon.fields);
+  var subtitle = createAddonNode(
+    "small",
+    ""
+  );
+
+  titleWrap.appendChild(
+    createAddonNode(
+      "strong",
+      "",
+      addonTitle(addon.type, addon.fields)
+    )
+  );
+  subtitle.appendChild(
+    createAddonNode(
+      "span",
+      "heat-comm-addon-accent",
+      actorName
+    )
+  );
+  subtitle.appendChild(
+    document.createTextNode(
+      subtitleText.slice(actorName.length)
+    )
+  );
+  titleWrap.appendChild(subtitle);
+
+  head.appendChild(icon);
+  head.appendChild(titleWrap);
+  article.appendChild(head);
+
+  if (addon.type === "silenced") {
+    body.appendChild(
+      createAddonNode(
+        "div",
+        "heat-comm-addon-note",
+        "Perfect for RPing a temporary mute without needing fake text content."
+      )
+    );
+    appendAddonFooter(body, "Collector event", timeText);
+  } else if (addon.type === "reply") {
+    renderReplyAddonBody(body, addon.fields, timeText);
+  } else if (addon.type === "location") {
+    renderLocationAddonBody(body, addon.fields, timeText);
+  } else if (addon.type === "pay") {
+    renderPayAddonBody(body, addon.fields, timeText);
+  } else if (addon.type === "voice") {
+    renderVoiceAddonBody(body, addon.fields, timeText);
+  } else if (addon.type === "call") {
+    renderCallAddonBody(body, addon.fields, timeText);
+  }
+
+  article.appendChild(body);
+  bubble.appendChild(article);
+  message.appendChild(bubble);
+
+  decorateMessageAuthor(
+    message,
+    row,
+    identityMode
+  );
+
+  return message;
+}
+
   /* =======================================================
      BUILD A VALID MESSAGE BUBBLE
      ======================================================= */
@@ -4614,6 +5271,21 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
       return null;
     }
 
+    var isStarter =
+      profileId(row) &&
+      profileId(row) === starterId;
+
+    var addon = parseCollectorAddon(source);
+
+    if (addon) {
+      return buildCollectorAddonMessage(
+        row,
+        identityMode,
+        addon,
+        isStarter
+      );
+    }
+
     var message = document.createElement("div");
 
     message.className = "heat-comm-message";
@@ -4621,10 +5293,7 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     message.dataset.sourcePostId =
       row.dataset.postId || "";
 
-    if (
-      profileId(row) &&
-      profileId(row) === starterId
-    ) {
+    if (isStarter) {
       message.classList.add("is-starter");
     }
 
