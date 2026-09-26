@@ -4677,7 +4677,27 @@ img[src*="/emoticons/" i] {
   padding: 0;
 }
 
-.heat-traditional-messages p {
+/* Shared Collector Add-On renderer inside Traditional Comms.
+   The runtime swaps only a direct <p> whose complete contents are
+   one supported add-on bracket. Normal text bubbles stay static. */
+.heat-traditional-messages > .heat-comm-message.heat-traditional-addon {
+  width: 100%;
+  margin: 0;
+}
+
+.heat-traditional-messages > .heat-comm-message.heat-traditional-addon.is-addon-system {
+  margin: 9px 0 7px;
+}
+
+.heat-traditional-messages > .heat-comm-message.heat-traditional-addon.is-you {
+  align-items: flex-end;
+}
+
+.heat-traditional-messages > .heat-comm-message.heat-traditional-addon.is-them {
+  align-items: flex-start;
+}
+
+.heat-traditional-messages > p {
   position: relative;
   width: fit-content;
   max-width: 82%;
@@ -4698,13 +4718,13 @@ img[src*="/emoticons/" i] {
 
 /* OTHER CHARACTER */
 
-.heat-traditional-messages p.is-them {
+.heat-traditional-messages > p.is-them {
   align-self: flex-start;
   background: linear-gradient(145deg, #191d25, #151920);
   border-radius: 18px 18px 18px 6px;
 }
 
-.heat-traditional-messages p.is-them::after {
+.heat-traditional-messages > p.is-them::after {
   content: "";
   position: absolute;
   left: 10px;
@@ -4722,7 +4742,7 @@ img[src*="/emoticons/" i] {
 
 /* YOUR CHARACTER */
 
-.heat-traditional-messages p.is-you {
+.heat-traditional-messages > p.is-you {
   align-self: flex-end;
   color: #ffffff;
   background:
@@ -4749,7 +4769,7 @@ img[src*="/emoticons/" i] {
     );
 }
 
-.heat-traditional-messages p.is-you::before {
+.heat-traditional-messages > p.is-you::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -4762,7 +4782,7 @@ img[src*="/emoticons/" i] {
   opacity: 0.5;
 }
 
-.heat-traditional-messages p.is-you::after {
+.heat-traditional-messages > p.is-you::after {
   content: none !important;
   display: none !important;
 }
@@ -4774,7 +4794,7 @@ img[src*="/emoticons/" i] {
    default to inline flow. This catches Jcink smileys regardless of
    their exact upload path/class and stops each smiley becoming its
    own block line. */
-.heat-traditional-messages p img {
+.heat-traditional-messages > p img {
   display: inline-block !important;
   width: auto;
   max-width: 100%;
@@ -4787,12 +4807,12 @@ img[src*="/emoticons/" i] {
 /* If consecutive Jcink smileys are separated by auto-inserted BRs,
    remove only the break BETWEEN image siblings so they remain on
    one line while the break after the final smiley is preserved. */
-.heat-traditional-messages p img + br:has(+ img) {
+.heat-traditional-messages > p img + br:has(+ img) {
   display: none;
 }
 
 /* Optional explicit full-media treatment for a real image message. */
-.heat-traditional-messages p img.heat-traditional-media {
+.heat-traditional-messages > p img.heat-traditional-media {
   display: block !important;
   width: auto;
   max-width: 100%;
@@ -4803,8 +4823,8 @@ img[src*="/emoticons/" i] {
   vertical-align: baseline;
 }
 
-.heat-traditional-messages p br:first-child,
-.heat-traditional-messages p br:last-child {
+.heat-traditional-messages > p br:first-child,
+.heat-traditional-messages > p br:last-child {
   display: none;
 }
 
@@ -4930,7 +4950,7 @@ img[src*="/emoticons/" i] {
     font-size: 29px;
   }
 
-  .heat-traditional-messages p {
+  .heat-traditional-messages > p {
     max-width: 86%;
     font-size: 11.5px;
   }
