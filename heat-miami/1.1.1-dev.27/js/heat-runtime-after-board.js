@@ -5568,13 +5568,18 @@ function buildCollectorAddonMessage(
 }
 
 /* =======================================================
-   TRADITIONAL COMM ADD-ON EXTENSION V1 — REV82
+   TRADITIONAL COMM ADD-ON EXTENSION V2 — REV83
 
-   Traditional Comms remain static DOHTML templates. This pass
-   only upgrades a direct message <p> when that whole bubble is
-   one supported add-on tag. Normal Traditional Comm messages
-   are left untouched. The same collector renderer is reused so
-   there is one visual/add-on system to maintain.
+   Reuses the Collector add-on parser/renderer inside static
+   Traditional Comms. REV83 deliberately does not assume that
+   Jcink preserved one exact DOM shape: it scans message <p>
+   descendants belonging to the current Traditional message list,
+   accepts is-you / is-them when present, and can infer the side
+   from the rendered alignment when those classes were altered.
+
+   It runs immediately, again at DOM ready/load, and after scoped
+   post-body mutations so Quick Edit can refresh an add-on without
+   requiring a manual page reload.
    ======================================================= */
 
 function traditionalAddonActorName(messageNode, comm, row) {
@@ -5601,42 +5606,105 @@ function traditionalAddonActorName(messageNode, comm, row) {
   );
 }
 
-function convertTraditionalCommAddons() {
+function traditionalAddonSide(messageNode) {
+  if (messageNode.classList.contains("is-you")) {
+    return "you";
+  }
+
+  if (messageNode.classList.contains("is-them")) {
+    return "them";
+  }
+
+  if (window.getComputedStyle) {
+    var computed = window.getComputedStyle(messageNode);
+    var alignSelf = cleanText(computed.alignSelf).toLowerCase();
+    var cssFloat = cleanText(computed.cssFloat).toLowerCase();
+
+    if (
+      alignSelf === "flex-end" ||
+      cssFloat === "right"
+    ) {
+      return "you";
+    }
+  }
+
+  return "them";
+}
+
+function traditionalMessageLists(root) {
+  var scope = root && root.querySelectorAll
+    ? root
+    : document;
+  var lists = [];
+
+  if (
+    scope.nodeType === 1 &&
+    scope.matches &&
+    scope.matches(".heat-traditional-messages")
+  ) {
+    lists.push(scope);
+  }
+
   Array.from(
-    document.querySelectorAll(
-      ".heat-traditional-messages"
-    )
-  ).forEach(function (messageList) {
-    var comm = messageList.closest(
-      ".heat-traditional-comm"
-    );
-    var row = messageList.closest(POST_ROW_SELECTOR);
+    scope.querySelectorAll(".heat-traditional-messages")
+  ).forEach(function (list) {
+    if (lists.indexOf(list) === -1) {
+      lists.push(list);
+    }
+  });
 
-    if (!comm || !row) return;
+  return lists;
+}
 
-    Array.from(messageList.children).forEach(
-      function (messageNode) {
+function convertTraditionalCommAddons(root) {
+  var converted = 0;
+
+  traditionalMessageLists(root).forEach(
+    function (messageList) {
+      var comm = messageList.closest(
+        ".heat-traditional-comm"
+      );
+      var row =
+        messageList.closest(POST_ROW_SELECTOR) ||
+        messageList.closest(".heat-post-row");
+
+      Array.from(
+        messageList.querySelectorAll("p")
+      ).forEach(function (messageNode) {
+        /*
+           Never inspect paragraphs created inside an add-on that
+           has already been converted, such as the voice transcript.
+        */
         if (
-          !messageNode.matches(
-            "p.is-you, p.is-them"
+          messageNode.closest(
+            ".heat-comm-message.heat-traditional-addon"
           )
+        ) {
+          return;
+        }
+
+        /*
+           A nested component may contain its own <p>. Only treat a
+           paragraph as a Traditional message when this is its nearest
+           Traditional message-list owner.
+        */
+        if (
+          messageNode.closest(
+            ".heat-traditional-messages"
+          ) !== messageList
         ) {
           return;
         }
 
         var addon = parseCollectorAddon(messageNode);
 
-        /*
-           Collector reactions target separate collected posts and
-           are intentionally not converted inside a Traditional Comm.
-        */
+        /* Collector reactions still require post-to-post targeting. */
         if (!addon || addon.type === "react") {
           return;
         }
 
-        var isYou = messageNode.classList.contains(
-          "is-you"
-        );
+        var side = traditionalAddonSide(messageNode);
+        var isYou = side === "you";
         var rebuilt = buildCollectorAddonMessage(
           row,
           "",
@@ -5648,7 +5716,7 @@ function convertTraditionalCommAddons() {
               comm,
               row
             ),
-            timeText: readableTime(row),
+            timeText: row ? readableTime(row) : "",
             skipAuthor: true
           }
         );
@@ -5661,9 +5729,115 @@ function convertTraditionalCommAddons() {
           "ready";
 
         messageNode.replaceWith(rebuilt);
+        converted += 1;
+      });
+    }
+  );
+
+  return converted;
+}
+
+var traditionalAddonRefreshQueued = false;
+
+function queueTraditionalAddonRefresh() {
+  if (traditionalAddonRefreshQueued) return;
+
+  traditionalAddonRefreshQueued = true;
+
+  var run = function () {
+    traditionalAddonRefreshQueued = false;
+    convertTraditionalCommAddons();
+  };
+
+  if (window.requestAnimationFrame) {
+    window.requestAnimationFrame(run);
+  } else {
+    window.setTimeout(run, 0);
+  }
+}
+
+function installTraditionalAddonMutationRefresh() {
+  if (!window.MutationObserver) return;
+
+  var postBodies = Array.from(
+    document.querySelectorAll(
+      [
+        "article.heat-post-row .postcolor",
+        ".heat-post-copy .postcolor",
+        ".postcolor[id^='pid_']"
+      ].join(",")
+    )
+  );
+
+  if (!postBodies.length) return;
+
+  var observer = new MutationObserver(
+    function (mutations) {
+      var shouldRefresh = mutations.some(
+        function (mutation) {
+          if (
+            mutation.target &&
+            mutation.target.nodeType === 1 &&
+            mutation.target.closest &&
+            mutation.target.closest(
+              ".heat-traditional-comm"
+            )
+          ) {
+            return true;
+          }
+
+          return Array.from(
+            mutation.addedNodes || []
+          ).some(function (node) {
+            if (!node || node.nodeType !== 1) {
+              return false;
+            }
+
+            return (
+              (
+                node.matches &&
+                node.matches(
+                  ".heat-traditional-comm, .heat-traditional-messages"
+                )
+              ) ||
+              (
+                node.querySelector &&
+                node.querySelector(
+                  ".heat-traditional-comm, .heat-traditional-messages"
+                )
+              )
+            );
+          });
+        }
+      );
+
+      if (shouldRefresh) {
+        queueTraditionalAddonRefresh();
       }
-    );
+    }
+  );
+
+  postBodies.forEach(function (postBody) {
+    observer.observe(postBody, {
+      childList: true,
+      subtree: true
+    });
   });
+
+  window.HEAT_TRADITIONAL_ADDONS.observer = observer;
+}
+
+window.HEAT_TRADITIONAL_ADDONS = {
+  revision: "REV83",
+  run: function () {
+    return convertTraditionalCommAddons();
+  },
+  observer: null
+};
+
+function startTraditionalCommAddons() {
+  convertTraditionalCommAddons();
+  installTraditionalAddonMutationRefresh();
 }
 
   /* =======================================================
@@ -6456,7 +6630,22 @@ function convertTraditionalCommAddons() {
      RUN IMMEDIATELY AFTER THE BOARD MARKUP
      ======================================================= */
 
-  convertTraditionalCommAddons();
+  startTraditionalCommAddons();
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      queueTraditionalAddonRefresh,
+      { once: true }
+    );
+  }
+
+  window.addEventListener(
+    "load",
+    queueTraditionalAddonRefresh,
+    { once: true }
+  );
+
   activateComm();
 })();
 }
