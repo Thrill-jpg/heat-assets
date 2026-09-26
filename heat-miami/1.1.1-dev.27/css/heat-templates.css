@@ -26125,3 +26125,47 @@ img[src*="/emoticons/" i] {
     height:48px;
   }
 }
+
+/* =========================================================
+   REV79 — system-event neutrality + utility timestamp cleanup
+   ========================================================= */
+
+/* Silenced / Unsent are conversation-level system events.
+   They must render identically whether the source post belongs
+   to the topic starter or to a replier. */
+.heat-comm-message.is-addon-system,
+.heat-comm-message.is-addon-system.is-starter {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.heat-comm-message.is-addon-system .heat-comm-bubble.is-addon-system-wrap,
+.heat-comm-message.is-addon-system.is-starter .heat-comm-bubble.is-addon-system-wrap {
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.heat-comm-message.is-addon-system .heat-comm-addon-systemline {
+  background: rgba(255,255,255,.025);
+  border-color: rgba(255,255,255,.05);
+  box-shadow: none;
+}
+
+/* Location + Apple Pay no longer carry a second timestamp footer. */
+.heat-comm-addon-event.is-addon-location .heat-comm-addon-foot,
+.heat-comm-addon-event.is-addon-pay .heat-comm-addon-foot {
+  display: none;
+}
+
+.heat-comm-addon-location-box {
+  padding-bottom: 7px;
+}
+
+.heat-comm-addon-pay-card {
+  padding-bottom: 7px;
+}
