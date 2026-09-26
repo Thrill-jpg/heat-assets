@@ -3777,7 +3777,9 @@ var COLLECTOR_ADDON_TYPES = {
   voicenote: true,
   call: true,
   facetime: true,
-  unsent: true
+  unsent: true,
+  react: true,
+  reaction: true
 };
 
   function releasePrepaint() {
@@ -4631,6 +4633,7 @@ function parseAddonAlias(type) {
   }
   if (normalized === "voicenote") return "voice";
   if (normalized === "facetime") return "call";
+  if (normalized === "reaction") return "react";
 
   return normalized;
 }
@@ -5180,6 +5183,237 @@ function renderCallAddonBody(body, fields, timeText) {
   appendAddonFooter(body, "", timeText);
 }
 
+
+function reactionEmoji(fields) {
+  var raw = cleanText(
+    fields.emoji ||
+    fields.type ||
+    fields.reaction ||
+    fields.message
+  );
+
+  var aliases = {
+    heart: "❤️",
+    love: "❤️",
+    like: "👍",
+    thumbs_up: "👍",
+    thumbsdown: "👎",
+    thumbs_down: "👎",
+    dislike: "👎",
+    laugh: "😂",
+    funny: "😂",
+    cry: "😭",
+    crying: "😭",
+    wow: "😮",
+    surprise: "😮",
+    emphasis: "‼️",
+    exclaim: "‼️",
+    question: "❓"
+  };
+
+  var normalized = raw.toLowerCase();
+
+  if (aliases[normalized]) {
+    return aliases[normalized];
+  }
+
+  return raw || "❤️";
+}
+
+function reactionTargetValue(fields) {
+  return cleanText(
+    fields.post ||
+    fields.to ||
+    fields.target ||
+    ""
+  );
+}
+
+function normalizeReactionTarget(value) {
+  var raw = cleanText(value);
+
+  if (
+    !raw ||
+    /^(?:previous|prev|last|above)$/i.test(raw)
+  ) {
+    return "";
+  }
+
+  var numeric = raw.match(/(\d+)/);
+
+  if (numeric) {
+    return numeric[1];
+  }
+
+  return raw
+    .replace(/^post:/i, "")
+    .replace(/^pid_/i, "")
+    .trim();
+}
+
+function registerCollectorMessageTarget(
+  registry,
+  message,
+  row,
+  offset,
+  index
+) {
+  if (!registry || !message || !row) return;
+
+  var stable = postKey(row, offset, index);
+
+  message.dataset.sourcePostKey = stable;
+
+  registry[stable] = message;
+
+  if (stable.indexOf("post:") === 0) {
+    var direct = stable.slice(5);
+
+    registry[direct] = message;
+
+    var numeric = direct.match(/(\d+)/);
+
+    if (numeric) {
+      registry[numeric[1]] = message;
+    }
+  }
+
+  var datasetId = cleanText(
+    row.dataset.postId ||
+    row.getAttribute("data-post-id") ||
+    ""
+  );
+
+  if (datasetId) {
+    registry[datasetId] = message;
+
+    var datasetNumeric = datasetId.match(/(\d+)/);
+
+    if (datasetNumeric) {
+      registry[datasetNumeric[1]] = message;
+    }
+  }
+}
+
+function findReactionTarget(
+  addon,
+  registry,
+  lastMessage
+) {
+  var wanted = normalizeReactionTarget(
+    reactionTargetValue(addon.fields)
+  );
+
+  if (!wanted) {
+    return lastMessage || null;
+  }
+
+  return (
+    registry[wanted] ||
+    registry["post:" + wanted] ||
+    null
+  );
+}
+
+function reactionContainer(message) {
+  if (!message) return null;
+
+  var existing = Array.from(message.children).find(
+    function (child) {
+      return child.classList &&
+        child.classList.contains(
+          "heat-comm-reactions"
+        );
+    }
+  );
+
+  if (existing) return existing;
+
+  var reactions = createAddonNode(
+    "div",
+    "heat-comm-reactions"
+  );
+
+  message.appendChild(reactions);
+
+  return reactions;
+}
+
+function applyCollectorReaction(
+  targetMessage,
+  reactionRow,
+  addon
+) {
+  if (!targetMessage || !reactionRow || !addon) {
+    return false;
+  }
+
+  var emoji = reactionEmoji(addon.fields);
+  var member = rowMemberData(reactionRow);
+  var actorName =
+    member.displayName ||
+    member.nickname ||
+    "HEAT member";
+
+  var reactions = reactionContainer(
+    targetMessage
+  );
+
+  if (!reactions) return false;
+
+  var pills = Array.from(
+    reactions.querySelectorAll(
+      ".heat-comm-reaction"
+    )
+  );
+
+  var pill = pills.find(
+    function (candidate) {
+      return candidate.dataset.emoji === emoji;
+    }
+  );
+
+  if (!pill) {
+    pill = createAddonNode(
+      "span",
+      "heat-comm-reaction"
+    );
+
+    pill.dataset.emoji = emoji;
+    pill.dataset.count = "0";
+    pill.dataset.names = "";
+
+    reactions.appendChild(pill);
+  }
+
+  var count =
+    parseInt(pill.dataset.count || "0", 10) + 1;
+
+  var names = pill.dataset.names
+    ? pill.dataset.names.split("\n")
+    : [];
+
+  if (
+    actorName &&
+    names.indexOf(actorName) === -1
+  ) {
+    names.push(actorName);
+  }
+
+  pill.dataset.count = String(count);
+  pill.dataset.names = names.join("\n");
+  pill.title = names.join(", ");
+
+  pill.textContent =
+    emoji + (count > 1 ? " " + count : "");
+
+  targetMessage.classList.add(
+    "has-heat-comm-reactions"
+  );
+
+  return true;
+}
+
 function buildCollectorAddonMessage(
   row,
   identityMode,
@@ -5323,6 +5557,10 @@ function buildCollectorAddonMessage(
       profileId(row) === starterId;
 
     var addon = parseCollectorAddon(source);
+
+    if (addon && addon.type === "react") {
+      return null;
+    }
 
     if (addon) {
       return buildCollectorAddonMessage(
@@ -5701,6 +5939,26 @@ function buildCollectorAddonMessage(
 
     var seenPosts = Object.create(null);
     var blockedPages = Object.create(null);
+    var messageByPost = Object.create(null);
+    var pendingReactions = [];
+    var lastReactableMessage = null;
+
+    var openingMessage = opening.comm.querySelector(
+      ".heat-comm-messages " +
+      ".heat-comm-message.is-starter"
+    );
+
+    if (openingMessage) {
+      registerCollectorMessageTarget(
+        messageByPost,
+        openingMessage,
+        opening.row,
+        0,
+        opening.index
+      );
+
+      lastReactableMessage = openingMessage;
+    }
 
     Array.from(pages.values())
       .sort(function (first, second) {
@@ -5740,6 +5998,54 @@ function buildCollectorAddonMessage(
             return;
           }
 
+          var source = row.querySelector(
+            ".postcolor"
+          );
+
+          var addon = parseCollectorAddon(
+            source
+          );
+
+          if (
+            addon &&
+            addon.type === "react"
+          ) {
+            var reactionTarget =
+              findReactionTarget(
+                addon,
+                messageByPost,
+                lastReactableMessage
+              );
+
+            if (
+              reactionTarget &&
+              applyCollectorReaction(
+                reactionTarget,
+                row,
+                addon
+              )
+            ) {
+              if (page.isLive) {
+                row.dataset.heatCommCollected =
+                  "true";
+
+                row.classList.add(
+                  "heat-comm-hidden-reply"
+                );
+              }
+
+              return;
+            }
+
+            pendingReactions.push({
+              addon: addon,
+              row: row,
+              page: page
+            });
+
+            return;
+          }
+
           var bubble = buildBubble(
             row,
             starterId,
@@ -5774,6 +6080,16 @@ function buildCollectorAddonMessage(
 
           messageList.appendChild(bubble);
 
+          registerCollectorMessageTarget(
+            messageByPost,
+            bubble,
+            row,
+            page.offset,
+            index
+          );
+
+          lastReactableMessage = bubble;
+
           if (page.isLive) {
             row.dataset.heatCommCollected = "true";
             row.classList.add(
@@ -5782,6 +6098,35 @@ function buildCollectorAddonMessage(
           }
         });
       });
+
+    pendingReactions.forEach(
+      function (entry) {
+        var reactionTarget =
+          findReactionTarget(
+            entry.addon,
+            messageByPost,
+            lastReactableMessage
+          );
+
+        if (
+          reactionTarget &&
+          applyCollectorReaction(
+            reactionTarget,
+            entry.row,
+            entry.addon
+          )
+        ) {
+          if (entry.page.isLive) {
+            entry.row.dataset.heatCommCollected =
+              "true";
+
+            entry.row.classList.add(
+              "heat-comm-hidden-reply"
+            );
+          }
+        }
+      }
+    );
 
     showRemoteBlockedWarnings(
       opening,
