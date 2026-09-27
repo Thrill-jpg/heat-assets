@@ -3537,6 +3537,36 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     forumCards.forEach(function (card) {
 
         /*
+         * The image marker lives in this forum's ACP description. Jcink
+         * repeats the Forum Row for each forum, so read inside this card
+         * instead of keeping forum IDs and URLs in the stylesheet.
+         */
+        const artworkMarker = card.querySelector(
+            "img.heat-forum-artwork-source[src]"
+        );
+
+        if (artworkMarker) {
+            try {
+                const artworkUrl = new URL(
+                    artworkMarker.getAttribute("src"),
+                    document.baseURI
+                );
+
+                if (
+                    artworkUrl.protocol === "https:" ||
+                    artworkUrl.protocol === "http:"
+                ) {
+                    card.style.setProperty(
+                        "--heat-forum-artwork",
+                        "url(" + JSON.stringify(artworkUrl.href) + ")"
+                    );
+                }
+            } catch (error) {
+                /* Leave the gradient placeholder for an invalid URL. */
+            }
+        }
+
+        /*
          * The |name| macro normally creates the real
          * Jcink forum link inside .heat-forum-title.
          */
