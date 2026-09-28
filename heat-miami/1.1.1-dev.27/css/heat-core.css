@@ -1653,6 +1653,10 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
         grid-template-columns: 185px minmax(0, 1fr);
     }
 
+    .heat-profile-workspace > .heat-profile-apps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .heat-profile-navigation {
         grid-template-columns:
             repeat(3, minmax(0, 1fr));
@@ -2039,10 +2043,12 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 .heat-profile-app strong,
 .heat-profile-app small {
     display: block;
-    overflow: hidden;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
 
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.heat-profile-app > span:last-child {
+    min-width: 0;
 }
 
 .heat-profile-app strong {
