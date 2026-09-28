@@ -27496,10 +27496,8 @@ img[src*="/emoticons/" i] {
 .heat-profile-quick-faves__copy span,
 .heat-profile-quick-faves__copy strong {
     display: block;
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .heat-profile-quick-faves__copy span {
