@@ -413,6 +413,32 @@
     '.heat-profile-insert .heat-connection__heading',
     '.heat-profile-insert .heat-connection__meta',
 
+    /* Quick Profile Inserts: Jcink adds BRs between formatted HTML tags. */
+    '.heat-profile-quick',
+    '.heat-profile-quick .heat-profile-insert__shell',
+    '.heat-profile-quick .heat-profile-quick-trio__grid',
+    '.heat-profile-quick .heat-profile-quick-trio__footer',
+    '.heat-profile-quick .heat-profile-quick-mood__grid',
+    '.heat-profile-quick .heat-profile-quick-mood__footer',
+    '.heat-profile-quick .heat-profile-quick-mood__swatches',
+    '.heat-profile-quick .heat-profile-quick-links__grid',
+    '.heat-profile-quick .heat-profile-quick-links__card',
+    '.heat-profile-quick .heat-profile-quick-links__copy',
+    '.heat-profile-quick .heat-profile-quick-quote__body',
+    '.heat-profile-quick .heat-profile-quick-quote__links',
+    '.heat-profile-quick .heat-profile-quick-pocket__grid',
+    '.heat-profile-quick .heat-profile-quick-pocket__side',
+    '.heat-profile-quick .heat-profile-quick-pocket__links',
+    '.heat-profile-quick .heat-profile-quick-pocket__links a',
+    '.heat-profile-quick .heat-profile-quick-faves__grid',
+    '.heat-profile-quick .heat-profile-quick-faves__item',
+    '.heat-profile-quick .heat-profile-quick-faves__copy',
+    '.heat-profile-quick .heat-profile-quick-music__card',
+    '.heat-profile-quick .heat-profile-quick-music__main',
+    '.heat-profile-quick .heat-profile-quick-music__meta',
+    '.heat-profile-quick .heat-profile-quick-music__controls',
+    '.heat-profile-quick .heat-profile-quick-music__footer',
+
     /* Requests */
     '.heat-request .hr-topbar',
     '.heat-request .hr-window-dots',
@@ -593,7 +619,10 @@
                             '.heat-profile-insert .heat-profile-insert__copy p',
                             '.heat-profile-insert .heat-insert-writing__prose p',
                             '.heat-profile-insert .heat-insert-writing__quote p',
-                            '.heat-profile-insert .heat-connection__description'
+                            '.heat-profile-insert .heat-connection__description',
+                            '.heat-profile-quick .heat-profile-quick-quote__text',
+                            '.heat-profile-quick .heat-profile-quick-quote__source',
+                            '.heat-profile-quick .heat-profile-quick-pocket__quote'
                         ];
 
                         var edgeSelector =
