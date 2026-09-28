@@ -1961,12 +1961,12 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 #heat-browser .heat-profile .heat-profile-app {
     min-width: 0;
     min-height: 78px;
-    padding: 12px;
+    padding: 10px;
 
     display: grid;
-    grid-template-columns: 38px minmax(0, 1fr);
+    grid-template-columns: 34px minmax(0, 1fr);
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 
     color: var(--heat-text-soft);
 
@@ -1998,8 +1998,8 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 }
 
 #heat-browser .heat-profile .heat-profile-app-icon {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
 
     display: flex;
     align-items: center;
@@ -2043,7 +2043,8 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 .heat-profile-app strong,
 .heat-profile-app small {
     display: block;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
+    word-break: normal;
     white-space: normal;
 }
 
@@ -2053,16 +2054,16 @@ html[data-heat-profile-initial-tab]:not([data-heat-profile-initial-tab="about"])
 
 .heat-profile-app strong {
     color: var(--heat-text);
-    font-size: 11px;
-    line-height: 1.2;
+    font-size: 10px;
+    line-height: 1.25;
 }
 
 .heat-profile-app small {
     margin-top: 3px;
 
     color: var(--heat-muted);
-    font-size: 9px;
-    line-height: 1.25;
+    font-size: 8.5px;
+    line-height: 1.3;
 }
 
 /* =========================================================
