@@ -27799,3 +27799,244 @@ img[src*="/emoticons/" i] {
         padding: 0;
     }
 }
+
+/* =========================================================
+   COMM REACT: incoming tapback sits on the bubble,
+   with its timestamp below instead of behind it.
+   ========================================================= */
+
+.heat-comm-message.has-heat-comm-reactions:not(.is-starter):not(.is-addon-system)
+> .heat-comm-reactions {
+    order: 1;
+    margin-top: -7px;
+    padding-left: 7px;
+}
+
+.heat-comm-message.has-heat-comm-reactions:not(.is-starter):not(.is-addon-system)
+> .heat-comm-time {
+    order: 2;
+    margin-top: 7px;
+}
+
+/* =========================================================
+   MEMBERS OF THE MONTH: ACP Board Wrapper supplies the
+   names, image/GIF URLs, and profile links.
+   ========================================================= */
+
+.heat-motm-widget .heat-widget-heading {
+    margin-bottom: 11px;
+}
+
+.heat-motm-widget .heat-widget-heading > div {
+    min-width: 0;
+}
+
+#heat-browser #heat-sidebar .heat-motm-widget .heat-motm-mark {
+    width: 25px;
+    height: 25px;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    color: var(--heat-yellow, #ffc857);
+    background: rgba(255, 200, 87, .09);
+    border: 1px solid rgba(255, 200, 87, .22);
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.heat-motm-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+#heat-browser #heat-sidebar .heat-motm-tile {
+    position: relative;
+    min-width: 0;
+    aspect-ratio: 1;
+    display: block;
+    overflow: hidden;
+    color: #fff;
+    background: var(--heat-panel-light, #1b2030);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 12px;
+    text-decoration: none;
+    isolation: isolate;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+#heat-browser #heat-sidebar .heat-motm-tile:is(:hover, :focus-visible) {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, .48);
+    box-shadow: 0 10px 16px rgba(0, 0, 0, .24);
+}
+
+.heat-motm-photo {
+    position: absolute;
+    inset: 0;
+    display: block;
+    background-color: var(--heat-panel-light, #1b2030);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: transform .3s ease, filter .3s ease;
+}
+
+.heat-motm-tile.is-male .heat-motm-photo {
+    background-image:
+        var(--heat-motm-image, none),
+        radial-gradient(ellipse 30% 24% at 49% 42%, #9f6d52 97%, transparent 100%),
+        radial-gradient(ellipse 37% 31% at 49% 34%, #1b171d 97%, transparent 100%),
+        radial-gradient(ellipse 68% 38% at 50% 104%, #15212a 99%, transparent 100%),
+        linear-gradient(150deg, #31485b, #122334 68%, #121924);
+}
+
+.heat-motm-tile.is-female .heat-motm-photo {
+    background-image:
+        var(--heat-motm-image, none),
+        radial-gradient(ellipse 26% 24% at 53% 43%, #9a5d48 97%, transparent 100%),
+        radial-gradient(ellipse 41% 44% at 53% 45%, #201825 97%, transparent 100%),
+        radial-gradient(ellipse 72% 38% at 53% 105%, #5d243d 99%, transparent 100%),
+        linear-gradient(145deg, #593149, #231c37 68%, #171b2a);
+}
+
+.heat-motm-tile:is(:hover, :focus-visible) .heat-motm-photo {
+    transform: scale(1.07);
+    filter: saturate(1.12);
+}
+
+.heat-motm-role {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    padding: 3px 5px;
+    display: block;
+    color: #fff;
+    background: rgba(8, 10, 18, .68);
+    border: 1px solid rgba(255, 255, 255, .19);
+    border-radius: 5px;
+    backdrop-filter: blur(3px);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: .8px;
+    line-height: 1;
+}
+
+.heat-motm-name {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 18px 7px 8px;
+    display: block;
+    overflow-wrap: anywhere;
+    color: #fff;
+    background: linear-gradient(transparent, rgba(4, 7, 15, .9) 68%);
+    font-family: var(--heat-font-display, Arial, sans-serif);
+    font-size: 11px;
+    line-height: 1.1;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity .22s ease, transform .22s ease;
+}
+
+.heat-motm-tile:is(:hover, :focus-visible) .heat-motm-name {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#heat-browser #heat-sidebar .heat-motm-feature {
+    min-width: 0;
+    margin-top: 8px;
+    padding: 6px;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    color: var(--heat-text, #f8f8fc);
+    background: var(--heat-panel-light, #1b2030);
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+#heat-browser #heat-sidebar .heat-motm-feature:is(:hover, :focus-visible) {
+    transform: translateY(-2px);
+    background: var(--heat-panel-bright, #23293a);
+    border-color: rgba(66, 198, 255, .45);
+}
+
+.heat-motm-gif {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: block;
+    overflow: hidden;
+    background-color: #171b2a;
+    background-image:
+        var(--heat-motm-image, none),
+        radial-gradient(circle at 75% 18%, rgba(255, 61, 145, .85), transparent 36%),
+        radial-gradient(circle at 25% 70%, rgba(66, 198, 255, .85), transparent 38%),
+        linear-gradient(125deg, #161c35, #402444);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 8px;
+}
+
+.heat-motm-gif::after {
+    content: "GIF";
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    padding: 3px 4px;
+    color: #fff;
+    background: rgba(7, 10, 20, .7);
+    border-radius: 4px;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: .7px;
+    line-height: 1;
+}
+
+.heat-motm-feature-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.heat-motm-feature-copy small {
+    color: var(--heat-muted, #8f96a8);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    line-height: 1.15;
+    text-transform: uppercase;
+}
+
+.heat-motm-feature-copy strong {
+    overflow-wrap: anywhere;
+    color: var(--heat-text, #f8f8fc);
+    font-family: var(--heat-font-display, Arial, sans-serif);
+    font-size: 12px;
+    line-height: 1.1;
+}
+
+@media (hover: none) {
+    .heat-motm-name {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heat-motm-tile,
+    .heat-motm-photo,
+    .heat-motm-name,
+    .heat-motm-feature {
+        transition: none !important;
+    }
+}
