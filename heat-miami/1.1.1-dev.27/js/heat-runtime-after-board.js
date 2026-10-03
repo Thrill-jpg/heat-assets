@@ -3593,10 +3593,30 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
                     artworkUrl.protocol === "https:" ||
                     artworkUrl.protocol === "http:"
                 ) {
+                    const artworkImage =
+                        "url(" + JSON.stringify(artworkUrl.href) + ")";
+
                     card.style.setProperty(
                         "--heat-forum-artwork",
-                        "url(" + JSON.stringify(artworkUrl.href) + ")"
+                        artworkImage
                     );
+
+                    /*
+                     * An older ACP Main Stylesheet may still assign the
+                     * photo background directly by forum ID. The per-forum
+                     * description image must take priority over that rule.
+                     */
+                    const photo = card.querySelector(
+                        ".heat-forum-photo"
+                    );
+
+                    if (photo) {
+                        photo.style.setProperty(
+                            "background-image",
+                            artworkImage,
+                            "important"
+                        );
+                    }
                 }
             } catch (error) {
                 /* Leave the gradient placeholder for an invalid URL. */
