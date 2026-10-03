@@ -3566,18 +3566,32 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
     forumCards.forEach(function (card) {
 
         /*
-         * The image marker lives in this forum's ACP description. Jcink
-         * repeats the Forum Row for each forum, so read inside this card
-         * instead of keeping forum IDs and URLs in the stylesheet.
+         * The ACP description is rendered inside the main card for this
+         * forum. On a subforum page its separate directory card is visible
+         * instead, so read the marker from the paired main card in the same
+         * Forum Row when the visible card has no marker of its own.
          */
-        /*
-         * An admin may paste a replacement beneath the old marker. In
-         * that case the most recently added marker should win instead of
-         * leaving the old photo on the card.
-         */
-        const artworkMarkers = card.querySelectorAll(
+        let artworkMarkers = card.querySelectorAll(
             "img.heat-forum-artwork-source[src]"
         );
+
+        if (
+            !artworkMarkers.length &&
+            card.classList.contains("heat-subforum-directory-card")
+        ) {
+            const row = card.closest(".heat-forum-route-shell");
+            const mainCard = row && row.querySelector(
+                ".heat-main-forum-card"
+            );
+
+            if (mainCard) {
+                artworkMarkers = mainCard.querySelectorAll(
+                    "img.heat-forum-artwork-source[src]"
+                );
+            }
+        }
+
+        /* A newly pasted marker takes priority over an older one. */
         const artworkMarker = artworkMarkers[
             artworkMarkers.length - 1
         ];
