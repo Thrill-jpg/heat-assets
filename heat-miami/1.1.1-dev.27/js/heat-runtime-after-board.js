@@ -3570,9 +3570,17 @@ if (!(window.HEAT_ACCOUNT_ROUTE && window.HEAT_ACCOUNT_ROUTE.active)) {
          * repeats the Forum Row for each forum, so read inside this card
          * instead of keeping forum IDs and URLs in the stylesheet.
          */
-        const artworkMarker = card.querySelector(
+        /*
+         * An admin may paste a replacement beneath the old marker. In
+         * that case the most recently added marker should win instead of
+         * leaving the old photo on the card.
+         */
+        const artworkMarkers = card.querySelectorAll(
             "img.heat-forum-artwork-source[src]"
         );
+        const artworkMarker = artworkMarkers[
+            artworkMarkers.length - 1
+        ];
 
         if (artworkMarker) {
             try {
