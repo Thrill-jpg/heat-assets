@@ -1205,7 +1205,7 @@
 }
 
 .heat-profile-insert--moodboard .heat-insert-moodboard__quote::before {
-    content: "“";
+    content: "â€œ";
 
     position: absolute;
     top: 4px;
@@ -2125,7 +2125,7 @@
 }
 
 /* =========================================================
-   TEST 10 — FRIENDS PREVIEW TEXT-FIT REVISION
+   TEST 10 â€” FRIENDS PREVIEW TEXT-FIT REVISION
    Full-width rows prevent names and relationship labels from
    being cut off inside the real Social-tab Friends widget.
    ========================================================= */
@@ -2282,7 +2282,7 @@
 
 #heat-profile-friends-field
 .heat-profile-friend-card__media::before {
-    content: "✦";
+    content: "âœ¦";
 
     color:
         var(
@@ -2376,7 +2376,7 @@
 
 
 /* =========================================================
-   TEST 12 — LIVE HEAT COMPACT BIO FIT
+   TEST 12 â€” LIVE HEAT COMPACT BIO FIT
    The About Me workspace is a narrow component inside a wide
    desktop page. Do not stack the biography based on viewport
    width. Keep the media and copy side by side inside HEAT.
@@ -2475,7 +2475,7 @@
 
 
 /* =========================================================
-   HEAT PROFILE INSERTS — FINAL LAYOUT LOCK
+   HEAT PROFILE INSERTS â€” FINAL LAYOUT LOCK
    Authoritative live-HEAT geometry.
 
    This block intentionally loads after every earlier insert
@@ -3224,7 +3224,7 @@
 
 .heat-comm:not(.heat-comm--compact-mobile)
 .heat-comm-main::after {
-  content: "▂▅▇   ⌁   ▰";
+  content: "â–‚â–…â–‡   âŒ   â–°";
 
   position: absolute;
   top: 26px;
@@ -4342,7 +4342,7 @@ img[src*="/emoticons/" i] {
 
 /* =========================================================
    HEAT TRADITIONAL COMMS
-   COMPACT MOBILE — REFINED
+   COMPACT MOBILE â€” REFINED
 
    CSS-only restyle.
    Existing member-facing markup remains unchanged.
@@ -4958,7 +4958,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT PHONE CALL COMMS — NIGHTLINE
+   HEAT PHONE CALL COMMS â€” NIGHTLINE
    Approved redesign: original Nightline B placement.
    Existing HTML contract and four call variants preserved.
    ========================================================= */
@@ -5281,7 +5281,7 @@ img[src*="/emoticons/" i] {
 }
 
 .heat-call-length::before {
-  content: "connected • ";
+  content: "connected â€¢ ";
 
   color: #4ddb8a;
 }
@@ -5580,7 +5580,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   HEAT FACETIME COMMS — GLASSROOM
+   HEAT FACETIME COMMS â€” GLASSROOM
    Approved redesign. Existing FaceTime HTML contract preserved.
    Full partner view + floating self-view + glass captions + dock.
    ========================================================= */
@@ -6684,7 +6684,7 @@ img[src*="/emoticons/" i] {
 }
 
 .destiny-saved::before {
-    content: "●";
+    content: "â—";
 
     margin-right: 6px;
 
@@ -6883,7 +6883,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   PHOTO VARIANT — TABLET AND MOBILE
+   PHOTO VARIANT â€” TABLET AND MOBILE
    ========================================================= */
 
 @media (max-width: 700px) {
@@ -6921,7 +6921,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   PHOTO VARIANT — SMALL MOBILE
+   PHOTO VARIANT â€” SMALL MOBILE
    ========================================================= */
 
 @media (max-width: 430px) {
@@ -7523,7 +7523,7 @@ img[src*="/emoticons/" i] {
 }
 
 .destiny-template-slim .destiny-findbar::before {
-    content: "×   FIND";
+    content: "Ã—   FIND";
     min-height: 22px;
     display: inline-flex;
     align-items: center;
@@ -7554,7 +7554,7 @@ img[src*="/emoticons/" i] {
 }
 
 .destiny-template-slim .destiny-findbar::after {
-    content: "▲  ▼     MATCH CASE     MATCH WORDS";
+    content: "â–²  â–¼     MATCH CASE     MATCH WORDS";
     color: var(--destiny-faint);
     font-size: 7px;
     font-weight: 700;
@@ -7564,20 +7564,20 @@ img[src*="/emoticons/" i] {
 }
 
 .destiny-template-slim .destiny-statusbar::before {
-    content: "PAGE 1 OF 1   •   ENGLISH";
+    content: "PAGE 1 OF 1   â€¢   ENGLISH";
 }
 
 .destiny-template-slim .destiny-statusbar::after {
-    content: "●  SAVED   •   100%";
+    content: "â—  SAVED   â€¢   100%";
     color: #8ecb9c;
 }
 
 .destiny-template-slim.destiny-template-preview .destiny-statusbar::before {
-    content: "PAGE 1 OF 1   •   WORDS: 000";
+    content: "PAGE 1 OF 1   â€¢   WORDS: 000";
 }
 
 .destiny-template-slim.destiny-template-preview .destiny-statusbar::after {
-    content: "●  SAVED";
+    content: "â—  SAVED";
 }
 
 .destiny-template-slim.destiny-template-photo .destiny-photo-window {
@@ -7586,7 +7586,7 @@ img[src*="/emoticons/" i] {
 }
 
 .destiny-template-slim.destiny-template-photo .destiny-photo-window::before {
-    content: "memory-001.jpg    ◇";
+    content: "memory-001.jpg    â—‡";
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -7635,7 +7635,7 @@ img[src*="/emoticons/" i] {
 }
 
 .destiny-template-slim.destiny-template-preview .destiny-preview-pane::before {
-    content: "preview-001.jpg    ◇";
+    content: "preview-001.jpg    â—‡";
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -7708,7 +7708,7 @@ img[src*="/emoticons/" i] {
     }
 
     .destiny-template-slim .destiny-statusbar::after {
-        content: "●  SAVED";
+        content: "â—  SAVED";
     }
 }
 
@@ -8378,7 +8378,7 @@ img[src*="/emoticons/" i] {
 }
 
 .signal-recipient::before {
-    content: "●";
+    content: "â—";
 
     color: var(--signal-pink);
 
@@ -8420,7 +8420,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   SIGNAL SLIM MEMBER MARKUP — CONCEPT PASS
+   SIGNAL SLIM MEMBER MARKUP â€” CONCEPT PASS
    Voice-note hero + floating transcript composition.
    Decorative playback chrome remains CSS-owned.
    ========================================================= */
@@ -8488,7 +8488,7 @@ img[src*="/emoticons/" i] {
 }
 
 .signal-template-slim .signal-player::before {
-    content: "▶";
+    content: "â–¶";
     position: absolute;
     top: 34px;
     left: 30px;
@@ -8536,7 +8536,7 @@ img[src*="/emoticons/" i] {
 }
 
 .signal-template-slim .signal-track::after {
-    content: "PLAYING  •  1×  •  STEREO";
+    content: "PLAYING  â€¢  1Ã—  â€¢  STEREO";
     position: absolute;
     left: 0;
     bottom: 0;
@@ -8574,7 +8574,7 @@ img[src*="/emoticons/" i] {
 }
 
 .signal-template-slim .signal-post::before {
-    content: "●  AUTO TRANSCRIPT   /   MIAMI CHANNEL 03";
+    content: "â—  AUTO TRANSCRIPT   /   MIAMI CHANNEL 03";
     display: block;
     margin: 0 0 27px;
     color: var(--signal-muted);
@@ -8596,7 +8596,7 @@ img[src*="/emoticons/" i] {
 
 .signal-template-slim .signal-recipient { min-width: 0; }
 .signal-template-slim .signal-transmission::after {
-    content: "● TRANSCRIBED  /  SAVED";
+    content: "â— TRANSCRIBED  /  SAVED";
     color: var(--signal-green);
     font-size: 6px;
     font-weight: 800;
@@ -9044,7 +9044,7 @@ img[src*="/emoticons/" i] {
 }
 
 .terminal-file-status::before {
-    content: "●";
+    content: "â—";
 
     margin-right: 6px;
 
@@ -9415,7 +9415,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   TERMINAL SLIM MEMBER MARKUP — CONCEPT PASS
+   TERMINAL SLIM MEMBER MARKUP â€” CONCEPT PASS
    Split console: persistent command rail + primary output.
    Decorative telemetry and shell history are CSS-owned.
    ========================================================= */
@@ -9485,7 +9485,7 @@ img[src*="/emoticons/" i] {
 }
 
 .terminal-template-slim .terminal-history::after {
-    content: "● CONNECTED";
+    content: "â— CONNECTED";
     position: absolute;
     left: 16px;
     bottom: 20px;
@@ -9520,7 +9520,7 @@ img[src*="/emoticons/" i] {
 }
 
 .terminal-template-slim .terminal-file-header::after {
-    content: "PID 034  •  UTF-8  •  R/W";
+    content: "PID 034  â€¢  UTF-8  â€¢  R/W";
     align-self: end;
     color: var(--terminal-faint);
     font-size: 6px;
@@ -9579,7 +9579,7 @@ img[src*="/emoticons/" i] {
 }
 
 .terminal-template-slim .terminal-active-command::after {
-    content: "█";
+    content: "â–ˆ";
     margin-left: auto;
     color: var(--heat-template-group-2);
     font-size: 11px;
@@ -9711,7 +9711,7 @@ img[src*="/emoticons/" i] {
     }
 
     .terminal-template-slim .terminal-history::before {
-        content: "$ connect heat://miami  •  session ready  •  thread.log";
+        content: "$ connect heat://miami  â€¢  session ready  â€¢  thread.log";
         white-space: normal;
     }
 
@@ -9901,7 +9901,7 @@ img[src*="/emoticons/" i] {
 }
 
 .airdrop-security::before {
-    content: "●";
+    content: "â—";
 
     color: var(--airdrop-green);
 
@@ -10349,7 +10349,7 @@ img[src*="/emoticons/" i] {
 }
 
 .airdrop-message-label::before {
-    content: "↗";
+    content: "â†—";
 
     color: var(--airdrop-blue);
 
@@ -10473,14 +10473,14 @@ img[src*="/emoticons/" i] {
 }
 
 .airdrop-complete::before {
-    content: "✓";
+    content: "âœ“";
 
     margin-right: 6px;
 }
 
 
 /* =========================================================
-   AIRDROP SLIM MEMBER MARKUP — CONCEPT PASS
+   AIRDROP SLIM MEMBER MARKUP â€” CONCEPT PASS
    Transfer-object composition: file + device bridge + message.
    The GIF variant keeps one editable image URL.
    ========================================================= */
@@ -10522,7 +10522,7 @@ img[src*="/emoticons/" i] {
 }
 
 .airdrop-template-slim .airdrop-titlebar::after {
-    content: "●  NEARBY SHARE";
+    content: "â—  NEARBY SHARE";
     color: var(--airdrop-green);
     font-size: 6px;
     font-weight: 800;
@@ -10579,7 +10579,7 @@ img[src*="/emoticons/" i] {
 }
 
 .airdrop-template-slim:not(.airdrop-template-gif) .airdrop-file-card::after {
-    content: "↗";
+    content: "â†—";
     width: 68px;
     height: 68px;
     display: grid;
@@ -10604,7 +10604,7 @@ img[src*="/emoticons/" i] {
 }
 
 .airdrop-template-slim .airdrop-transfer-copy::after {
-    content: "PRIVATE  •  ENCRYPTED  •  LOCAL NETWORK";
+    content: "PRIVATE  â€¢  ENCRYPTED  â€¢  LOCAL NETWORK";
     display: block;
     margin-top: 12px;
     color: var(--airdrop-muted);
@@ -10638,12 +10638,12 @@ img[src*="/emoticons/" i] {
 }
 
 .airdrop-template-slim .airdrop-recipient::before {
-    content: "DEVICE → ";
+    content: "DEVICE â†’ ";
     color: var(--airdrop-faint);
 }
 
 .airdrop-template-slim .airdrop-recipient-strip::after {
-    content: "●  DEVICE FOUND";
+    content: "â—  DEVICE FOUND";
     color: var(--airdrop-green);
     font-size: 6px;
     font-weight: 800;
@@ -10673,7 +10673,7 @@ img[src*="/emoticons/" i] {
 }
 
 .airdrop-template-slim .airdrop-post::before {
-    content: "↗  ATTACHED MESSAGE  /  END-TO-END ENCRYPTED";
+    content: "â†—  ATTACHED MESSAGE  /  END-TO-END ENCRYPTED";
     display: block;
     margin: 0 0 27px;
     color: var(--airdrop-muted);
@@ -10702,7 +10702,7 @@ img[src*="/emoticons/" i] {
 }
 
 .airdrop-template-slim .airdrop-statusbar::after {
-    content: "✓ READY";
+    content: "âœ“ READY";
     color: var(--airdrop-green);
     font-size: 6px;
     font-weight: 800;
@@ -11063,12 +11063,12 @@ img[src*="/emoticons/" i] {
    CANVAS THREAD TEMPLATE FAMILY
 
    VARIANTS
-   01 — Plain
-   02 — Flexible Media
-   03 — Side Media
-   04 — Floating Media
-   05 — Wide Two-Photo Gallery
-   06 — Wide Three-Photo Gallery
+   01 â€” Plain
+   02 â€” Flexible Media
+   03 â€” Side Media
+   04 â€” Floating Media
+   05 â€” Wide Two-Photo Gallery
+   06 â€” Wide Three-Photo Gallery
 
    All templates stretch naturally.
    No internal post scrolling.
@@ -11427,7 +11427,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   VARIANT 01 — PLAIN
+   VARIANT 01 â€” PLAIN
    ========================================================= */
 
 .canvas-template-plain .canvas-content {
@@ -11440,7 +11440,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   VARIANT 02 — MEDIA
+   VARIANT 02 â€” MEDIA
    ========================================================= */
 
 .canvas-template-media .canvas-media-section {
@@ -11449,7 +11449,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   VARIANT 03 — SIDE MEDIA
+   VARIANT 03 â€” SIDE MEDIA
    ========================================================= */
 
 .canvas-template-side {
@@ -11551,7 +11551,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   VARIANT 04 — FLOATING MEDIA
+   VARIANT 04 â€” FLOATING MEDIA
    ========================================================= */
 
 .canvas-template-float {
@@ -12455,7 +12455,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT MiamiOS Stable v2 — TEMPLATE FONT OWNERSHIP
+   HEAT MiamiOS Stable v2 â€” TEMPLATE FONT OWNERSHIP
    Abel: comm interfaces
    Quicksand: all other thread templates
    Limelight: names inside comm interfaces, visually lowercase
@@ -12496,7 +12496,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT MiamiOS Stable v2 — TEMPLATE GROUP COLOR BRIDGE
+   HEAT MiamiOS Stable v2 â€” TEMPLATE GROUP COLOR BRIDGE
 
    Every comm and thread template inherits the authoring
    post row's native group variables. Neutral surfaces and
@@ -12801,7 +12801,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT MiamiOS Stable v2 — TEMPLATE GROUP COLORS FIX 2
+   HEAT MiamiOS Stable v2 â€” TEMPLATE GROUP COLORS FIX 2
 
    Completes remaining decorative group accents, restores the
    clear-photo call dialogue panel, and group-colors call and
@@ -12855,7 +12855,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   FACETIME ACCENTS + CONTROLS — GLASSROOM
+   FACETIME ACCENTS + CONTROLS â€” GLASSROOM
    Group color remains restrained; utility chrome stays neutral.
    --------------------------------------------------------- */
 
@@ -12915,7 +12915,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   HEAT THREAD EMPHASIS SYSTEM — PREVIEW 5
+   HEAT THREAD EMPHASIS SYSTEM â€” PREVIEW 5
    Shared rich-text treatment for HEAT thread-template writing
    areas plus the phone-call and FaceTime dialogue fields. The
    surrounding comm interfaces remain in Abel.
@@ -13110,7 +13110,7 @@ img[src*="/emoticons/" i] {
     }
 }
 /* =========================================================
-   HEAT GALLERY PACK v3.0 — VISUAL REFINEMENT
+   HEAT GALLERY PACK v3.0 â€” VISUAL REFINEMENT
    Existing seven Gallery layouts preserved.
    Rebuilt to match current HEAT Development design language:
    dark navy/charcoal glass, restrained group accents, current
@@ -13703,7 +13703,7 @@ img[src*="/emoticons/" i] {
   letter-spacing: 0.5px;
 }
 
-/* ------------- 05–07. FOCUS FRAME FAMILY ------------- */
+/* ------------- 05â€“07. FOCUS FRAME FAMILY ------------- */
 
 .heat-gallery--solo,
 .heat-gallery--duo,
@@ -14030,7 +14030,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   HEAT COMMENTS + NOTIFICATIONS PACK v2.0 — VISUAL REFINEMENT
+   HEAT COMMENTS + NOTIFICATIONS PACK v2.0 â€” VISUAL REFINEMENT
    Seven standalone social/UI pieces, preserving the existing
    HTML contract while matching current HEAT Development:
    navy-charcoal glass, restrained group accents, current fonts,
@@ -15125,7 +15125,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   HEAT AUDIO PACK v2.0 — VISUAL REFINEMENT
+   HEAT AUDIO PACK v2.0 â€” VISUAL REFINEMENT
    Seven existing music layouts preserved and updated to the
    current HEAT Development language: navy-charcoal glass,
    cleaner hierarchy, restrained group accents, current fonts,
@@ -15975,7 +15975,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   HEAT AUDIO PACK — CUSTOM DIRECT-MP3 PLAYER
+   HEAT AUDIO PACK â€” CUSTOM DIRECT-MP3 PLAYER
    The real <audio> element stays in the post as the playback
    engine. Shared JavaScript below generates these controls.
    Existing member audio markup does not need to change.
@@ -16341,7 +16341,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   HEAT ADMIN WINDOWS PACK v2.0 — VISUAL REFINEMENT
+   HEAT ADMIN WINDOWS PACK v2.0 â€” VISUAL REFINEMENT
    Five existing MiamiOS-style admin / announcement windows.
    Existing HTML contract preserved.
    ========================================================= */
@@ -16694,7 +16694,7 @@ img[src*="/emoticons/" i] {
 }
 
 .haw-move-destination::before {
-  content: "↳";
+  content: "â†³";
   flex: 0 0 auto;
   background: var(--haw-gradient);
   background-clip: text;
@@ -17069,7 +17069,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT DEVELOPMENT — WHAT'S IN MY PHONE? PACK — CONSOLIDATED
+   HEAT DEVELOPMENT â€” WHAT'S IN MY PHONE? PACK â€” CONSOLIDATED
    Isolated development-code family; v1 markup remains compatible.
    Shared HEAT frost language + optional character wallpaper.
    ========================================================= */
@@ -17411,7 +17411,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   01. PHONE DUMP v2 — MODULAR MULTI-APP DAILY LIFE DASHBOARD
+   01. PHONE DUMP v2 â€” MODULAR MULTI-APP DAILY LIFE DASHBOARD
    Existing v1 markup remains compatible.
    ========================================================= */
 
@@ -17820,7 +17820,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   02. MESSAGES v2 — PRIVATE TEXT THREAD / SCREENSHOT
+   02. MESSAGES v2 â€” PRIVATE TEXT THREAD / SCREENSHOT
    Keeps v1 markup compatible while adding optional modules.
    ========================================================= */
 
@@ -18302,7 +18302,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   03. LOCK SCREEN v2 — MODULAR NOTIFICATION SNAPSHOT
+   03. LOCK SCREEN v2 â€” MODULAR NOTIFICATION SNAPSHOT
    Existing v1 markup remains compatible.
    ========================================================= */
 
@@ -18659,7 +18659,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   04. RECENTS v2 — READY-PASTE CAMERA ROLL STYLES
+   04. RECENTS v2 â€” READY-PASTE CAMERA ROLL STYLES
    Existing v1 markup remains compatible.
    ========================================================= */
 
@@ -18934,7 +18934,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   05. NOTES — PRIVATE NOTE / CHECKLIST / JOURNAL
+   05. NOTES â€” PRIVATE NOTE / CHECKLIST / JOURNAL
    ========================================================= */
 
 .heat-dev--notes {
@@ -19129,7 +19129,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT SOCIAL PACK — INSTAGRAM v1.0
+   HEAT SOCIAL PACK â€” INSTAGRAM v1.0
    Original HEAT/MiamiOS social template family.
    Compact pasteable markup; shared styling lives here once.
    ========================================================= */
@@ -20244,7 +20244,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT SOCIAL PACK — TWITTER/X v1.0
+   HEAT SOCIAL PACK â€” TWITTER/X v1.0
    Text-first HEAT/MiamiOS social template family.
    Reuses the shared .heat-social foundation from Instagram.
    ========================================================= */
@@ -20938,7 +20938,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT SOCIAL PACK — TINDER v1.0
+   HEAT SOCIAL PACK â€” TINDER v1.0
    Original HEAT/MiamiOS dating-app template family.
    Uses the shared .heat-social foundation and carousel engine.
    ========================================================= */
@@ -21588,7 +21588,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT DEVELOPMENT — REQUESTS PACK v1.0
+   HEAT DEVELOPMENT â€” REQUESTS PACK v1.0
    Wanted ads, plot calls, family/friend groups, compact asks.
    Shared CSS only. Member-facing codes stay lightweight.
    ========================================================= */
@@ -22080,7 +22080,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT DEVELOPMENT — PLACES & SPACES PACK v1.0
+   HEAT DEVELOPMENT â€” PLACES & SPACES PACK v1.0
    Property, Business, Staff Directory
    Shared CSS only. Member-facing HTML stays lightweight.
    ========================================================= */
@@ -22788,7 +22788,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT DEVELOPMENT — PLACES & SPACES / BATCH 2
+   HEAT DEVELOPMENT â€” PLACES & SPACES / BATCH 2
    New modules only. No existing Batch 1 rules are overridden.
    ========================================================= */
 
@@ -23257,9 +23257,9 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT DEVELOPMENT — PLACES & SPACES: PHONEFRAME EDITION
+   HEAT DEVELOPMENT â€” PLACES & SPACES: PHONEFRAME EDITION
    Batch 1: Property, Business, Venue
-   Hybrid style: HEAT Places x What’s In My Phone framing
+   Hybrid style: HEAT Places x Whatâ€™s In My Phone framing
    ========================================================= */
 
 .heat-place-phone {
@@ -24014,7 +24014,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   HEAT DEVELOPMENT — PLACES & SPACES: PHONEFRAME EDITION
+   HEAT DEVELOPMENT â€” PLACES & SPACES: PHONEFRAME EDITION
    Batch 2: Staff Directory, Offerings / Menu, Space Tour
    Extends the existing .heat-place-phone system.
    ========================================================= */
@@ -24126,7 +24126,7 @@ img[src*="/emoticons/" i] {
 }
 
 .hpp-contact__action--empty::before {
-  content: "•••";
+  content: "â€¢â€¢â€¢";
   display: block;
   text-align: center;
   line-height: 25px;
@@ -24462,7 +24462,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   HEAT DEVELOPMENT — MASTERLIST / DIRECTORY PACK v1
+   HEAT DEVELOPMENT â€” MASTERLIST / DIRECTORY PACK v1
    Windowed cast / roster / family / staff / clique directory
    with glass styling, group-driven accents, and per-card
    group lookup via data-group.
@@ -25374,7 +25374,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   COLLECTOR ADD-ON PACK V1 — REV77 POLISHED COMPACT REDESIGN
+   COLLECTOR ADD-ON PACK V1 â€” REV77 POLISHED COMPACT REDESIGN
    Mature, phone-native detail without oversized feature cards.
    Voice-note styling intentionally preserved from REV76.
    ========================================================= */
@@ -25506,7 +25506,7 @@ img[src*="/emoticons/" i] {
 .heat-comm-addon-foot-time { margin-left:auto; }
 
 /* ---------------------------------------------------------
-   REPLY — compact threaded-reply treatment
+   REPLY â€” compact threaded-reply treatment
    --------------------------------------------------------- */
 .heat-comm-addon-event.is-addon-reply {
   width: 100%;
@@ -25543,7 +25543,7 @@ img[src*="/emoticons/" i] {
 }
 
 .heat-comm-addon-reply-quote::after {
-  content:"↩";
+  content:"â†©";
   position:absolute;
   top:5px;
   right:8px;
@@ -25592,7 +25592,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   LOCATION — polished micro Maps card
+   LOCATION â€” polished micro Maps card
    --------------------------------------------------------- */
 .heat-comm-addon-event.is-addon-location {
   background:linear-gradient(145deg,rgba(16,25,31,.96),rgba(13,19,27,.95));
@@ -25700,7 +25700,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   APPLE PAY — compact wallet slip, not a feature panel
+   APPLE PAY â€” compact wallet slip, not a feature panel
    --------------------------------------------------------- */
 .heat-comm-addon-event.is-addon-pay {
   background:linear-gradient(155deg,rgba(17,21,29,.98),rgba(13,17,24,.98));
@@ -25796,7 +25796,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   VOICE NOTE — intentionally preserved from REV76
+   VOICE NOTE â€” intentionally preserved from REV76
    --------------------------------------------------------- */
 .heat-comm-addon-event.is-addon-voice {
   background:transparent;
@@ -25882,7 +25882,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   CALL / FACETIME — status-specific compact rows
+   CALL / FACETIME â€” status-specific compact rows
    --------------------------------------------------------- */
 .heat-comm-addon-event.is-addon-call {
   background:transparent;
@@ -25965,7 +25965,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   REV78 — collector tight-card polish
+   REV78 â€” collector tight-card polish
    Targets only Location, Apple Pay, and Voice transcript join.
    ========================================================= */
 
@@ -26147,7 +26147,7 @@ img[src*="/emoticons/" i] {
 
 
 /* =========================================================
-   COLLECTOR REACTIONS V1 — attached message tapbacks
+   COLLECTOR REACTIONS V1 â€” attached message tapbacks
    ========================================================= */
 
 .heat-comm-message.has-heat-comm-reactions {
@@ -26216,7 +26216,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =========================================================
-   REV79 — system-event neutrality + utility timestamp cleanup
+   REV79 â€” system-event neutrality + utility timestamp cleanup
    ========================================================= */
 
 /* Silenced / Unsent are conversation-level system events.
@@ -26260,7 +26260,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =====================================================================
-   HEAT DEV GALLERY PACK — REV89B
+   HEAT DEV GALLERY PACK â€” REV89B
    Selected image-first Development templates:
    1) Glass Strip Gallery
    2) Slide Deck Gallery
@@ -26613,7 +26613,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   01 — GLASS STRIP
+   01 â€” GLASS STRIP
    --------------------------------------------------------- */
 
 .heat-dev-gallery__strip-row {
@@ -26626,7 +26626,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   02 — SLIDE DECK
+   02 â€” SLIDE DECK
    --------------------------------------------------------- */
 
 .heat-dev-gallery__deck-shell,
@@ -26688,7 +26688,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   03 — DUAL MOODBOARD
+   03 â€” DUAL MOODBOARD
    --------------------------------------------------------- */
 
 .heat-dev-gallery__dual {
@@ -26777,7 +26777,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   04 — CAROUSEL
+   04 â€” CAROUSEL
    --------------------------------------------------------- */
 
 .heat-dev-gallery__carousel {
@@ -26796,7 +26796,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   05 — SINGLE FOCUS
+   05 â€” SINGLE FOCUS
    --------------------------------------------------------- */
 
 .heat-dev-gallery__single-bottom {
@@ -26896,7 +26896,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* =====================================================================
-   HEAT QUICK PROFILE INSERTS PACK — REV88C
+   HEAT QUICK PROFILE INSERTS PACK â€” REV88C
    New lightweight About Me/Profile Insert options:
    01 Snapshot Trio
    02 Mini Mood Tiles
@@ -26993,7 +26993,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   01 — SNAPSHOT TRIO
+   01 â€” SNAPSHOT TRIO
    --------------------------------------------------------- */
 
 .heat-profile-quick-trio__grid {
@@ -27056,7 +27056,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   02 — MINI MOOD TILES
+   02 â€” MINI MOOD TILES
    --------------------------------------------------------- */
 
 .heat-profile-quick-mood__grid {
@@ -27132,7 +27132,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   03 — LINK LOCKER
+   03 â€” LINK LOCKER
    --------------------------------------------------------- */
 
 .heat-profile-quick-links__grid {
@@ -27239,7 +27239,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   04 — QUOTE DROP
+   04 â€” QUOTE DROP
    Uses a div instead of blockquote so the component remains
    independent of native Jcink/post quote styling.
    --------------------------------------------------------- */
@@ -27257,7 +27257,7 @@ img[src*="/emoticons/" i] {
 }
 
 .heat-profile-quick-quote__body::before {
-    content: "“";
+    content: "â€œ";
 
     position: absolute;
     top: 3px;
@@ -27340,7 +27340,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   05 — POCKET BOARD
+   05 â€” POCKET BOARD
    --------------------------------------------------------- */
 
 .heat-profile-quick-pocket__grid {
@@ -27394,7 +27394,7 @@ img[src*="/emoticons/" i] {
 }
 
 .heat-profile-quick-pocket__quote::before {
-    content: "“";
+    content: "â€œ";
 
     color: var(--hpi-color-1);
 
@@ -27434,7 +27434,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   06 — FOUR FAVORITES
+   06 â€” FOUR FAVORITES
    --------------------------------------------------------- */
 
 .heat-profile-quick-faves__grid {
@@ -27520,7 +27520,7 @@ img[src*="/emoticons/" i] {
 }
 
 /* ---------------------------------------------------------
-   07 — NOW PLAYING
+   07 â€” NOW PLAYING
    Progressive enhancement:
    Native audio controls remain usable if JS is unavailable.
    The custom HEAT controls take over only after JS binds.
@@ -27554,7 +27554,7 @@ img[src*="/emoticons/" i] {
 }
 
 .heat-profile-quick-music__art::after {
-    content: "♫";
+    content: "â™«";
 
     position: absolute;
     right: 8px;
@@ -28040,4 +28040,20 @@ img[src*="/emoticons/" i] {
     .heat-motm-feature {
         transition: none !important;
     }
+}
+
+/* Keep the HMN photo stamp filled in the posted thread view.
+   The general .heat-post-copy img rule otherwise restores the GIF's
+   natural wide aspect ratio and rounds the image inside the tall stamp. */
+.heat-margin-note .hmn-stamp-inner > img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    object-fit: cover;
+    object-position: 50% 28%;
 }
